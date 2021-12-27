@@ -1,6 +1,7 @@
 plugins {
     id 'groovy'
     id 'java'
+    id 'application'
     id "org.kordamp.gradle.errorprone" version "0.47.0"
 }
 
@@ -19,4 +20,8 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+application {
+    mainClass.set("Application")
 }
