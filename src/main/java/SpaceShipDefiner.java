@@ -3,7 +3,6 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.io.IOException;
 import java.util.List;
 
-//State Pattern Implemented because the power-ups change the state of the spaceship
 public interface SpaceShipDefiner {
     Integer getHealth();
     Position getPosition();
