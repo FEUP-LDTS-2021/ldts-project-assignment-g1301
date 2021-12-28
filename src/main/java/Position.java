@@ -1,6 +1,6 @@
 public class Position implements PositionDefiner{
     private Integer x,y;
-    Position(int x, int y){
+    Position(Integer x, Integer y){
         this.x = x;
         this.y = y;
     }
