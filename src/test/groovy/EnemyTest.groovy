@@ -1,7 +1,7 @@
 import groovyjarjarantlr4.v4.runtime.tree.ErrorNode
 import spock.lang.Specification
 
-class EnemyDefinerTest extends Specification{
+class EnemyTest extends Specification{
     private Position pos
     def "setup"(){
         pos = new Position(2,2)
@@ -74,5 +74,16 @@ class EnemyDefinerTest extends Specification{
             e = new Enemy(10,pos,1,1)
         then:
             e.getColor() == "#FFFFFF"
+    }
+
+    def "shot_test"(){
+        given:
+            EnemyDefiner e
+        when:
+            e = new Enemy(10,pos,1,1)
+            Integer x = e.getShots().size()
+            e.shoot();
+        then:
+            e.getShots().size() == x+ 1
     }
 }
