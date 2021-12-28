@@ -8,6 +8,9 @@ public interface EnemyDefiner {
     Integer getVelocity();
     Integer getDamage();
     List<Shot> getShots();
+    void setShots(List<Shot> shots);
+    void setWith(Integer with);
+    String getColor();
     boolean isDead();
     void setHealth(Integer health);
     void setPosition(Position position);
@@ -18,5 +21,4 @@ public interface EnemyDefiner {
     void moveLeft();
     void moveRight();
     void shoot();
-    void removeShoot();
 }
