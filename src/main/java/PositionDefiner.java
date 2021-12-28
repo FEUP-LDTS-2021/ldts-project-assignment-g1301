@@ -1,6 +1,6 @@
 public interface PositionDefiner {
-    int getX();
-    int getY();
-    void setX(int x);
-    void setY(int y);
+    Integer getX();
+    Integer getY();
+    void setX(Integer x);
+    void setY(Integer y);
 }
