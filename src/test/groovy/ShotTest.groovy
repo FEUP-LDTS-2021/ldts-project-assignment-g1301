@@ -58,7 +58,7 @@ class ShotTest extends Specification{
         when:
             s = new Shot(1,3,1,pos);
         then:
-            s.getColor() == "FFFFFF";
+            s.getColor() == "#FFFFFF";
     }
 
     def "Get color Test Yellow"() {
@@ -67,7 +67,7 @@ class ShotTest extends Specification{
         when:
            s = new Shot(1,3,2,pos);
         then:
-            s.getColor() == "FFFF00";
+            s.getColor() == "#FFFF00";
     }
 
     def "Get color Test Blue"() {
@@ -76,7 +76,7 @@ class ShotTest extends Specification{
         when:
            s = new Shot(1,3,3,pos);
         then:
-           s.getColor() == "00FFFF";
+           s.getColor() == "#00FFFF";
     }
 
 }
