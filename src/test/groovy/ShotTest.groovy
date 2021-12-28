@@ -40,14 +40,43 @@ class ShotTest extends Specification{
             s.getPosition().getX()==1
             s.getPosition().getY()==2
     }
-    def "Move down Test"(){
+    def "Move down Test"() {
         given:
             ShotDefiner s;
         when:
-            s = new Shot(1,2,3,new Position(1,2))
+            s = new Shot(1, 2, 3, new Position(1, 2))
             Integer oldY = s.getPosition().getY()
             s.moveDown()
         then:
             s.getPosition().getY() == oldY + 1
     }
+
+
+    def "Get color Test White"() {
+        given:
+            ShotDefiner s;
+        when:
+            s = new Shot(1,3,1,pos);
+        then:
+            s.getColor() == "FFFFFF";
+    }
+
+    def "Get color Test Yellow"() {
+        given:
+            ShotDefiner s;
+        when:
+           s = new Shot(1,3,2,pos);
+        then:
+            s.getColor() == "FFFF00";
+    }
+
+    def "Get color Test Blue"() {
+        given:
+           ShotDefiner s;
+        when:
+           s = new Shot(1,3,3,pos);
+        then:
+           s.getColor() == "00FFFF";
+    }
+
 }
