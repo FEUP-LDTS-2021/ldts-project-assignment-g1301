@@ -1,26 +1,26 @@
 public class Position implements PositionDefiner{
-    private int x,y;
+    private Integer x,y;
     Position(int x, int y){
         this.x = x;
         this.y = y;
     }
     @Override
-    public int getX() {
+    public Integer getX() {
         return x;
     }
 
     @Override
-    public int getY() {
+    public Integer getY() {
         return y;
     }
 
     @Override
-    public void setX(int x) {
+    public void setX(Integer x) {
         this.x = x;
     }
 
     @Override
-    public void setY(int y) {
+    public void setY(Integer y) {
         this.y = y;
     }
 }
