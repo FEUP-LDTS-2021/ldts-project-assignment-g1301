@@ -9,4 +9,5 @@ public interface ShotDefiner {
     Position getPosition();
     void moveDown();
     void draw(TextGraphics graphics) throws IOException;
+    String getColor();
 }
