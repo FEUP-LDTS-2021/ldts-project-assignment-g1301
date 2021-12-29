@@ -1,4 +1,3 @@
-import groovyjarjarantlr4.v4.runtime.tree.ErrorNode
 import spock.lang.Specification
 
 class EnemyTest extends Specification{
@@ -11,79 +10,70 @@ class EnemyTest extends Specification{
         given:
             EnemyDefiner e
         when:
-            e = new Enemy(10,pos,1,1)
+            e = new Enemy(10,pos,new HorizontalMovementStrategy(),new NormalShotStrategy())
         then:
-            !e.isDead()
+            assert !e.isDead()
     }
 
     def "is_dead_test"(){
         given:
             EnemyDefiner e
         when:
-            e = new Enemy(10,pos,1,1)
+            e = new Enemy(10,pos,new HorizontalMovementStrategy(),new NormalShotStrategy())
             e.setDead()
         then:
-            e.isDead()
+            assert e.isDead()
     }
 
 
-    def "move_left_test"(){
+    def "move_horizontal_test"(){
         given:
             EnemyDefiner e
         when:
-            e = new Enemy(10,pos,1,1)
-            e.moveLeft()
+            e = new Enemy(10,pos,new HorizontalMovementStrategy(),new NormalShotStrategy())
+            e.move()
         then:
-            e.getPosition().getX() == 1
+            assert e.getPosition().getX() == 3
     }
 
-    def "move_right_test"(){
+
+    def "move_zig_zag_test"(){
         given:
             EnemyDefiner e
         when:
-            e = new Enemy(10,pos,1,1)
-            e.moveRight()
+            e = new Enemy(10,pos,new ZigZagMovementStrategy(), new NormalShotStrategy());
+            e.move();
         then:
-            e.getPosition().getX() == 3
+            assert e.getPosition().getY() == 3
     }
 
-    def "blue_test"(){
+    def "normal_shot_test"(){
         given:
             EnemyDefiner e
         when:
-            e = new Enemy(10,pos,1,1)
-            e.setVelocity(3)
+            e = new Enemy(10,pos,new HorizontalMovementStrategy(),new NormalShotStrategy())
+            e.shoot()
         then:
-            e.getColor() == "#00FFFF"
+            assert e.getShots().size() == 1
     }
 
-    def "yellow_test"(){
+    def "damage_shot_test"(){
         given:
             EnemyDefiner e
         when:
-            e = new Enemy(10,pos,1,1)
-            e.setVelocity(2)
+            e = new Enemy(10,pos,new HorizontalMovementStrategy(), new DamageShotStrategy())
+            e.shoot()
         then:
-            e.getColor() == "#FFFF00"
+            assert e.getShots()[0].damage == 2
     }
 
-    def "white_test"(){
+    def "big_shot_test"(){
         given:
             EnemyDefiner e
         when:
-            e = new Enemy(10,pos,1,1)
+            e = new Enemy(10,pos,new HorizontalMovementStrategy(), new BigShotStrategy())
+            e.shoot()
         then:
-            e.getColor() == "#FFFFFF"
-    }
-
-    def "shot_test"(){
-        given:
-            EnemyDefiner e
-        when:
-            e = new Enemy(10,pos,1,1)
-            Integer x = e.getShots().size()
-            e.shoot();
-        then:
-            e.getShots().size() == x+ 1
+            assert e.getShots()[0].width == 3
     }
 }
