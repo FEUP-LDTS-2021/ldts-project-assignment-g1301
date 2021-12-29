@@ -7,8 +7,8 @@ class PositionTest extends Specification{
         when:
         p = new Position(1,2)
         then:
-        p.getX() == 1
-        p.getY() == 2
+        assert p.getX() == 1
+        assert p.getY() == 2
     }
     def "setter_test"(){
         given:
@@ -18,7 +18,7 @@ class PositionTest extends Specification{
         p.setX(1)
         p.setY(2)
         then:
-        p.getX() == 1
-        p.getY() == 2
+        assert p.getX() == 1
+        assert p.getY() == 2
     }
 }

@@ -5,6 +5,6 @@ class ApplicationTest extends Specification {
         when:
             int x=2
         then:
-            2==x
+            assert 2==x
     }
 }

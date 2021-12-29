@@ -13,7 +13,7 @@ class SpaceShipTest extends Specification {
         when:
         s = new Spaceship(10, 1, 1, pos)
         then:
-        !s.isDead()
+        assert !s.isDead()
     }
 
     def "is_dead_test"() {
@@ -22,7 +22,7 @@ class SpaceShipTest extends Specification {
         when:
         s = new Spaceship(0, 1, 1, pos)
         then:
-        s.isDead()
+        assert s.isDead()
     }
 
     def "move_left_test"() {
@@ -32,7 +32,7 @@ class SpaceShipTest extends Specification {
         when:
         s.moveLeft()
         then:
-        s.getPosition().getX() == 1
+        assert s.getPosition().getX() == 1
     }
 
     def "move_right_test"() {
@@ -42,7 +42,7 @@ class SpaceShipTest extends Specification {
         when:
         s.moveRight()
         then:
-        s.getPosition().getX() == 3
+        assert s.getPosition().getX() == 3
     }
     def "shoot"(){
         given:
@@ -52,6 +52,6 @@ class SpaceShipTest extends Specification {
         Integer x = s.getShots().size()
         s.shoot()
         then:
-        s.getShots().size() == x+1
+        assert s.getShots().size() == x+1
     }
 }

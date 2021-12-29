@@ -13,7 +13,7 @@ class EnemyTest extends Specification{
         when:
             e = new Enemy(10,pos,1,1)
         then:
-            !e.isDead()
+            assert !e.isDead()
     }
 
     def "is_dead_test"(){
@@ -23,7 +23,7 @@ class EnemyTest extends Specification{
             e = new Enemy(10,pos,1,1)
             e.setDead()
         then:
-            e.isDead()
+            assert e.isDead()
     }
 
 
@@ -34,7 +34,7 @@ class EnemyTest extends Specification{
             e = new Enemy(10,pos,1,1)
             e.moveLeft()
         then:
-            e.getPosition().getX() == 1
+            assert e.getPosition().getX() == 1
     }
 
     def "move_right_test"(){
@@ -44,7 +44,7 @@ class EnemyTest extends Specification{
             e = new Enemy(10,pos,1,1)
             e.moveRight()
         then:
-            e.getPosition().getX() == 3
+            assert e.getPosition().getX() == 3
     }
 
     def "blue_test"(){
@@ -54,7 +54,7 @@ class EnemyTest extends Specification{
             e = new Enemy(10,pos,1,1)
             e.setVelocity(3)
         then:
-            e.getColor() == "#00FFFF"
+            assert e.getColor() == "#00FFFF"
     }
 
     def "yellow_test"(){
@@ -64,7 +64,7 @@ class EnemyTest extends Specification{
             e = new Enemy(10,pos,1,1)
             e.setVelocity(2)
         then:
-            e.getColor() == "#FFFF00"
+            assert e.getColor() == "#FFFF00"
     }
 
     def "white_test"(){
@@ -73,7 +73,7 @@ class EnemyTest extends Specification{
         when:
             e = new Enemy(10,pos,1,1)
         then:
-            e.getColor() == "#FFFFFF"
+            assert e.getColor() == "#FFFFFF"
     }
 
     def "shot_test"(){
@@ -84,6 +84,6 @@ class EnemyTest extends Specification{
             Integer x = e.getShots().size()
             e.shoot();
         then:
-            e.getShots().size() == x+ 1
+            assert e.getShots().size() == x+ 1
     }
 }

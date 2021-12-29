@@ -13,7 +13,7 @@ class ShotTest extends Specification{
         when:
             s = new Shot(1,2,3,pos);
         then:
-            s.getDamage() == 1
+            assert s.getDamage() == 1
     }
     def "Radius getter test"(){
         given:
@@ -21,7 +21,7 @@ class ShotTest extends Specification{
         when:
             s = new Shot(1,2,3,pos);
         then:
-            s.getWidth() == 2
+            assert s.getWidth() == 2
     }
     def "Velocity getter Test"(){
         given:
@@ -29,7 +29,7 @@ class ShotTest extends Specification{
         when:
             s = new Shot(1,2,3,pos);
         then:
-            s.getVelocity() == 3
+            assert s.getVelocity() == 3
     }
     def "Position getter Test"(){
         given:
@@ -37,8 +37,8 @@ class ShotTest extends Specification{
         when:
             s = new Shot(1,2,3,pos)
         then:
-            s.getPosition().getX()==1
-            s.getPosition().getY()==2
+            assert s.getPosition().getX()==1
+            assert s.getPosition().getY()==2
     }
     def "Move down Test"() {
         given:
@@ -48,7 +48,7 @@ class ShotTest extends Specification{
             Integer oldY = s.getPosition().getY()
             s.moveDown()
         then:
-            s.getPosition().getY() == oldY + 1
+            assert s.getPosition().getY() == oldY + 1
     }
 
 
@@ -58,7 +58,7 @@ class ShotTest extends Specification{
         when:
             s = new Shot(1,3,1,pos);
         then:
-            s.getColor() == "#FFFFFF";
+            assert s.getColor() == "#FFFFFF";
     }
 
     def "Get color Test Yellow"() {
@@ -67,7 +67,7 @@ class ShotTest extends Specification{
         when:
            s = new Shot(1,3,2,pos);
         then:
-            s.getColor() == "#FFFF00";
+            assert s.getColor() == "#FFFF00";
     }
 
     def "Get color Test Blue"() {
@@ -76,7 +76,7 @@ class ShotTest extends Specification{
         when:
            s = new Shot(1,3,3,pos);
         then:
-           s.getColor() == "#00FFFF";
+           assert s.getColor() == "#00FFFF";
     }
 
 }
