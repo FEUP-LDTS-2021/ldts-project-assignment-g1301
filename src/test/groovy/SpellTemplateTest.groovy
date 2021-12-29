@@ -18,11 +18,11 @@ class SpellTemplateTest extends Specification{
 
     def "SpellGunDamage Test"(){
         given:
-        SpellTemplate s;
+            SpellTemplate s;
         when:
-        s = new SpellGunDamage(pos);
+            s = new SpellGunDamage(pos);
         then:
-        assert s.getSymbol()=='D';
+            assert s.getSymbol()=='D';
     }
 
     def "SpellHealthDamage Test"(){
