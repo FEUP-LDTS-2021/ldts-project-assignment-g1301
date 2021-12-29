@@ -43,8 +43,8 @@ public class NormalSpaceShipState implements SpaceShipState{
     }
 
     @Override
-    public List<PowerUp> getPowerUps() {
-        return spaceship.getPowerUps();
+    public List<SpellTemplate> getSpells() {
+        return spaceship.getSpells();
     }
 
     @Override

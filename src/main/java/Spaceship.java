@@ -12,7 +12,7 @@ public class Spaceship implements SpaceShipDefiner{
     private SpaceShipState state;
     private Integer health, velocity,damage;
     private Position position;
-    private List<PowerUp> powerUps;
+    private List<SpellTemplate> spells;
     private List<Shot> shots;
 
     public Spaceship(Integer health,Integer velocity,Integer damage, Position position){
@@ -55,8 +55,8 @@ public class Spaceship implements SpaceShipDefiner{
     }
 
     @Override
-    public List<PowerUp> getPowerUps() {
-       return this.state.getPowerUps();
+    public List<SpellTemplate> getSpells() {
+        return this.state.getSpells();
     }
 
     @Override
