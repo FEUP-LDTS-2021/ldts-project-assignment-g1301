@@ -52,4 +52,12 @@ class SpellTemplateTest extends Specification{
             assert s.getSymbol()=='T';
     }
 
+    def "SpellInvincible Test"(){
+        given:
+            SpellTemplate s;
+        when:
+            s = new SpellInvincible(pos);
+        then:
+            assert s.getSymbol()=='I';
+    }
 }
