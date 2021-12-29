@@ -14,36 +14,36 @@ public class NormalSpaceShipState implements SpaceShipState{
 
     @Override
     public Integer getHealth() {
-        return spaceship.getHealth();
+        return spaceship.health;
     }
 
     @Override
     public Position getPosition() {
-        return spaceship.getPosition();
+        return spaceship.position;
     }
 
     @Override
     public Integer getVelocity() {
-        return spaceship.getVelocity();
+        return spaceship.velocity;
     }
 
     @Override
     public Integer getDamage() {
-        return spaceship.getDamage();
+        return spaceship.damage;
     }
 
     @Override
     public List<Shot> getShots() {
-        return spaceship.getShots();
+        return spaceship.shots;
     }
 
     @Override
     public void set_shots(List<Shot> shots) {
-        spaceship.set_shots(shots);
+        spaceship.shots= shots;
     }
 
     @Override
-    public List<PowerUp> getPowerUps() {
+    public List<> getPowerUps() {
         return spaceship.getPowerUps();
     }
 
@@ -79,7 +79,7 @@ public class NormalSpaceShipState implements SpaceShipState{
 
     @Override
     public void draw(TextGraphics graphics) throws IOException {
-        graphics.setForegroundColor(TextColor.Factory.fromString("ffffff"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
         graphics.putString(new TerminalPosition(spaceship.getPosition().getX(), spaceship.getPosition().getY()), "_");
     }
 

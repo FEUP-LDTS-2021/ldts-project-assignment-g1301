@@ -9,11 +9,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Spaceship implements SpaceShipDefiner{
-    private SpaceShipState state;
-    private Integer health, velocity,damage;
-    private Position position;
-    private List<PowerUp> powerUps;
-    private List<Shot> shots;
+     SpaceShipState state;
+     Integer health, velocity,damage;
+     Position position;
+     List<PowerUp> powerUps;
+     List<Shot> shots;
 
     public Spaceship(Integer health,Integer velocity,Integer damage, Position position){
         this.health = health;
