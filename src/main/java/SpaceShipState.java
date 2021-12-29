@@ -3,15 +3,14 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.io.IOException;
 import java.util.List;
 
-public interface SpaceShipDefiner {
-    //State Pattern was used in the spaceship class
+public interface SpaceShipState {
     Integer getHealth();
     Position getPosition();
     Integer getVelocity();
     Integer getDamage();
     List<Shot> getShots();
     void set_shots (List<Shot> shots);
-    public List<SpellTemplate> getSpells();
+    List<SpellTemplate> getSpells();
     void removePowerUp();
     boolean isDead();
     void setHealth(Integer health);
