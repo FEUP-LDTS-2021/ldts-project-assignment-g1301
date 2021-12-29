@@ -9,12 +9,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Spaceship implements SpaceShipDefiner{
-     SpaceShipState state;
-     Integer health, velocity,damage;
-     Position position;
-     List<PowerUp> powerUps;
-     List<Shot> shots;
 
+    SpaceShipState state;
+    Integer health, velocity,damage;
+    Position position;
+    List<SpellTemplate> spells;
+    List<Shot> shots;
     public Spaceship(Integer health,Integer velocity,Integer damage, Position position){
         this.health = health;
         this.velocity = velocity;
@@ -55,8 +55,8 @@ public class Spaceship implements SpaceShipDefiner{
     }
 
     @Override
-    public List<PowerUp> getPowerUps() {
-       return this.state.getPowerUps();
+    public List<SpellTemplate> getSpells() {
+        return this.state.getSpells();
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Spaceship implements SpaceShipDefiner{
 
     @Override
     public boolean isDead() {
-        return this.state.getDamage()<=0;
+        return this.state.getHealth()<=0;
     }
 
     @Override

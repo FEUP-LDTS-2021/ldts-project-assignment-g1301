@@ -43,8 +43,9 @@ public class NormalSpaceShipState implements SpaceShipState{
     }
 
     @Override
-    public List<> getPowerUps() {
-        return spaceship.getPowerUps();
+
+    public List<SpellTemplate> getSpells() {
+        return spaceship.spells;
     }
 
     @Override
@@ -54,27 +55,27 @@ public class NormalSpaceShipState implements SpaceShipState{
 
     @Override
     public boolean isDead() {
-        return spaceship.getHealth()<=0;
+        return spaceship.health<=0;
     }
 
     @Override
     public void setHealth(Integer health) {
-        spaceship.setHealth(health);
+        spaceship.health=health;
     }
 
     @Override
     public void setPosition(Position position) {
-        spaceship.setPosition(position);
+        spaceship.position=position;
     }
 
     @Override
     public void setVelocity(Integer velocity) {
-        spaceship.setVelocity(velocity);
+        spaceship.velocity = velocity;
     }
 
     @Override
     public void setDamage(Integer damage) {
-        spaceship.setDamage(damage);
+        spaceship.damage = damage;
     }
 
     @Override
@@ -85,19 +86,19 @@ public class NormalSpaceShipState implements SpaceShipState{
 
     @Override
     public void moveLeft() {
-        spaceship.getPosition().setX(spaceship.getPosition().getX()-1);
+        spaceship.position.setX(spaceship.getPosition().getX()-1);
     }
 
     @Override
     public void moveRight() {
-        spaceship.getPosition().setX(spaceship.getPosition().getX()+1);
+        spaceship.position.setX(spaceship.getPosition().getX()+1);
     }
 
     @Override
     public void shoot() {
-        Position pos = spaceship.getPosition();
+        Position pos = spaceship.position;
         pos.setY(pos.getY()-1);
         Shot bullet = new Shot(1,1,1,pos);
-        spaceship.getShots().add(bullet);
+        spaceship.shots.add(bullet);
     }
 }

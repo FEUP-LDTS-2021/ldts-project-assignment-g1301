@@ -11,7 +11,7 @@ public interface SpaceShipDefiner {
     Integer getDamage();
     List<Shot> getShots();
     void set_shots (List<Shot> shots);
-    List<PowerUp> getPowerUps();
+    public List<SpellTemplate> getSpells();
     void removePowerUp();
     boolean isDead();
     void setHealth(Integer health);
