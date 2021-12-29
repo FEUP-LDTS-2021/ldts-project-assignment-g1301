@@ -3,8 +3,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.io.IOException;
 import java.util.List;
 
-public interface SpaceShipDefiner {
-    //State Pattern was used in the spaceship class
+public interface SpaceShipState {
     Integer getHealth();
     Position getPosition();
     Integer getVelocity();
