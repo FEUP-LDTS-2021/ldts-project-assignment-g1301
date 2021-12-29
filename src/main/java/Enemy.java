@@ -8,17 +8,18 @@ import java.util.List;
 
 public class Enemy implements EnemyDefiner{
     private Position position;
-    private Integer health,damage, velocity;
-    private Integer with;
+    private final MovementStrategy movementStrategy;
+    private final ShootingStrategy shootingStrategy;
+    private Integer health;
     boolean dead;
-    List<Shot> shots;
-    Enemy(Integer health, Position position, Integer velocity, Integer damage){
-        this.position = position;
-        this.velocity = velocity;
-        this.damage = damage;
-        dead = false;
-        with = 1;
-        shots = new ArrayList<>();
+    List<Shot> shots = new ArrayList<Shot>();
+    boolean movingRight = true;
+    boolean movingDown = false;
+    Enemy(Integer health, Position position, MovementStrategy movementStrategy,ShootingStrategy shootingStrategy){
+       this.position = position;
+       this.health = health;
+       this.movementStrategy = movementStrategy;
+       this.shootingStrategy = shootingStrategy;
     }
 
     @Override
@@ -30,25 +31,7 @@ public class Enemy implements EnemyDefiner{
     public void setPosition(Position position) {
         this.position = position;
     }
-    @Override
-    public Integer getVelocity() {
-        return velocity;
-    }
 
-    @Override
-    public void setVelocity(Integer velocity) {
-        this.velocity = velocity;
-    }
-
-    @Override
-    public Integer getDamage() {
-        return damage;
-    }
-
-    @Override
-    public void setDamage(Integer damage) {
-        this.damage = damage;
-    }
 
     @Override
     public Integer getHealth() {
@@ -71,6 +54,11 @@ public class Enemy implements EnemyDefiner{
     }
 
     @Override
+    public void move() {
+        movementStrategy.move(this);
+    }
+
+    @Override
     public void moveLeft() {
         position.setX(position.getX() - 1);
     }
@@ -81,14 +69,58 @@ public class Enemy implements EnemyDefiner{
     }
 
     @Override
+    public void moveUp() {
+        position.setY(position.getY() - 1);
+    }
+
+    @Override
+    public void moveDown() {
+        position.setY(position.getY() + 1);
+    }
+
+    @Override
+    public boolean isMovingRight() {
+        return movingRight;
+    }
+
+    @Override
+    public void setMoveRight(boolean moveRight) {
+        movingRight = moveRight;
+    }
+
+    @Override
+    public boolean isMovingDown() {
+        return movingDown;
+    }
+
+    @Override
+    public void setMoveDown(boolean moveDown) {
+        movingDown = moveDown;
+    }
+
+    @Override
     public boolean isDead() {
         return dead;
     }
 
     @Override
+    public void normalShot() {
+        shots.add(new Shot(1,1,1,position));
+    }
+
+    @Override
+    public void bigShot() {
+        shots.add(new Shot(1,3,1,position));
+    }
+
+    @Override
+    public void damageShot() {
+        shots.add(new Shot(2,1,1,position));
+    }
+
+    @Override
     public void shoot() {
-        Shot s = new Shot(damage, with, velocity, position);
-        shots.add(s);
+        shootingStrategy.shoot(this);
     }
 
     @Override
@@ -104,26 +136,12 @@ public class Enemy implements EnemyDefiner{
     }
 
     @Override
-    public void setWith(Integer with) {
-        this.with = with;
-    }
-
-    @Override
     public String getColor() {
         String result;
-        switch (velocity){
-            case 1:
-                result =  "#FFFFFF";
-                break;
-            case 2:
-                result =  "#FFFF00";
-                break;
-            case 3:
-                result =  "#00FFFF";
-                break;
-            default:
-                result = "#FFFFFF";
-                break;
+        if (Math.random() < 0.5) {
+            result = "#FFFFFF";
+        } else {
+            result = "#FFFF00";
         }
         return result;
     }
