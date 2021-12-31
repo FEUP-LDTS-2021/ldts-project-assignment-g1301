@@ -108,10 +108,18 @@ public class Spaceship implements SpaceShipDefiner{
     public void shoot() {
         this.state.shoot();
     }
+
+    @Override
+    public void removeShot(Shot shot) {
+        this.state.removeShot(shot);
+    }
+
     void becomeInvincible(){
         this.state= new InvincibleSpaceShipState(this);
     }
+
     void becomeNormal(){
         this.state = new NormalSpaceShipState(this);
     }
+
 }

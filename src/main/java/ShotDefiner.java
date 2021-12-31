@@ -8,6 +8,7 @@ public interface ShotDefiner {
     Integer getVelocity();
     Position getPosition();
     void moveDown();
+    void moveUp();
     void draw(TextGraphics graphics) throws IOException;
     String getColor();
 }

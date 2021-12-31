@@ -47,6 +47,11 @@ public class Shot implements ShotDefiner {
     }
 
     @Override
+    public void moveUp() {
+        pos.setY(pos.getY() - 1);
+    }
+
+    @Override
     public void draw(TextGraphics graphics) throws IOException {
 
         graphics.setForegroundColor(TextColor.Factory.fromString(getColor()));

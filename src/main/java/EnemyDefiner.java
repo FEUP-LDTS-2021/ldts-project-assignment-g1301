@@ -6,6 +6,8 @@ public interface EnemyDefiner {
     Integer getHealth();
     Position getPosition();
     List<Shot> getShots();
+    MovementStrategy getMovementStrategy();
+    ShootingStrategy getShootingStrategy();
     void setShots(List<Shot> shots);
     String getColor();
     boolean isDead();
@@ -26,4 +28,5 @@ public interface EnemyDefiner {
     void moveDown();
     void moveUp();
     void shoot();
+    void removeShot(Shot enemyShot);
 }

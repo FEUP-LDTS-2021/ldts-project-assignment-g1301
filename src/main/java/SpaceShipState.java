@@ -21,4 +21,5 @@ public interface SpaceShipState {
     void moveLeft();
     void moveRight();
     void shoot();
+    void removeShot(Shot shot);
 }

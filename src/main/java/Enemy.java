@@ -6,20 +6,34 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Enemy implements EnemyDefiner{
+public class Enemy implements EnemyDefiner {
     private Position position;
     private final MovementStrategy movementStrategy;
     private final ShootingStrategy shootingStrategy;
     private Integer health;
     boolean dead;
-    List<Shot> shots = new ArrayList<Shot>();
-    boolean movingRight = true;
-    boolean movingDown = false;
-    Enemy(Integer health, Position position, MovementStrategy movementStrategy,ShootingStrategy shootingStrategy){
-       this.position = position;
-       this.health = health;
-       this.movementStrategy = movementStrategy;
-       this.shootingStrategy = shootingStrategy;
+    List<Shot> shots;
+    boolean movingRight;
+    boolean movingDown;
+
+    Enemy(Integer health, Position position, MovementStrategy movementStrategy, ShootingStrategy shootingStrategy) {
+        this.position = position;
+        this.health = health;
+        this.movementStrategy = movementStrategy;
+        this.shootingStrategy = shootingStrategy;
+        this.shots = new ArrayList<Shot>();
+        this.movingRight = true;
+        this.movingDown = false;
+    }
+
+    @Override
+    public MovementStrategy getMovementStrategy(){
+        return movementStrategy;
+    }
+
+    @Override
+    public ShootingStrategy getShootingStrategy(){
+        return shootingStrategy;
     }
 
     @Override
@@ -105,17 +119,23 @@ public class Enemy implements EnemyDefiner{
 
     @Override
     public void normalShot() {
-        shots.add(new Shot(1,1,1,position));
+        Position aux = position;
+        aux.setY(aux.getY() + 1);
+        shots.add(new Shot(1, 1, 1, aux));
     }
 
     @Override
     public void bigShot() {
-        shots.add(new Shot(1,3,1,position));
+        Position aux =position;
+        aux.setY(aux.getY() +1);
+        shots.add(new Shot(1, 3, 1, aux));
     }
 
     @Override
     public void damageShot() {
-        shots.add(new Shot(2,1,1,position));
+        Position aux =position;
+        aux.setY(aux.getY() +1);
+        shots.add(new Shot(2, 1, 1, aux));
     }
 
     @Override
@@ -144,5 +164,10 @@ public class Enemy implements EnemyDefiner{
             result = "#FFFF00";
         }
         return result;
+    }
+
+    @Override
+    public void removeShot(Shot enemyShot) {
+        shots.remove(enemyShot);
     }
 }

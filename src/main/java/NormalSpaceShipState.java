@@ -101,4 +101,9 @@ public class NormalSpaceShipState implements SpaceShipState{
         Shot bullet = new Shot(1,1,1,pos);
         spaceship.shots.add(bullet);
     }
+
+    @Override
+    public void removeShot(Shot shot){
+        spaceship.shots.remove(shot);
+    }
 }
