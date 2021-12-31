@@ -13,7 +13,6 @@ public interface EnemyDefiner {
     boolean isDead();
     void setHealth(Integer health);
     void setPosition(Position position);
-    void setDead();
     void draw(TextGraphics graphics);
     void move();
     void normalShot();
