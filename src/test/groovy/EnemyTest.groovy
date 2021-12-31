@@ -64,7 +64,7 @@ class EnemyTest extends Specification{
             e = new Enemy(10,pos,new HorizontalMovementStrategy(), new DamageShotStrategy())
             e.shoot()
         then:
-            assert e.getShots()[0].damage == 2
+            assert e.getShots()[0].damage == 300
     }
 
     def "big_shot_test"(){
