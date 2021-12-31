@@ -19,8 +19,7 @@ class EnemyTest extends Specification{
         given:
             EnemyDefiner e
         when:
-            e = new Enemy(10,pos,new HorizontalMovementStrategy(),new NormalShotStrategy())
-            e.setDead()
+            e = new Enemy(0,pos,new HorizontalMovementStrategy(),new NormalShotStrategy())
         then:
             assert e.isDead()
     }
