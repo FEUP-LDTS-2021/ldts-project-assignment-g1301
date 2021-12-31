@@ -287,18 +287,18 @@ class ArenaTest extends Specification{
 
     }
 
-    def "add_spell_in_new_pos_test"(){
+    def "add_spell_in_new_pos_test"() {
         given:
-            List<Position> occupiedPositions = new ArrayList<>()
-            for(Integer i=0;i<=3;i++) {
-                arena.addSpell()
-            }
-            occupiedPositions.add(arena.getSpells().get(arena.getSpells().size()-1).getPosition())
+        List<Position> occupiedPositions = new ArrayList<>()
+        for (Integer i = 0; i <= 3; i++) {
+            arena.addSpell()
+        }
+        occupiedPositions.add(arena.getSpells().get(arena.getSpells().size() - 1).getPosition())
         when:
             arena.addSpell()
         then:
-            for(Position pos:occupiedPositions){
-                assert arena.getSpells().get(arena.getSpells().size()-1).getPosition().getX()!=pos.getX()
+            for (Position pos : occupiedPositions) {
+                assert arena.getSpells().get(arena.getSpells().size() - 1).getPosition().getX() != pos.getX()
             }
     }
 }

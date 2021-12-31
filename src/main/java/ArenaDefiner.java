@@ -25,6 +25,7 @@ public interface ArenaDefiner {
     Integer getHeight();
     void draw(TextGraphics graphics) throws IOException;
     void checkShotCollisions();
+
     boolean checkShotsHitSpaceship();
 
     void processKey(KeyStroke key);
@@ -36,4 +37,6 @@ public interface ArenaDefiner {
     void moveEnemies();
 
     boolean moveShots();
+
+    void shootEnemies();
 }

@@ -122,4 +122,6 @@ public class Spaceship implements SpaceShipDefiner{
         this.state = new NormalSpaceShipState(this);
     }
 
+    void becomeNerfed() { this.state = new NerfedSpaceShipState(this);}
+
 }
