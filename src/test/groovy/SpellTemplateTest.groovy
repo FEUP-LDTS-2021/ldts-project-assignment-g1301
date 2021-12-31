@@ -60,4 +60,14 @@ class SpellTemplateTest extends Specification{
         then:
             assert s.getSymbol()=='I';
     }
+
+
+    def "SpellNerfed Test"(){
+        given:
+            SpellTemplate s;
+        when:
+            s = new SpellNerfed(pos);
+        then:
+            assert s.getSymbol()=='N';
+    }
 }
