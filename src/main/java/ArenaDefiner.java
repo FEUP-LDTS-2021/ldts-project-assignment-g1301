@@ -6,10 +6,11 @@ import java.util.List;
 
 public interface ArenaDefiner {
 
+    void setLevel(Integer level);
+
     List<Enemy> createEnemies();
 
-    @Override
-    ArenaDefiner();
+    void addEnemy(Enemy e);
 
     void addSpell();
 
