@@ -382,5 +382,25 @@ class ArenaTest extends Specification{
         then:
             assert arena.getSpaceship().state.getClass() == NormalSpaceShipState.class
     }
+
+    def "check_active_spells_test"(){
+        when:
+            arena.addSpell()
+            arena.checkActiveSpells()
+        then:
+            assert arena.getSpells().size() == 1
+    }
+
+    /*
+    def "check_non_active_spells_test"(){
+        when:
+            arena.addSpell()
+            def time = System.currentTimeMillis()
+            while(time >= System.currentTimeMillis() - 35000)
+            arena.checkActiveSpells()
+        then:
+           assert arena.getSpells().size() == 0
+    }
+    */
 }
 

@@ -8,6 +8,7 @@ public class SpellTPBack extends SpellTemplate{
     SpellTPBack(Position pos){
         this.pos = pos;
         this.symbol = 'T';
+        this.time = System.currentTimeMillis();
     }
     @Override
     public void draw(TextGraphics graphics) throws IOException {
