@@ -11,7 +11,6 @@ public class Enemy implements EnemyDefiner {
     private final MovementStrategy movementStrategy;
     private final ShootingStrategy shootingStrategy;
     private Integer health;
-    boolean dead;
     List<Shot> shots;
     boolean movingRight;
     boolean movingDown;
@@ -63,11 +62,6 @@ public class Enemy implements EnemyDefiner {
     }
 
     @Override
-    public void setDead() {
-        dead = true;
-    }
-
-    @Override
     public void move() {
         movementStrategy.move(this);
     }
@@ -114,28 +108,28 @@ public class Enemy implements EnemyDefiner {
 
     @Override
     public boolean isDead() {
-        return dead;
+        return health<=0;
     }
 
     @Override
     public void normalShot() {
-        Position aux = position;
+        Position aux = new Position(position.getX(),position.getY());
         aux.setY(aux.getY() + 1);
-        shots.add(new Shot(1, 1, 1, aux));
+        shots.add(new Shot(100, 1, 1, aux));
     }
 
     @Override
     public void bigShot() {
-        Position aux =position;
+        Position aux = new Position(position.getX(),position.getY());
         aux.setY(aux.getY() +1);
-        shots.add(new Shot(1, 3, 1, aux));
+        shots.add(new Shot(100, 3, 1, aux));
     }
 
     @Override
     public void damageShot() {
-        Position aux =position;
+        Position aux = new Position(position.getX(),position.getY());
         aux.setY(aux.getY() +1);
-        shots.add(new Shot(2, 1, 1, aux));
+        shots.add(new Shot(300, 1, 1, aux));
     }
 
     @Override
