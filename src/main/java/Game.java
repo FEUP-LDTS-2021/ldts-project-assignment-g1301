@@ -9,12 +9,13 @@ import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;
 
-public class Game implements GameDefiner{
-    private Screen screen;
-    private Arena arena;
+import static java.lang.System.exit;
 
+public class Game implements GameDefiner{
+    Screen screen;
+    private Arena arena;
     public Game(){
-        arena = new Arena(50,50);
+        arena = new Arena(150,50);
         try {
             TerminalSize terminalSize = new TerminalSize(arena.getWidth(), arena.getHeight());
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
@@ -37,26 +38,48 @@ public class Game implements GameDefiner{
 
     @Override
     public void run() throws IOException {
-        while (true){
-            if(arena.getEnemies().size()==0) arena.createEnemies();
+        InputThread myThread = new InputThread();
+        myThread.screen = this.screen;
+        myThread.start();
+        while (true) {
+            if (arena.getEnemies().size() == 0) arena.createEnemies();
             draw();
-            if(arena.getSpaceship().isDead()){
+            if (arena.getSpaceship().isDead()) {
                 screen.close();
                 System.out.println("Game Over");
                 break;
             }
-            KeyStroke key = screen.readInput();
-            if (key.getKeyType() == KeyType.EOF) break;
-            if(key.getKeyType()== KeyType.Character &&  key.getCharacter()=='q') {
-                screen.close();
+            KeyStroke key = myThread.key;
+            try {
+                myThread.sleep(15);
+            } catch (InterruptedException f) {
+                f.printStackTrace();
+            }
+            if (key != null) {
+                if (key.getKeyType() == KeyType.EOF) {
+                    screen.close();
+                    exit(0);
+                }
+                if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') {
+                    screen.close();
+                    exit(0);
+                }
             }
             arena.moveShots();
-            arena.processKey(key);
+            if (key != null){
+                arena.processKey(key);
+                myThread.key = null;
+            }
             arena.moveEnemies();
             arena.shootEnemies();
             arena.checkShotCollisions();
             arena.checkShotsHitEnemies();
             arena.checkShotsHitSpaceship();
+            try {
+                myThread.sleep(15);
+            } catch (InterruptedException f) {
+                f.printStackTrace();
+            }
         }
     }
 }
