@@ -26,7 +26,7 @@ public class Arena implements ArenaDefiner {
 
     @Override
     public List<Enemy> createEnemies(){
-        for(Integer x=2;x<=47;x+=5){
+        for(Integer x=15;x<=135;x+=20){
             for (Integer y=2;y<=8;y+=2) {
                 Integer health = 100 + (getLevel()/6)*100;
                 switch (getLevel() % 6) {
