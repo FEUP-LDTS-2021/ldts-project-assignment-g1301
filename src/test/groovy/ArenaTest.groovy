@@ -301,4 +301,23 @@ class ArenaTest extends Specification{
                 assert arena.getSpells().get(arena.getSpells().size() - 1).getPosition().getX() != pos.getX()
             }
     }
+    def "check_active_spells_test"(){
+        when:
+            arena.addSpell()
+            arena.checkActiveSpells()
+        then:
+            assert arena.getSpells().size() == 1
+    }
+
+    /*
+    def "check_non_active_spells_test"(){
+        when:
+            arena.addSpell()
+            def time = System.currentTimeMillis()
+            while(time >= System.currentTimeMillis() - 35000)
+            arena.checkActiveSpells()
+        then:
+           assert arena.getSpells().size() == 0
+    }
+    */
 }
