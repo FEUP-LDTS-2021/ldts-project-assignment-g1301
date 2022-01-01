@@ -19,8 +19,7 @@ class EnemyTest extends Specification{
         given:
             EnemyDefiner e
         when:
-            e = new Enemy(10,pos,new HorizontalMovementStrategy(),new NormalShotStrategy())
-            e.setDead()
+            e = new Enemy(0,pos,new HorizontalMovementStrategy(),new NormalShotStrategy())
         then:
             assert e.isDead()
     }
@@ -65,7 +64,7 @@ class EnemyTest extends Specification{
             e = new Enemy(10,pos,new HorizontalMovementStrategy(), new DamageShotStrategy())
             e.shoot()
         then:
-            assert e.getShots()[0].damage == 2
+            assert e.getShots()[0].damage == 300
     }
 
     def "big_shot_test"(){

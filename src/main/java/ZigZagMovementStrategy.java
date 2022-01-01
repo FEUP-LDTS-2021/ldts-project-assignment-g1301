@@ -3,23 +3,11 @@ public class ZigZagMovementStrategy implements MovementStrategy{
     public void move(Enemy enemy) {
         if (enemy.isMovingDown()){
              enemy.moveUp();
+             enemy.setMoveDown(false);
         } else {
             enemy.moveDown();
+            enemy.setMoveDown(true);
         }
-        if (enemy.isMovingRight()){
-            if (enemy.getPosition().getX() < 20){
-                enemy.moveRight();
-            } else {
-                enemy.moveLeft();
-                enemy.setMoveRight(false);
-            }
-        } else {
-            if (enemy.getPosition().getX() > 0){
-                enemy.moveLeft();
-            } else {
-                enemy.moveRight();
-                enemy.setMoveRight(true);
-            }
-        }
+        enemy.moveRight();
     }
 }

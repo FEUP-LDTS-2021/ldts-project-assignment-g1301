@@ -102,7 +102,7 @@ class ArenaTest extends Specification{
             SpaceShipDefiner s
         when:
             e = new Enemy(10,new Position(2,2),new HorizontalMovementStrategy(),new NormalShotStrategy())
-            s = new Spaceship(10,1,1,new Position(2,5))
+            s = new Spaceship(110,1,1,new Position(2,5))
             arena.addEnemy(e)
             arena.setSpaceship(s)
             e.shoot()
@@ -110,7 +110,7 @@ class ArenaTest extends Specification{
             e.getShots()[0].moveDown()
             arena.checkShotsHitSpaceship()
         then:
-            assert  s.getHealth() == 9
+            assert  s.getHealth() == 10
     }
 
     def "move_enemies_frontier_test"(){
