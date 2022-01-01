@@ -15,6 +15,7 @@ public class Spaceship implements SpaceShipDefiner{
     Position position;
     List<SpellTemplate> spells;
     List<Shot> shots;
+    long last_transition_instant;
     public Spaceship(Integer health,Integer velocity,Integer damage, Position position){
         this.health = health;
         this.velocity = velocity;
@@ -116,12 +117,16 @@ public class Spaceship implements SpaceShipDefiner{
 
     void becomeInvincible(){
         this.state= new InvincibleSpaceShipState(this);
+        this.last_transition_instant = System.currentTimeMillis();
     }
 
     void becomeNormal(){
         this.state = new NormalSpaceShipState(this);
     }
 
-    void becomeNerfed() { this.state = new NerfedSpaceShipState(this);}
+    void becomeNerfed() {
+        this.state = new NerfedSpaceShipState(this);
+        this.last_transition_instant = System.currentTimeMillis();
+    }
 
 }
