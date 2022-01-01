@@ -8,6 +8,7 @@ public class SpellNerfed extends SpellTemplate {
     SpellNerfed(Position pos) {
         this.pos = pos;
         this.symbol = 'N';
+        this.time = System.currentTimeMillis();
     }
 
     @Override

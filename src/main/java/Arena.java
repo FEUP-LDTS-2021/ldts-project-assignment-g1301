@@ -60,27 +60,29 @@ public class Arena implements ArenaDefiner {
         }
         if(listX.size()>1) {
             Position pos = new Position(listX.get(random.nextInt(listX.size() - 1)), getHeight() - 2);
-            int spellNr = random.nextInt(5);
+            int spellNr = random.nextInt(7);
             SpellTemplate spell = switch (spellNr) {
                 case 0 -> new SpellHealth(pos);
                 case 1 -> new SpellHealthDamage(pos);
                 case 2 -> new SpellGunDamage(pos);
                 case 3 -> new SpellLessGunDamage(pos);
                 case 4 -> new SpellInvincible(pos);
-                default -> new SpellTPBack(pos);
+                case 5 -> new SpellTPBack(pos);
+                default -> new SpellNerfed(pos);
             };
             spells.add(spell);
         }
         else if (listX.size()==1){
             Position pos = new Position(listX.get(0),getHeight()-2);
-            int spellNr = random.nextInt(5);
+            int spellNr = random.nextInt(7);
             SpellTemplate spell = switch (spellNr) {
                 case 0 -> new SpellHealth(pos);
                 case 1 -> new SpellHealthDamage(pos);
                 case 2 -> new SpellGunDamage(pos);
                 case 3 -> new SpellLessGunDamage(pos);
                 case 4 -> new SpellInvincible(pos);
-                default -> new SpellTPBack(pos);
+                case 5 -> new SpellTPBack(pos);
+                default -> new SpellNerfed(pos);
             };
             spells.add(spell);
         }
@@ -89,7 +91,7 @@ public class Arena implements ArenaDefiner {
     @Override
     public void checkActiveSpells() {
         for (int i = 0; i < spells.size(); i++){
-            if (spells.get(i).getTime() + 30000 < System.currentTimeMillis()){
+            if (spells.get(i).getTime() + 10000 < System.currentTimeMillis()){
                 spells.remove(i);
             }
         }
@@ -183,7 +185,8 @@ public class Arena implements ArenaDefiner {
                     case 'N':
                         spaceship.becomeNerfed();
                         break;
-
+                    default:
+                        break;
                 }
                 getSpells().remove(getSpells().get(i));
             }
@@ -349,6 +352,12 @@ public class Arena implements ArenaDefiner {
         return true;
     }
 
+
+    @Override
+    public void createSpell(){
+        if (Math.random() > 0.995)
+            addSpell();
+    }
     @Override
     public void shootEnemies(){
         for(int i=0; i<enemies.size();i++){
@@ -357,5 +366,6 @@ public class Arena implements ArenaDefiner {
             }
         }
     }
+
 }
 

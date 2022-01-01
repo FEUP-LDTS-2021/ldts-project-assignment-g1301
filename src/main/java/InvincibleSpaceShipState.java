@@ -98,9 +98,9 @@ public class InvincibleSpaceShipState implements SpaceShipState {
 
     @Override
     public void shoot() {
-        Position pos = spaceship.position;
+        Position pos = new Position(spaceship.position.getX(),spaceship.position.getY());
         pos.setY(pos.getY()-1);
-        Shot bullet = new Shot(1,1,1,pos);
+        Shot bullet = new Shot(getDamage(),1,1,pos);
         spaceship.shots.add(bullet);
     }
 

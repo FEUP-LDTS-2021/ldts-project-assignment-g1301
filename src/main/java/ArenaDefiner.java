@@ -52,4 +52,5 @@ public interface ArenaDefiner {
 
     void checkActiveSpells();
 
+    void createSpell();
 }

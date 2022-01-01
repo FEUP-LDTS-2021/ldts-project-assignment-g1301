@@ -75,6 +75,10 @@ public class Game implements GameDefiner{
             arena.checkShotCollisions();
             arena.checkShotsHitEnemies();
             arena.checkShotsHitSpaceship();
+            arena.checkActiveSpells();
+            arena.createSpell();
+            arena.checkCaughtSpell();
+            arena.updateSpaceShipState();
             try {
                 myThread.sleep(15);
             } catch (InterruptedException f) {
