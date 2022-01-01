@@ -391,7 +391,7 @@ class ArenaTest extends Specification{
             assert arena.getSpells().size() == 1
     }
 
-    /*
+
     def "check_non_active_spells_test"(){
         when:
             arena.addSpell()
@@ -401,6 +401,5 @@ class ArenaTest extends Specification{
         then:
            assert arena.getSpells().size() == 0
     }
-    */
 }
 

@@ -43,9 +43,9 @@ public interface ArenaDefiner {
 
     void shootEnemies();
 
-<<<<<<< HEAD
+
     void updateSpaceShipState();
-=======
+
     void checkActiveSpells();
->>>>>>> master
+
 }
