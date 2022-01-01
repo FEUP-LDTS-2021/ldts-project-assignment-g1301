@@ -24,6 +24,9 @@ public interface ArenaDefiner {
     Integer getWidth();
     Integer getHeight();
     void draw(TextGraphics graphics) throws IOException;
+
+    void checkCaughtSpell();
+
     void checkShotCollisions();
 
     boolean checkShotsHitSpaceship();
@@ -39,4 +42,6 @@ public interface ArenaDefiner {
     boolean moveShots();
 
     void shootEnemies();
+
+    void updateSpaceShipState();
 }
