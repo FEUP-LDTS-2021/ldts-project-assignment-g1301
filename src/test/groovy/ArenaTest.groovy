@@ -301,4 +301,86 @@ class ArenaTest extends Specification{
                 assert arena.getSpells().get(arena.getSpells().size() - 1).getPosition().getX() != pos.getX()
             }
     }
+
+    def "check_caught_Health"(){
+        given:
+            arena.spaceship.setPosition(new Position(0,0))
+            def oldHealth = arena.spaceship.getHealth();
+            arena.spells.add(new SpellHealth(new Position(0,0)))
+        when:
+            arena.checkCaughtSpell();
+        then:
+            assert arena.spaceship.getHealth()==oldHealth+300
+            assert arena.getSpells().size()==0
+    }
+
+    def "check_caught_Damage"(){
+        given:
+            arena.spaceship.setPosition(new Position(0,0))
+            def oldHealth = arena.spaceship.getHealth();
+            arena.spells.add(new SpellHealthDamage(new Position(0,0)))
+        when:
+            arena.checkCaughtSpell();
+        then:
+            assert arena.spaceship.getHealth()==oldHealth-200
+            assert arena.getSpells().size()==0
+    }
+
+    def "check_became_invincible"(){
+        given:
+            arena.spaceship.setPosition(new Position(0,0))
+            arena.spells.add(new SpellInvincible(new Position(0,0)))
+        when:
+            arena.checkCaughtSpell();
+        then:
+            assert arena.spaceship.state.getClass()==InvincibleSpaceShipState.class
+            assert arena.getSpells().size()==0
+    }
+
+    def "check_became_nerfed"(){
+        given:
+            arena.spaceship.setPosition(new Position(0,0))
+            arena.spells.add(new SpellNerfed(new Position(0,0)))
+        when:
+            arena.checkCaughtSpell();
+        then:
+            assert arena.spaceship.state.getClass()==NerfedSpaceShipState.class
+            assert arena.getSpells().size()==0
+    }
+
+    def "check_more_damage"(){
+        given:
+            arena.spaceship.setPosition(new Position(0,0))
+            def oldDamage = arena.spaceship.getDamage();
+            arena.spells.add(new SpellGunDamage(new Position(0,0)))
+        when:
+            arena.checkCaughtSpell();
+        then:
+            assert arena.spaceship.getDamage()==oldDamage+100
+            assert arena.getSpells().size()==0
+    }
+
+    def "check_less_damage"(){
+        given:
+            arena.spaceship.setPosition(new Position(0,0))
+            def oldDamage = arena.spaceship.getDamage();
+            arena.spells.add(new SpellLessGunDamage(new Position(0,0)))
+        when:
+            arena.checkCaughtSpell();
+        then:
+            assert arena.spaceship.getDamage()==oldDamage-100
+            assert arena.getSpells().size()==0
+    }
+
+    def "update_spaceship_state_test"(){
+        when:
+            arena.getSpaceship().becomeInvincible();
+            def time = System.currentTimeMillis()
+            while(time >= System.currentTimeMillis() - 15000){
+            }
+            arena.updateSpaceShipState();
+        then:
+            assert arena.getSpaceship().state.getClass() == NormalSpaceShipState.class
+    }
 }
+
