@@ -11,10 +11,10 @@ import java.io.IOException;
 
 public class Game implements GameDefiner{
     private Screen screen;
-    private Arena arena;
+    private final Arena arena;
 
     public Game(){
-        arena = new Arena(50,50);
+        arena = new Arena(150,50);
         try {
             TerminalSize terminalSize = new TerminalSize(arena.getWidth(), arena.getHeight());
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
@@ -46,7 +46,8 @@ public class Game implements GameDefiner{
                 break;
             }
             KeyStroke key = screen.readInput();
-            if (key.getKeyType() == KeyType.EOF) break;
+            if (key.getKeyType() == KeyType.EOF)
+                break;
             if(key.getKeyType()== KeyType.Character &&  key.getCharacter()=='q') {
                 screen.close();
             }
