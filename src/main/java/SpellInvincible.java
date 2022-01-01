@@ -8,6 +8,7 @@ public class SpellInvincible extends SpellTemplate{
     SpellInvincible(Position pos){
         this.pos = pos;
         this.symbol = 'I';
+        this.time = System.currentTimeMillis();
     }
     @Override
     public void draw(TextGraphics graphics) throws IOException {

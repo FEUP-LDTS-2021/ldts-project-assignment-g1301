@@ -8,6 +8,7 @@ public class SpellHealth extends SpellTemplate {
     SpellHealth(Position pos){
         this.pos = pos;
         this.symbol = 'H';
+        this.time = System.currentTimeMillis();
     }
     @Override
     public void draw(TextGraphics graphics) throws IOException {

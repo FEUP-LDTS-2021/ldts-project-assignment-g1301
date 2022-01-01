@@ -1,6 +1,7 @@
 abstract class SpellTemplate implements SpellDefiner {
     protected Character symbol;
     protected Position pos;
+    protected long time;
     @Override
     public final Position getPosition() {
         return pos;
@@ -9,5 +10,10 @@ abstract class SpellTemplate implements SpellDefiner {
     @Override
     public final Character getSymbol() {
         return symbol;
+    }
+
+    @Override
+    public final long getTime(){
+        return time;
     }
 }

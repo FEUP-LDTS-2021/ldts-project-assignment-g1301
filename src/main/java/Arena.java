@@ -86,6 +86,14 @@ public class Arena implements ArenaDefiner {
         }
     }
 
+    @Override
+    public void checkActiveSpells() {
+        for (int i = 0; i < spells.size(); i++){
+            if (spells.get(i).getTime() + 30000 < System.currentTimeMillis()){
+                spells.remove(i);
+            }
+        }
+    }
 
     @Override
     public void setSpaceship(Spaceship s){
