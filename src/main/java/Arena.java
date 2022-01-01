@@ -152,6 +152,46 @@ public class Arena implements ArenaDefiner {
 
 
     @Override
+    public void checkCaughtSpell(){
+        for(Integer i=0;i<spells.size();i++){
+            if(getSpells().get(i).getPosition().getX().equals(spaceship.getPosition().getX())){
+                switch(getSpells().get(i).getSymbol()){
+                    case 'I':
+                        spaceship.becomeInvincible();
+                        break;
+                    case 'D':
+                        spaceship.setDamage(spaceship.getDamage()+100);
+                        break;
+                    case 'H':
+                        spaceship.setHealth(spaceship.getHealth()+300);
+                        break;
+                    case 'X':
+                        if(spaceship.state.getClass()!=InvincibleSpaceShipState.class)
+                            spaceship.setHealth(spaceship.getHealth()-200);
+                        break;
+                    case 'L':
+                        spaceship.setDamage(spaceship.getDamage()-100);
+                        break;
+                    case 'N':
+                        spaceship.becomeNerfed();
+                        break;
+
+                }
+                getSpells().remove(getSpells().get(i));
+            }
+        }
+    }
+
+
+    @Override
+    public void updateSpaceShipState(){
+        if(System.currentTimeMillis()-spaceship.last_transition_instant>=10000 &&
+        spaceship.state.getClass()!=NormalSpaceShipState.class){
+            spaceship.becomeNormal();
+        }
+    }
+
+    @Override
     public void checkShotCollisions() {
         for (Integer i = 0;i<enemies.size();i++) {
             for (Integer j =0; j < enemies.get(i).getShots().size();j++) {
