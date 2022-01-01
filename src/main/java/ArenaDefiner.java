@@ -39,4 +39,6 @@ public interface ArenaDefiner {
     boolean moveShots();
 
     void shootEnemies();
+
+    void checkActiveSpells();
 }
