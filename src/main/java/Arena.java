@@ -355,7 +355,7 @@ public class Arena implements ArenaDefiner {
 
     @Override
     public void createSpell(){
-        if (Math.random() > 0.995)
+        if (Math.random() > 0.99)
             addSpell();
     }
     @Override

@@ -47,6 +47,7 @@ public class Game implements GameDefiner{
             if (arena.getSpaceship().isDead()) {
                 screen.close();
                 System.out.println("Game Over");
+                exit(0);
                 break;
             }
             KeyStroke key = myThread.key;
