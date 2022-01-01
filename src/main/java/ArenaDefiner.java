@@ -19,10 +19,15 @@ public interface ArenaDefiner {
     Integer getLevel();
 
     List<Enemy> getEnemies();
+
     List<SpellTemplate> getSpells();
+
     Spaceship getSpaceship();
+
     Integer getWidth();
+
     Integer getHeight();
+
     void draw(TextGraphics graphics) throws IOException;
 
     void checkCaughtSpell();
@@ -42,7 +47,6 @@ public interface ArenaDefiner {
     boolean moveShots();
 
     void shootEnemies();
-
 
     void updateSpaceShipState();
 
