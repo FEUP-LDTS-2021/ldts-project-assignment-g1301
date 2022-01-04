@@ -34,8 +34,12 @@ Different waves of enemies: There are infinite waves of enemys, which means the 
 For the future we are planning to implement our last spell which will be the "TeleportBackSpell". It will basically allow the user to teleport to the place where he first caught the spell, by pressing the "t" key character.
 We're also planning to create a user menu interface.
 And we are planning to also add information on the top of the game regarding the players health, spaceship damage and his current score (1point for each alien killed).
-![How the game will look like after the previous feauture is implemented:](https://imgur.com/V3GO6tz)
-https://imgur.com/V3GO6tz
+
+How the game will look like after the previous feauture is implemented:
+<p align="center" justify="center">
+  <img src="images/game.png"/>
+</p>
+
 
 
 ### DESIGN
@@ -53,13 +57,28 @@ https://imgur.com/V3GO6tz
 
 **Implementation**
 
+<p align="center" justify="center">
+  <img src="images/movement_strategy.png"/>
+  <img src="images/shooting_strategy.png"/>
+</p>
+
 **Consequences**
 
 
 #### KNOWN CODE SMELLS AND REFACTORING SUGGESTIONS
 
+#### **Duplicate Code**
+Inadequate implementation of the state pattern which lead to duplicate code (3 classes with the same code).
+Duplicate code to generate a random spell.
+We didn't use packages yet.
 
-**Example of such a subsection**:
+#### **Large Class**
+Some classes (Arena) contain many fields and others (Enemy, Spaceship) contain many methods.
+
+In both cases, we find it justifiable as the classes require these fields, in one hand the Arena class is basically the main class of the program and it needs to store a considerable amount of data, on the other hand various methods are needed for the Enemy and Spaceship classes and it wouldn't make sense to split each class into two separate ones.
+
+#### **Switch Statements**
+There is switch statement in the addSpell method. However, the switch operator performs simple actions.
 
 ------
 
@@ -67,15 +86,15 @@ https://imgur.com/V3GO6tz
 
 
 ### TESTING
-![Test coverage report](https://imgur.com/wfIhVpC)
-https://imgur.com/wfIhVpC
+Test coverage report:
+<p align="center" justify="center">
+  <img src="images/coverage.png"/>
+</p>
 Note that getters and setters were not tested due to the triviality of the matter.
-
+Game, Application and InputThread are also not tested.
 
 ### SELF-EVALUATION
 So far up until this point, the workflow was very dynamic between all group members and the work was distributed equally. Everyone was motivated to contribute to the assignment.
-
-**Example**:
 
 
 
