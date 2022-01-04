@@ -21,11 +21,6 @@ public class NerfedSpaceShipState implements SpaceShipState{
     }
 
     @Override
-    public Integer getVelocity() {
-        return spaceship.velocity;
-    }
-
-    @Override
     public Integer getDamage() {
         return spaceship.damage;
     }
@@ -33,22 +28,6 @@ public class NerfedSpaceShipState implements SpaceShipState{
     @Override
     public List<Shot> getShots() {
         return spaceship.shots;
-    }
-
-    @Override
-    public void set_shots(List<Shot> shots) {
-        spaceship.shots= shots;
-    }
-
-    @Override
-
-    public List<SpellTemplate> getSpells() {
-        return spaceship.spells;
-    }
-
-    @Override
-    public void removePowerUp() {
-
     }
 
     @Override
@@ -64,11 +43,6 @@ public class NerfedSpaceShipState implements SpaceShipState{
     @Override
     public void setPosition(Position position) {
         spaceship.position=position;
-    }
-
-    @Override
-    public void setVelocity(Integer velocity) {
-        spaceship.velocity = velocity;
     }
 
     @Override

@@ -11,14 +11,12 @@ import java.util.List;
 public class Spaceship implements SpaceShipDefiner{
 
     SpaceShipState state;
-    Integer health, velocity,damage;
+    Integer health, damage;
     Position position;
-    List<SpellTemplate> spells;
     List<Shot> shots;
     long last_transition_instant;
-    public Spaceship(Integer health,Integer velocity,Integer damage, Position position){
+    public Spaceship(Integer health,Integer damage, Position position){
         this.health = health;
-        this.velocity = velocity;
         this.damage = damage;
         this.position = position;
         this.shots = new ArrayList<>();
@@ -35,10 +33,6 @@ public class Spaceship implements SpaceShipDefiner{
         return this.state.getPosition();
     }
 
-    @Override
-    public Integer getVelocity() {
-        return  this.state.getVelocity();
-    }
 
     @Override
     public Integer getDamage() {
@@ -50,24 +44,10 @@ public class Spaceship implements SpaceShipDefiner{
         return this.state.getShots();
     }
 
-    @Override
-    public void set_shots(List<Shot> shots) {
-        this.state.set_shots(shots);
-    }
-
-    @Override
-    public List<SpellTemplate> getSpells() {
-        return this.state.getSpells();
-    }
-
-    @Override
-    public void removePowerUp() {
-        this.state.removePowerUp();
-    }
 
     @Override
     public boolean isDead() {
-        return this.state.getHealth()<=0;
+        return this.state.isDead();
     }
 
     @Override
@@ -78,11 +58,6 @@ public class Spaceship implements SpaceShipDefiner{
     @Override
     public void setPosition(Position position) {
         this.state.setPosition(position);
-    }
-
-    @Override
-    public void setVelocity(Integer velocity) {
-        this.state.setVelocity(velocity);
     }
 
     @Override

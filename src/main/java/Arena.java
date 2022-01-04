@@ -111,7 +111,7 @@ public class Arena implements ArenaDefiner {
         this.width = width;
         this.height = height;
         this.level = 0;
-        spaceship = new Spaceship(1000,1,100,new Position(width/2,height-2));
+        spaceship = new Spaceship(1000,100,new Position(width/2,height-2));
         enemies = new ArrayList<>();
         spells = new ArrayList<>();
     }
@@ -275,7 +275,7 @@ public class Arena implements ArenaDefiner {
 
 
     @Override
-    public boolean checkShotsHitSpaceship() {
+    public void checkShotsHitSpaceship() {
         for (Integer i=0;i<enemies.size();i++) {
             for (Integer j = 0; j < enemies.get(i).getShots().size();j++) {
                 Integer shotWidthOffset = enemies.get(i).getShots().get(j).getWidth() / 2;
@@ -286,18 +286,14 @@ public class Arena implements ArenaDefiner {
                         shotRight >= spaceship.getPosition().getX()) {
 
 
-                    if(spaceship.state.getClass()!= InvincibleSpaceShipState.class)
+                    if (spaceship.state.getClass() != InvincibleSpaceShipState.class)
                         spaceship.setHealth(spaceship.getHealth() - enemies.get(i).getShots().get(j).getDamage());
 
                     enemies.get(i).removeShot(enemies.get(i).getShots().get(j));
                     j--;
-
-                    if (spaceship.isDead())
-                        return false;
                 }
             }
         }
-        return true;
     }
 
     @Override
@@ -331,7 +327,7 @@ public class Arena implements ArenaDefiner {
 
 
     @Override
-    public boolean moveShots(){
+    public void moveShots(){
 
         for(Enemy enemy:enemies){
             for(Shot shot:enemy.getShots()){
@@ -339,8 +335,7 @@ public class Arena implements ArenaDefiner {
             }
         }
         checkShotCollisions();
-        if(!checkShotsHitSpaceship())
-            return false;
+        checkShotsHitSpaceship();
 
         for(Shot shot:spaceship.getShots()){
             shot.moveUp();
@@ -349,7 +344,6 @@ public class Arena implements ArenaDefiner {
         checkShotsHitEnemies();
 
         removeShotsOutOfBounds();
-        return true;
     }
 
 

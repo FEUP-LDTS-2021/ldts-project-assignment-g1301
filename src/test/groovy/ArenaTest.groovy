@@ -15,7 +15,7 @@ class ArenaTest extends Specification{
             SpaceShipDefiner s
         when:
             e = new Enemy(10, new Position(2,1),new HorizontalMovementStrategy(),new NormalShotStrategy())
-            s = new Spaceship(10,1,1,new Position(2,5))
+            s = new Spaceship(10,1,new Position(2,5))
             arena.addEnemy(e)
             arena.setSpaceship(s)
             e.shoot()
@@ -33,7 +33,7 @@ class ArenaTest extends Specification{
             SpaceShipDefiner s
         when:
             e = new Enemy(10,new Position(2,1),new HorizontalMovementStrategy(),new BigShotStrategy())
-            s = new Spaceship(10,1,1,new Position(3,5))
+            s = new Spaceship(10,1,new Position(3,5))
             arena.addEnemy(e)
             arena.setSpaceship(s)
             e.shoot()
@@ -63,9 +63,9 @@ class ArenaTest extends Specification{
             arena1 = new Arena(10,10)
             arena2 = new Arena(10,10)
             arena3 = new Arena(10,10)
-            spaceship1 = new Spaceship(10,1,1,new Position(2,2))
-            spaceship2 = new Spaceship(10,1,1,new Position(2,2))
-            spaceship3 = new Spaceship(10,1,1,new Position(2,2))
+            spaceship1 = new Spaceship(10,1,new Position(2,2))
+            spaceship2 = new Spaceship(10,1,new Position(2,2))
+            spaceship3 = new Spaceship(10,1,new Position(2,2))
             x= spaceship3.getShots().size()
             arena1.setSpaceship(spaceship1)
             arena2.setSpaceship(spaceship2)
@@ -85,7 +85,7 @@ class ArenaTest extends Specification{
             SpaceShipDefiner s
         when:
             e = new Enemy(10,new Position(2,2),new HorizontalMovementStrategy(),new NormalShotStrategy())
-            s = new Spaceship(10,1,1,new Position(2,5))
+            s = new Spaceship(10,1,new Position(2,5))
             arena.addEnemy(e)
             arena.setSpaceship(s)
             s.shoot()
@@ -102,7 +102,7 @@ class ArenaTest extends Specification{
             SpaceShipDefiner s
         when:
             e = new Enemy(10,new Position(2,2),new HorizontalMovementStrategy(),new NormalShotStrategy())
-            s = new Spaceship(110,1,1,new Position(2,5))
+            s = new Spaceship(110,1,new Position(2,5))
             arena.addEnemy(e)
             arena.setSpaceship(s)
             e.shoot()
@@ -139,8 +139,11 @@ class ArenaTest extends Specification{
         given:
             SpaceShipDefiner s
         when:
-            s = new Spaceship(10,1,1,new Position(2,2))
+            s = new Spaceship(10,1,new Position(2,2))
             arena.setSpaceship(s)
+            def e = new Enemy(100,new Position(10,10),new HorizontalMovementStrategy(),new NormalShotStrategy())
+            arena.addEnemy(e)
+            e.shoot()
             s.shoot()
             arena.moveShots()
         then:
@@ -152,7 +155,7 @@ class ArenaTest extends Specification{
             SpaceShipDefiner s
             EnemyDefiner e
         when:
-            s = new Spaceship(10,1,1,new Position(2,0))
+            s = new Spaceship(10,1,new Position(2,0))
             e = new Enemy(10,new Position(3,10),new HorizontalMovementStrategy(),new NormalShotStrategy())
             s.shoot()
             e.shoot()
