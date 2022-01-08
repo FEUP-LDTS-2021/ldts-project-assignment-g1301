@@ -60,6 +60,7 @@ How the game will look like after the previous feauture is implemented:
 <p align="center" justify="center">
   <img src="images/movement_strategy.png"/>
   <img src="images/shooting_strategy.png"/>
+  <img src="images/spell_template.png"/>
 </p>
 
 **Consequences**
