@@ -76,7 +76,7 @@ it might be limited to the provided skeleton of the parent class.
 
 ### Strategy Pattern
 
-####**Problem in Context**
+#### **Problem in Context**
 
 The enemies of our game have different strategies for shooting and moving.
 To implement them both efficiently we used the Strategy Pattern, so we can add all the different ways the enemies can move or shoot without increasing the chance of creating an error in an already working code.
