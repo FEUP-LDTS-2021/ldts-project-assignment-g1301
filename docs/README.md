@@ -48,22 +48,30 @@ How the game will look like after the previous feauture is implemented:
 
 ------
 
+### Strategy Pattern
 **Problem in Context**
 
-
+The enemies of our game have different strategies for shooting and moving.
+To implement them both efficiently we used the Strategy Pattern, so we can add all the different ways the enemies can move or shoot without increasing the chance of creating an error in an already working code.
 
 **The Pattern**
 
+We applied the Strategy Pattern which is a behavioral design pattern that lets you define multiple algorithms, in separate classes, and make their objects interchangeable.   
 
 **Implementation**
+
+Regarding the implementation, we now have classes which define the way the enemy is supposed to shot or to move. 
 
 <p align="center" justify="center">
   <img src="images/movement_strategy.png"/>
   <img src="images/shooting_strategy.png"/>
-  <img src="images/spell_template.png"/>
 </p>
 
 **Consequences**
+
+The template method allows the following consequences:
+- We can isolate the implementation of an algorithm from the code that uses it. 
+- We can introduce new strategies without having to change the context.
 
 
 #### KNOWN CODE SMELLS AND REFACTORING SUGGESTIONS
