@@ -47,19 +47,19 @@ How the game will look like after the previous feauture is implemented:
 
 
 
-###Template Pattern
+### Template Pattern
 
-####**Problem in Context**
+#### **Problem in Context**
 
 When creating the different spells, we noticed that there was a lot of
 duplicate code (in the getters) and that the only difference in each class
 was in the constructor and in the draw method.
 
-####**The Pattern**
+#### **The Pattern**
 We have applied the **_Template_** pattern. A template lets subclasses
 extend only particular parts of the parent class.
 
-####**Implementation**
+#### **Implementation**
 We set the common methods (the getters) as final in the parent class 
 Template Class and we let the subclasses override the methods which
 diverge in each spell (the draw method)
@@ -68,7 +68,7 @@ diverge in each spell (the draw method)
   <img src="images/spell_template.png"/>
 </p>
 
-####**Consequences**
+#### **Consequences**
 
 The template method allows the following consequences:
 - We pulled the duplicate code to the parent class.
