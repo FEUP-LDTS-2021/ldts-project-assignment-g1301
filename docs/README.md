@@ -20,7 +20,8 @@ Shooting: the spaceship will shoot one bullet in a vertical line when the space 
 Spells/PowerUps: During the game, and at random, 7 different types of spells/powerups can spawn on the ground near the spaceship. To resume briefly, 8 of them are implemented:
 
 	Health Spell: Increases the spaceship health a bit.
-	DamageIncrease Spell: Increases the spaceship's damage, permanently.
+	Damage
+Increase Spell: Increases the spaceship's damage, permanently.
 	InvincibleState Spell: Makes the spaceship immortal for 10secs, which means it can't take damage.
 	NerfedState Spell: Makes the spaceship unable to shoot any bullet for 10secs.
 	HealthReducer Spell: Takes a fraction of the spaceship's health points.
@@ -46,24 +47,33 @@ How the game will look like after the previous feauture is implemented:
 
 
 
-------
+###Template Pattern
 
-**Problem in Context**
+####**Problem in Context**
 
+When creating the different spells, we noticed that there was a lot of
+duplicate code (in the getters) and that the only difference in each class
+was in the constructor and in the draw method.
 
+####**The Pattern**
+We have applied the **_Template_** pattern. A template lets subclasses
+extend only particular parts of the parent class.
 
-**The Pattern**
-
-
-**Implementation**
+####**Implementation**
+We set the common methods (the getters) as final in the parent class 
+Template Class and we let the subclasses override the methods which
+diverge in each spell (the draw method)
 
 <p align="center" justify="center">
-  <img src="images/movement_strategy.png"/>
-  <img src="images/shooting_strategy.png"/>
   <img src="images/spell_template.png"/>
 </p>
 
-**Consequences**
+####**Consequences**
+
+The template method allows the following consequences:
+- We pulled the duplicate code to the parent class.
+- In case we want to add a new spell in the future,
+it might be limited to the provided skeleton of the parent class.
 
 
 #### KNOWN CODE SMELLS AND REFACTORING SUGGESTIONS
