@@ -75,6 +75,7 @@ The template method allows the following consequences:
 it might be limited to the provided skeleton of the parent class.
 
 ### Strategy Pattern
+
 ####**Problem in Context**
 
 The enemies of our game have different strategies for shooting and moving.
