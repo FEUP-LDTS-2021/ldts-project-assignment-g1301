@@ -20,8 +20,7 @@ Shooting: the spaceship will shoot one bullet in a vertical line when the space 
 Spells/PowerUps: During the game, and at random, 7 different types of spells/powerups can spawn on the ground near the spaceship. To resume briefly, 8 of them are implemented:
 
 	Health Spell: Increases the spaceship health a bit.
-	Damage
-Increase Spell: Increases the spaceship's damage, permanently.
+	DamageIncrease Spell: Increases the spaceship's damage, permanently.
 	InvincibleState Spell: Makes the spaceship immortal for 10secs, which means it can't take damage.
 	NerfedState Spell: Makes the spaceship unable to shoot any bullet for 10secs.
 	HealthReducer Spell: Takes a fraction of the spaceship's health points.
