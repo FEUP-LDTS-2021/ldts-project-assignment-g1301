@@ -1,3 +1,8 @@
+import com.googlecode.lanterna.TerminalSize
+import com.googlecode.lanterna.screen.Screen
+import com.googlecode.lanterna.screen.TerminalScreen
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory
+import com.googlecode.lanterna.terminal.Terminal
 import spock.lang.Specification
 import com.googlecode.lanterna.input.KeyType
 import com.googlecode.lanterna.input.KeyStroke
@@ -403,6 +408,63 @@ class ArenaTest extends Specification{
             arena.checkActiveSpells()
         then:
            assert arena.getSpells().size() == 0
+    }
+
+    def "arena_health_draw"(){
+        given:
+            Screen screen;
+            TerminalSize terminalSize = new TerminalSize(150, 50);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
+            screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);   // we don't need a cursor
+            screen.startScreen();             // screens must be started
+            screen.doResizeIfNecessary();
+            def graphics = screen.newTextGraphics();
+            Arena a
+        when:
+            a = new Arena(150,50)
+            a.draw(graphics)
+        then:
+            assert graphics.getCharacter(0,0).getCharacter() == ('H' as char)
+    }
+
+    def "arena_damage_draw"(){
+        given:
+        Screen screen;
+        TerminalSize terminalSize = new TerminalSize(150, 50);
+        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+        Terminal terminal = terminalFactory.createTerminal();
+        screen = new TerminalScreen(terminal);
+        screen.setCursorPosition(null);   // we don't need a cursor
+        screen.startScreen();             // screens must be started
+        screen.doResizeIfNecessary();
+        def graphics = screen.newTextGraphics();
+        Arena a
+        when:
+        a = new Arena(150,50)
+        a.draw(graphics)
+        then:
+        assert graphics.getCharacter(14,0).getCharacter() == ('D' as char)
+    }
+
+    def "arena_score_draw"(){
+        given:
+        Screen screen;
+        TerminalSize terminalSize = new TerminalSize(150, 50);
+        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+        Terminal terminal = terminalFactory.createTerminal();
+        screen = new TerminalScreen(terminal);
+        screen.setCursorPosition(null);   // we don't need a cursor
+        screen.startScreen();             // screens must be started
+        screen.doResizeIfNecessary();
+        def graphics = screen.newTextGraphics();
+        Arena a
+        when:
+        a = new Arena(150,50)
+        a.draw(graphics)
+        then:
+        assert graphics.getCharacter(28,0).getCharacter() == ('S' as char)
     }
 }
 
