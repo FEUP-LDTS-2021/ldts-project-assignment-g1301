@@ -145,6 +145,10 @@ public class Arena implements ArenaDefiner {
     public void draw(TextGraphics graphics) throws IOException {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#22347D"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        graphics.putString(new TerminalPosition(0,0), "Health : " + spaceship.getHealth());
+        graphics.putString(new TerminalPosition(14,0), "Damage : " + spaceship.getDamage());
+        graphics.putString(new TerminalPosition(28,0), "Score : " + spaceship.getScore());
         for (Enemy enemy : getEnemies()) {
             for (Shot shot : enemy.getShots()) {
                 shot.draw(graphics);
@@ -266,6 +270,7 @@ public class Arena implements ArenaDefiner {
 
                     if (enemies.get(j).getHealth()<=0) {
                         enemies.remove(enemies.get(j));
+                        spaceship.setScore(spaceship.getScore() + 100 * level );
                     }
                     break;
                 }
