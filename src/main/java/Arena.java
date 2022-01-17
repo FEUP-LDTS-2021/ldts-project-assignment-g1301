@@ -17,6 +17,7 @@ public class Arena implements ArenaDefiner {
     private final Integer width;
     private final Integer height;
     private Integer level;
+    private boolean movingRight;
 
 
     @Override
@@ -114,6 +115,7 @@ public class Arena implements ArenaDefiner {
         spaceship = new Spaceship(1000,100,new Position(width/2,height-2));
         enemies = new ArrayList<>();
         spells = new ArrayList<>();
+        movingRight = true;
     }
 
     @Override
@@ -321,11 +323,24 @@ public class Arena implements ArenaDefiner {
 
     @Override
     public void moveEnemies() {
+        if ((enemies.get(enemies.size() - 1).getPosition().getX() == width - 1 || !movingRight) && !(enemies.get(0).getPosition().getX() == 0)) {
+            movingRight = false;
+            moveEnemiesLeft();
+        } else {moveEnemiesRight(); movingRight = true;}
+
+    }
+
+    @Override
+    public void moveEnemiesLeft(){
         for (Enemy enemy: enemies){
-            enemy.move();
-            if (enemy.getPosition().getX() > width){
-                enemy.getPosition().setX(0);
-            }
+            enemy.move(false);
+        }
+    }
+
+    @Override
+    public void moveEnemiesRight(){
+        for (Enemy enemy: enemies){
+            enemy.move(true);
         }
     }
 
