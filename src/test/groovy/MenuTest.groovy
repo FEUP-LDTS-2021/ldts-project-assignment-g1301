@@ -5,6 +5,8 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import com.googlecode.lanterna.terminal.Terminal
 import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration
 import com.googlecode.lanterna.terminal.swing.SwingTerminalFontConfiguration
+import menu.Menu
+import menu.MenuDefiner
 import spock.lang.Specification
 
 import java.awt.Font

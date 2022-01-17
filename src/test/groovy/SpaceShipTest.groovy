@@ -3,6 +3,9 @@ import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import com.googlecode.lanterna.terminal.Terminal
+import position.Position
+import spaceship.SpaceShipDefiner
+import spaceship.Spaceship
 import spock.lang.Specification
 
 class SpaceShipTest extends Specification {

@@ -1,8 +1,28 @@
+import arena.Arena
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import com.googlecode.lanterna.terminal.Terminal
+import enemy.strategy.BigShotStrategy
+import enemy.strategy.DamageShotStrategy
+import enemy.Enemy
+import enemy.EnemyDefiner
+import enemy.strategy.NormalShotStrategy
+import enemy.strategy.HorizontalMovementStrategy
+import enemy.strategy.ZigZagMovementStrategy
+import position.Position
+import spaceship.SpaceShipDefiner
+import spaceship.Spaceship
+import spaceship.observer.SpaceshipObserver
+import spell.template.SpellGunDamage
+import spell.template.SpellHealth
+import spell.template.SpellHealthDamage
+import spell.template.SpellInvincible
+import spell.template.SpellLessGunDamage
+import spell.template.SpellNerfed
+import spell.template.SpellTPBack
+import spell.SpellTemplate
 import spock.lang.Specification
 import com.googlecode.lanterna.input.KeyType
 import com.googlecode.lanterna.input.KeyStroke
@@ -16,8 +36,8 @@ class ArenaTest extends Specification{
     }
     def "check_normal_shot_collision_test"(){
         given:
-            EnemyDefiner e
-            SpaceShipDefiner s
+        EnemyDefiner e
+        SpaceShipDefiner s
         when:
             e = new Enemy(10, new Position(2,1),new HorizontalMovementStrategy(),new NormalShotStrategy())
             s = new Spaceship(10,1,new Position(2,5))
@@ -210,7 +230,7 @@ class ArenaTest extends Specification{
         when:
             arena.createEnemies()
         then:
-            arena.getEnemies().get(0).getMovementStrategy().getClass()==ZigZagMovementStrategy
+            arena.getEnemies().get(0).getMovementStrategy().getClass()== ZigZagMovementStrategy
             arena.getEnemies().get(0).getShootingStrategy().getClass()==NormalShotStrategy
     }
 
@@ -221,7 +241,7 @@ class ArenaTest extends Specification{
             arena.createEnemies()
         then:
             arena.getEnemies().get(0).getMovementStrategy().getClass()==HorizontalMovementStrategy
-            arena.getEnemies().get(0).getShootingStrategy().getClass()==DamageShotStrategy
+            arena.getEnemies().get(0).getShootingStrategy().getClass()== DamageShotStrategy
     }
 
     def "create_enemy_test_level3"(){
@@ -414,10 +434,10 @@ class ArenaTest extends Specification{
         given:
             Position old_pos = new Position(1, 2)
             Position new_pos = new Position(5, 10)
-            SpellTemplate spell = new SpellTPBack(old_pos)
+        SpellTemplate spell = new SpellTPBack(old_pos)
             arena.spells.add(spell)
             Spaceship s = new Spaceship(1000, 100, new Position(1, 2))
-            SpaceshipObserver observer = Spy(SpaceshipObserver)
+        SpaceshipObserver observer = Spy(SpaceshipObserver)
             s.addObserver(observer)
             arena.setSpaceship(s)
             KeyStroke key = Mock(KeyStroke)

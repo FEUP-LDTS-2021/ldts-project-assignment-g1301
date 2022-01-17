@@ -1,3 +1,5 @@
+import position.Position
+import position.PositionDefiner
 import spock.lang.Specification
 
 class PositionTest extends Specification{

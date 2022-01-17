@@ -1,10 +1,16 @@
-import com.googlecode.lanterna.TerminalPosition
 import com.googlecode.lanterna.TerminalSize
-import com.googlecode.lanterna.graphics.TextGraphics
 import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import com.googlecode.lanterna.terminal.Terminal
+import enemy.strategy.BigShotStrategy
+import enemy.strategy.DamageShotStrategy
+import enemy.Enemy
+import enemy.EnemyDefiner
+import enemy.strategy.NormalShotStrategy
+import enemy.strategy.HorizontalMovementStrategy
+import enemy.strategy.ZigZagMovementStrategy
+import position.Position
 import spock.lang.Specification
 
 class EnemyTest extends Specification{
@@ -15,7 +21,7 @@ class EnemyTest extends Specification{
 
     def "is_alive_test"(){
         given:
-            EnemyDefiner e
+        EnemyDefiner e
         when:
             e = new Enemy(10,pos,new HorizontalMovementStrategy(),new NormalShotStrategy())
         then:

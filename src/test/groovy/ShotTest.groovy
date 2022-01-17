@@ -3,6 +3,9 @@ import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import com.googlecode.lanterna.terminal.Terminal
+import position.Position
+import shot.Shot
+import shot.ShotDefiner
 import spock.lang.Specification
 
 class ShotTest extends Specification{
@@ -14,7 +17,7 @@ class ShotTest extends Specification{
     }
     def "Damage getter test"(){
         given:
-            ShotDefiner s;
+        ShotDefiner s;
         when:
             s = new Shot(1,2,3,pos);
         then:
@@ -36,7 +39,7 @@ class ShotTest extends Specification{
         then:
             assert s.getVelocity() == 3
     }
-    def "Position getter Test"(){
+    def "position.Position getter Test"(){
         given:
             ShotDefiner s;
         when:

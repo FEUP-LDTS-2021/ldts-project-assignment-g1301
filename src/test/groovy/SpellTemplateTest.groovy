@@ -3,6 +3,15 @@ import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
 import com.googlecode.lanterna.terminal.Terminal
+import position.Position
+import spell.template.SpellGunDamage
+import spell.template.SpellHealth
+import spell.template.SpellHealthDamage
+import spell.template.SpellInvincible
+import spell.template.SpellLessGunDamage
+import spell.template.SpellNerfed
+import spell.template.SpellTPBack
+import spell.template.SpellTemplate
 import spock.lang.Specification
 
 class SpellTemplateTest extends Specification{
@@ -15,16 +24,16 @@ class SpellTemplateTest extends Specification{
 
     }
 
-    def "SpellHealth Test"(){
+    def "spell.template.SpellHealth Test"(){
         given:
-            SpellTemplate s
+        SpellTemplate s
         when:
             s = new SpellHealth(mockPos)
         then:
             assert s.getSymbol()=='H'
     }
 
-    def "SpellGunDamage Test"(){
+    def "spell.template.SpellGunDamage Test"(){
         given:
             SpellTemplate s
         when:
@@ -33,7 +42,7 @@ class SpellTemplateTest extends Specification{
             assert s.getSymbol()=='D'
     }
 
-    def "SpellHealthDamage Test"(){
+    def "spell.template.SpellHealthDamage Test"(){
         given:
             SpellTemplate s
         when:
@@ -42,7 +51,7 @@ class SpellTemplateTest extends Specification{
             assert s.getSymbol()=='X'
     }
 
-    def "SpellLessGunDamage Test"(){
+    def "spell.template.SpellLessGunDamage Test"(){
         given:
             SpellTemplate s
         when:
@@ -51,7 +60,7 @@ class SpellTemplateTest extends Specification{
             assert s.getSymbol()=='L'
     }
 
-    def "SpellTPBack Test"(){
+    def "spell.template.SpellTPBack Test"(){
         given:
             SpellTemplate s
         when:
@@ -60,7 +69,7 @@ class SpellTemplateTest extends Specification{
             assert s.getSymbol()=='T'
     }
 
-    def "SpellInvincible Test"(){
+    def "spell.template.SpellInvincible Test"(){
         given:
             SpellTemplate s
         when:
@@ -70,7 +79,7 @@ class SpellTemplateTest extends Specification{
     }
 
 
-    def "SpellNerfed Test"(){
+    def "spell.template.SpellNerfed Test"(){
         given:
             SpellTemplate s
         when:
@@ -79,7 +88,7 @@ class SpellTemplateTest extends Specification{
             assert s.getSymbol()=='N'
     }
 
-    def "SpellHealth Draw Test"(){
+    def "spell.template.SpellHealth Draw Test"(){
         given:
             Screen screen
             TerminalSize terminalSize = new TerminalSize(150, 50)
@@ -98,7 +107,7 @@ class SpellTemplateTest extends Specification{
             assert graphics.getCharacter(realPos.x, realPos.y).getCharacter() == ('H' as char)
     }
 
-    def "SpellGunDamage Draw Test"(){
+    def "spell.template.SpellGunDamage Draw Test"(){
         given:
             Screen screen
             TerminalSize terminalSize = new TerminalSize(150, 50);
@@ -117,7 +126,7 @@ class SpellTemplateTest extends Specification{
             assert graphics.getCharacter(realPos.x, realPos.y).getCharacter() == 'D'
     }
 
-    def "SpellHealthDamage Draw Test"(){
+    def "spell.template.SpellHealthDamage Draw Test"(){
         given:
             Screen screen;
             TerminalSize terminalSize = new TerminalSize(150, 50)
@@ -136,7 +145,7 @@ class SpellTemplateTest extends Specification{
             assert graphics.getCharacter(realPos.x, realPos.y).getCharacter() == ('X' as char)
     }
 
-    def "SpellLessGunDamage Draw Test"(){
+    def "spell.template.SpellLessGunDamage Draw Test"(){
         given:
             Screen screen
             TerminalSize terminalSize = new TerminalSize(150, 50)
@@ -155,7 +164,7 @@ class SpellTemplateTest extends Specification{
             assert graphics.getCharacter(realPos.x, realPos.y).getCharacter() == ('L' as char)
     }
 
-    def "SpellTPBack Draw Test"(){
+    def "spell.template.SpellTPBack Draw Test"(){
         given:
             Screen screen
             TerminalSize terminalSize = new TerminalSize(150, 50)
@@ -174,7 +183,7 @@ class SpellTemplateTest extends Specification{
             assert graphics.getCharacter(realPos.x, realPos.y).getCharacter() == ('T' as char)
     }
 
-    def "SpellInvincible Draw Test"(){
+    def "spell.template.SpellInvincible Draw Test"(){
         given:
             Screen screen;
             TerminalSize terminalSize = new TerminalSize(150, 50)
@@ -185,7 +194,7 @@ class SpellTemplateTest extends Specification{
             screen.startScreen()             // screens must be started
             screen.doResizeIfNecessary()
             def graphics = screen.newTextGraphics()
-            SpellTemplate s
+        SpellTemplate s
         when:
             s = new SpellInvincible(realPos)
             s.draw(graphics)
@@ -194,7 +203,7 @@ class SpellTemplateTest extends Specification{
     }
 
 
-    def "SpellNerfed Draw Test"(){
+    def "spell.template.SpellNerfed Draw Test"(){
         given:
             Screen screen
             TerminalSize terminalSize = new TerminalSize(150, 50)

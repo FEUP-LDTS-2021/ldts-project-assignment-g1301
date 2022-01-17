@@ -1,10 +1,13 @@
+import position.Position
+import spaceship.Spaceship
+import spaceship.observer.SpaceshipObserver
 import spock.lang.Specification
 
 class SpaceshipObserverTest extends Specification{
     def "addSpaceshipObserver_no_action"(){
         given:
             Spaceship spaceship = new Spaceship(1,1,new Position(10,10));
-            SpaceshipObserver observer = Mock(SpaceshipObserver);
+        SpaceshipObserver observer = Mock(SpaceshipObserver);
         when:
             spaceship.addObserver(observer);
         then:
@@ -13,7 +16,7 @@ class SpaceshipObserverTest extends Specification{
     }
     def "addSpaceshipObserver_caught_tp_back"(){
         given:
-            Spaceship spaceship = new Spaceship(1,1,new Position(10,10));
+        Spaceship spaceship = new Spaceship(1,1,new Position(10,10));
             SpaceshipObserver observer = Mock(SpaceshipObserver);
         when:
             spaceship.addObserver(observer);
