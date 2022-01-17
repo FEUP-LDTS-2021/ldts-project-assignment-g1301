@@ -62,19 +62,17 @@ public class Enemy implements EnemyDefiner {
     }
 
     @Override
-    public void move() {
-        movementStrategy.move(this);
-    }
-
-    @Override
-    public void moveLeft() {
-        position.setX(position.getX() - 1);
+    public void move(boolean moveRight) {
+        movementStrategy.move(this, moveRight);
     }
 
     @Override
     public void moveRight() {
         position.setX(position.getX() + 1);
     }
+
+    @Override
+    public void moveLeft(){position.setX(position.getX() - 1);}
 
     @Override
     public void moveUp() {
@@ -86,10 +84,6 @@ public class Enemy implements EnemyDefiner {
         position.setY(position.getY() + 1);
     }
 
-    @Override
-    public boolean isMovingRight() {
-        return movingRight;
-    }
 
     @Override
     public void setMoveRight(boolean moveRight) {
@@ -144,10 +138,6 @@ public class Enemy implements EnemyDefiner {
         graphics.putString(new TerminalPosition(position.getX(), position.getY()), "R");
     }
 
-    @Override
-    public void setShots(List<Shot> shots) {
-        this.shots = shots;
-    }
 
     @Override
     public String getColor() {

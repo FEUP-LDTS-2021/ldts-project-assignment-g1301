@@ -1,28 +1,25 @@
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Spaceship implements SpaceShipDefiner{
 
     SpaceShipState state;
-    Integer health, velocity,damage;
+    Integer health, damage;
+    Integer score = 0;
     Position position;
-    List<SpellTemplate> spells;
     List<Shot> shots;
     long last_transition_instant;
-    public Spaceship(Integer health,Integer velocity,Integer damage, Position position){
+    SpaceshipObserver tpObserver;
+    public Spaceship(Integer health,Integer damage, Position position){
         this.health = health;
-        this.velocity = velocity;
         this.damage = damage;
         this.position = position;
         this.shots = new ArrayList<>();
         this.state = new NormalSpaceShipState(this);
+        tpObserver = new SpaceshipObserver();
     }
 
     @Override
@@ -35,10 +32,6 @@ public class Spaceship implements SpaceShipDefiner{
         return this.state.getPosition();
     }
 
-    @Override
-    public Integer getVelocity() {
-        return  this.state.getVelocity();
-    }
 
     @Override
     public Integer getDamage() {
@@ -51,23 +44,11 @@ public class Spaceship implements SpaceShipDefiner{
     }
 
     @Override
-    public void set_shots(List<Shot> shots) {
-        this.state.set_shots(shots);
-    }
-
-    @Override
-    public List<SpellTemplate> getSpells() {
-        return this.state.getSpells();
-    }
-
-    @Override
-    public void removePowerUp() {
-        this.state.removePowerUp();
-    }
+    public  Integer getScore(){ return this.score;}
 
     @Override
     public boolean isDead() {
-        return this.state.getHealth()<=0;
+        return this.state.isDead();
     }
 
     @Override
@@ -81,14 +62,12 @@ public class Spaceship implements SpaceShipDefiner{
     }
 
     @Override
-    public void setVelocity(Integer velocity) {
-        this.state.setVelocity(velocity);
-    }
-
-    @Override
     public void setDamage(Integer damage) {
         this.state.setDamage(damage);
     }
+
+    @Override
+    public void setScore(Integer score){this.score = score;}
 
     @Override
     public void draw(TextGraphics graphics) throws IOException {
@@ -115,6 +94,11 @@ public class Spaceship implements SpaceShipDefiner{
         this.state.removeShot(shot);
     }
 
+    @Override
+    public void addObserver(SpaceshipObserver spaceshipObserver) {
+        tpObserver = spaceshipObserver;
+    }
+
     void becomeInvincible(){
         this.state= new InvincibleSpaceShipState(this);
         this.last_transition_instant = System.currentTimeMillis();
@@ -129,4 +113,13 @@ public class Spaceship implements SpaceShipDefiner{
         this.last_transition_instant = System.currentTimeMillis();
     }
 
+    @Override
+    public void caughtTPBack(Position pos){
+        tpObserver.caughtTPback(this);
+    }
+
+    @Override
+    public void usedTPBack(){
+        tpObserver.usedTPback(this);
+    }
 }

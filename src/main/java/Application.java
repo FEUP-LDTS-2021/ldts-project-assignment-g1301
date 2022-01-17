@@ -5,6 +5,8 @@ public class Application {
         try{
             Game g = Game.getInstance();
             g.run();
+            Menu m = new Menu();
+            m.interactions();
         }
         catch(IOException e){
             e.printStackTrace();;

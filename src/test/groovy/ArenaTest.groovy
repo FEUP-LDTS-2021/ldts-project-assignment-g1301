@@ -1,3 +1,8 @@
+import com.googlecode.lanterna.TerminalSize
+import com.googlecode.lanterna.screen.Screen
+import com.googlecode.lanterna.screen.TerminalScreen
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory
+import com.googlecode.lanterna.terminal.Terminal
 import spock.lang.Specification
 import com.googlecode.lanterna.input.KeyType
 import com.googlecode.lanterna.input.KeyStroke
@@ -15,7 +20,7 @@ class ArenaTest extends Specification{
             SpaceShipDefiner s
         when:
             e = new Enemy(10, new Position(2,1),new HorizontalMovementStrategy(),new NormalShotStrategy())
-            s = new Spaceship(10,1,1,new Position(2,5))
+            s = new Spaceship(10,1,new Position(2,5))
             arena.addEnemy(e)
             arena.setSpaceship(s)
             e.shoot()
@@ -33,7 +38,7 @@ class ArenaTest extends Specification{
             SpaceShipDefiner s
         when:
             e = new Enemy(10,new Position(2,1),new HorizontalMovementStrategy(),new BigShotStrategy())
-            s = new Spaceship(10,1,1,new Position(3,5))
+            s = new Spaceship(10,1,new Position(3,5))
             arena.addEnemy(e)
             arena.setSpaceship(s)
             e.shoot()
@@ -63,9 +68,9 @@ class ArenaTest extends Specification{
             arena1 = new Arena(10,10)
             arena2 = new Arena(10,10)
             arena3 = new Arena(10,10)
-            spaceship1 = new Spaceship(10,1,1,new Position(2,2))
-            spaceship2 = new Spaceship(10,1,1,new Position(2,2))
-            spaceship3 = new Spaceship(10,1,1,new Position(2,2))
+            spaceship1 = new Spaceship(10,1,new Position(2,2))
+            spaceship2 = new Spaceship(10,1,new Position(2,2))
+            spaceship3 = new Spaceship(10,1,new Position(2,2))
             x= spaceship3.getShots().size()
             arena1.setSpaceship(spaceship1)
             arena2.setSpaceship(spaceship2)
@@ -85,7 +90,7 @@ class ArenaTest extends Specification{
             SpaceShipDefiner s
         when:
             e = new Enemy(10,new Position(2,2),new HorizontalMovementStrategy(),new NormalShotStrategy())
-            s = new Spaceship(10,1,1,new Position(2,5))
+            s = new Spaceship(10,1,new Position(2,5))
             arena.addEnemy(e)
             arena.setSpaceship(s)
             s.shoot()
@@ -102,7 +107,7 @@ class ArenaTest extends Specification{
             SpaceShipDefiner s
         when:
             e = new Enemy(10,new Position(2,2),new HorizontalMovementStrategy(),new NormalShotStrategy())
-            s = new Spaceship(110,1,1,new Position(2,5))
+            s = new Spaceship(110,1,new Position(2,5))
             arena.addEnemy(e)
             arena.setSpaceship(s)
             e.shoot()
@@ -117,11 +122,11 @@ class ArenaTest extends Specification{
         given:
             EnemyDefiner e
         when:
-            e = new Enemy(10,new Position(10,4), new HorizontalMovementStrategy(), new NormalShotStrategy())
+            e = new Enemy(10,new Position(9,4), new HorizontalMovementStrategy(), new NormalShotStrategy())
             arena.addEnemy(e)
             arena.moveEnemies()
         then:
-            assert e.getPosition().getX() == 0
+            assert e.getPosition().getX() == 8
     }
 
     def "move_enemies_test"(){
@@ -139,8 +144,11 @@ class ArenaTest extends Specification{
         given:
             SpaceShipDefiner s
         when:
-            s = new Spaceship(10,1,1,new Position(2,2))
+            s = new Spaceship(10,1,new Position(2,2))
             arena.setSpaceship(s)
+            def e = new Enemy(100,new Position(10,10),new HorizontalMovementStrategy(),new NormalShotStrategy())
+            arena.addEnemy(e)
+            e.shoot()
             s.shoot()
             arena.moveShots()
         then:
@@ -152,7 +160,7 @@ class ArenaTest extends Specification{
             SpaceShipDefiner s
             EnemyDefiner e
         when:
-            s = new Spaceship(10,1,1,new Position(2,0))
+            s = new Spaceship(10,1,new Position(2,0))
             e = new Enemy(10,new Position(3,10),new HorizontalMovementStrategy(),new NormalShotStrategy())
             s.shoot()
             e.shoot()
@@ -400,6 +408,85 @@ class ArenaTest extends Specification{
             arena.checkActiveSpells()
         then:
            assert arena.getSpells().size() == 0
+    }
+
+    def "check_tp_back"() {
+        given:
+            Position old_pos = new Position(1, 2)
+            Position new_pos = new Position(5, 10)
+            SpellTemplate spell = new SpellTPBack(old_pos)
+            arena.spells.add(spell)
+            Spaceship s = new Spaceship(1000, 100, new Position(1, 2))
+            SpaceshipObserver observer = Spy(SpaceshipObserver)
+            s.addObserver(observer)
+            arena.setSpaceship(s)
+            KeyStroke key = Mock(KeyStroke)
+            key.getCharacter() >> 't'
+            key.getKeyType() >> KeyType.Character
+        when:
+            arena.checkCaughtSpell()
+            s.setPosition(new_pos)
+            arena.processKey(key)
+        then:
+            assert (s.getPosition().getX() == old_pos.getX() && s.getPosition().getY() == old_pos.getY())
+            1 * observer.caughtTPback(s)
+            1 * observer.usedTPback(s)
+    }
+    def "arena_health_draw"(){
+        given:
+            Screen screen;
+            TerminalSize terminalSize = new TerminalSize(150, 50);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
+            screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);   // we don't need a cursor
+            screen.startScreen();             // screens must be started
+            screen.doResizeIfNecessary();
+            def graphics = screen.newTextGraphics();
+            Arena a
+        when:
+            a = new Arena(150,50)
+            a.draw(graphics)
+        then:
+            assert graphics.getCharacter(0,0).getCharacter() == ('H' as char)
+    }
+
+    def "arena_damage_draw"(){
+        given:
+            Screen screen;
+            TerminalSize terminalSize = new TerminalSize(150, 50);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
+            screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);   // we don't need a cursor
+            screen.startScreen();             // screens must be started
+            screen.doResizeIfNecessary();
+            def graphics = screen.newTextGraphics();
+            Arena a
+        when:
+            a = new Arena(150,50)
+            a.draw(graphics)
+        then:
+            assert graphics.getCharacter(14,0).getCharacter() == ('D' as char)
+    }
+
+    def "arena_score_draw"(){
+        given:
+            Screen screen;
+            TerminalSize terminalSize = new TerminalSize(150, 50);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
+            screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);   // we don't need a cursor
+            screen.startScreen();             // screens must be started
+            screen.doResizeIfNecessary();
+            def graphics = screen.newTextGraphics();
+            Arena a
+        when:
+            a = new Arena(150,50)
+            a.draw(graphics)
+        then:
+            assert graphics.getCharacter(28,0).getCharacter() == ('S' as char)
     }
 }
 

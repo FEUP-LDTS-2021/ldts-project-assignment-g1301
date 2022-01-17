@@ -6,16 +6,11 @@ import java.util.List;
 public interface SpaceShipState {
     Integer getHealth();
     Position getPosition();
-    Integer getVelocity();
     Integer getDamage();
     List<Shot> getShots();
-    void set_shots (List<Shot> shots);
-    List<SpellTemplate> getSpells();
-    void removePowerUp();
     boolean isDead();
     void setHealth(Integer health);
     void setPosition(Position position);
-    void setVelocity(Integer velocity);
     void setDamage(Integer damage);
     void draw(TextGraphics graphics) throws IOException;
     void moveLeft();

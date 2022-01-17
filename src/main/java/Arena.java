@@ -17,6 +17,7 @@ public class Arena implements ArenaDefiner {
     private final Integer width;
     private final Integer height;
     private Integer level;
+    private boolean movingRight;
 
 
     @Override
@@ -111,9 +112,11 @@ public class Arena implements ArenaDefiner {
         this.width = width;
         this.height = height;
         this.level = 0;
-        spaceship = new Spaceship(1000,1,100,new Position(width/2,height-2));
+        spaceship = new Spaceship(1000,100,new Position(width/2,height-2));
+        spaceship.addObserver(new SpaceshipObserver());
         enemies = new ArrayList<>();
         spells = new ArrayList<>();
+        movingRight = true;
     }
 
     @Override
@@ -145,6 +148,10 @@ public class Arena implements ArenaDefiner {
     public void draw(TextGraphics graphics) throws IOException {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#22347D"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        graphics.putString(new TerminalPosition(0,0), "Health : " + spaceship.getHealth());
+        graphics.putString(new TerminalPosition(14,0), "Damage : " + spaceship.getDamage());
+        graphics.putString(new TerminalPosition(28,0), "Score : " + spaceship.getScore());
         for (Enemy enemy : getEnemies()) {
             for (Shot shot : enemy.getShots()) {
                 shot.draw(graphics);
@@ -184,6 +191,9 @@ public class Arena implements ArenaDefiner {
                         break;
                     case 'N':
                         spaceship.becomeNerfed();
+                        break;
+                    case 'T':
+                        spaceship.caughtTPBack(spaceship.getPosition());
                         break;
                     default:
                         break;
@@ -239,6 +249,9 @@ public class Arena implements ArenaDefiner {
                     if (spaceship.getPosition().getX() < getWidth()-1)
                         spaceship.getPosition().setX(spaceship.getPosition().getX() + 1);
                     break;
+                case 't':
+                    spaceship.usedTPBack();
+                    break;
                 case ' ':
                     if(spaceship.state.getClass()!=NerfedSpaceShipState.class)
                         spaceship.shoot();
@@ -266,6 +279,7 @@ public class Arena implements ArenaDefiner {
 
                     if (enemies.get(j).getHealth()<=0) {
                         enemies.remove(enemies.get(j));
+                        spaceship.setScore(spaceship.getScore() + 100 * level );
                     }
                     break;
                 }
@@ -275,7 +289,7 @@ public class Arena implements ArenaDefiner {
 
 
     @Override
-    public boolean checkShotsHitSpaceship() {
+    public void checkShotsHitSpaceship() {
         for (Integer i=0;i<enemies.size();i++) {
             for (Integer j = 0; j < enemies.get(i).getShots().size();j++) {
                 Integer shotWidthOffset = enemies.get(i).getShots().get(j).getWidth() / 2;
@@ -286,18 +300,14 @@ public class Arena implements ArenaDefiner {
                         shotRight >= spaceship.getPosition().getX()) {
 
 
-                    if(spaceship.state.getClass()!= InvincibleSpaceShipState.class)
+                    if (spaceship.state.getClass() != InvincibleSpaceShipState.class)
                         spaceship.setHealth(spaceship.getHealth() - enemies.get(i).getShots().get(j).getDamage());
 
                     enemies.get(i).removeShot(enemies.get(i).getShots().get(j));
                     j--;
-
-                    if (spaceship.isDead())
-                        return false;
                 }
             }
         }
-        return true;
     }
 
     @Override
@@ -320,18 +330,31 @@ public class Arena implements ArenaDefiner {
 
     @Override
     public void moveEnemies() {
+        if ((enemies.get(enemies.size() - 1).getPosition().getX() == width - 1 || !movingRight) && !(enemies.get(0).getPosition().getX() == 0)) {
+            movingRight = false;
+            moveEnemiesLeft();
+        } else {moveEnemiesRight(); movingRight = true;}
+
+    }
+
+    @Override
+    public void moveEnemiesLeft(){
         for (Enemy enemy: enemies){
-            enemy.move();
-            if (enemy.getPosition().getX() > width){
-                enemy.getPosition().setX(0);
-            }
+            enemy.move(false);
+        }
+    }
+
+    @Override
+    public void moveEnemiesRight(){
+        for (Enemy enemy: enemies){
+            enemy.move(true);
         }
     }
 
 
 
     @Override
-    public boolean moveShots(){
+    public void moveShots(){
 
         for(Enemy enemy:enemies){
             for(Shot shot:enemy.getShots()){
@@ -339,8 +362,7 @@ public class Arena implements ArenaDefiner {
             }
         }
         checkShotCollisions();
-        if(!checkShotsHitSpaceship())
-            return false;
+        checkShotsHitSpaceship();
 
         for(Shot shot:spaceship.getShots()){
             shot.moveUp();
@@ -349,13 +371,12 @@ public class Arena implements ArenaDefiner {
         checkShotsHitEnemies();
 
         removeShotsOutOfBounds();
-        return true;
     }
 
 
     @Override
     public void createSpell(){
-        if (Math.random() > 0.995)
+        if (Math.random() > 0.99)
             addSpell();
     }
     @Override

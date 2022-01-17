@@ -1,3 +1,3 @@
 public interface MovementStrategy {
-    void move(Enemy enemy);
+    void move(Enemy enemy,boolean right);
 }

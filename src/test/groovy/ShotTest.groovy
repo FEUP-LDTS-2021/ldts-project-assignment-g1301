@@ -1,3 +1,8 @@
+import com.googlecode.lanterna.TerminalSize
+import com.googlecode.lanterna.screen.Screen
+import com.googlecode.lanterna.screen.TerminalScreen
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory
+import com.googlecode.lanterna.terminal.Terminal
 import spock.lang.Specification
 
 class ShotTest extends Specification{
@@ -79,4 +84,42 @@ class ShotTest extends Specification{
            assert s.getColor() == "#00FFFF";
     }
 
+
+    def "Normal shot draw"(){
+        given:
+            Screen screen;
+            TerminalSize terminalSize = new TerminalSize(150, 50);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
+            screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);   // we don't need a cursor
+            screen.startScreen();             // screens must be started
+            screen.doResizeIfNecessary();
+            def graphics = screen.newTextGraphics();
+            ShotDefiner s
+        when:
+            s = new Shot(0,0,0,pos);
+            s.draw(graphics);
+        then:
+            assert graphics.getCharacter(pos.x, pos.y).getCharacter()== ('|' as char);
+    }
+    def "Big shot draw"(){
+        given:
+            Screen screen;
+            TerminalSize terminalSize = new TerminalSize(150, 50);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
+            screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);   // we don't need a cursor
+            screen.startScreen();             // screens must be started
+            screen.doResizeIfNecessary();
+            def graphics = screen.newTextGraphics();
+            ShotDefiner s
+        when:
+            s = new Shot(0,3,0,pos);
+            s.draw(graphics);
+        then:
+            for(Integer x=pos.x-1; x<=pos.x+1; x++)
+                assert graphics.getCharacter(x, pos.y).getCharacter()== ('|' as char);
+    }
 }

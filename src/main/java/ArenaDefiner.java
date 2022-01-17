@@ -34,7 +34,7 @@ public interface ArenaDefiner {
 
     void checkShotCollisions();
 
-    boolean checkShotsHitSpaceship();
+    void checkShotsHitSpaceship();
 
     void processKey(KeyStroke key);
 
@@ -44,7 +44,7 @@ public interface ArenaDefiner {
 
     void moveEnemies();
 
-    boolean moveShots();
+    void moveShots();
 
     void shootEnemies();
 
@@ -53,4 +53,8 @@ public interface ArenaDefiner {
     void checkActiveSpells();
 
     void createSpell();
+
+    void moveEnemiesLeft();
+
+    void moveEnemiesRight();
 }

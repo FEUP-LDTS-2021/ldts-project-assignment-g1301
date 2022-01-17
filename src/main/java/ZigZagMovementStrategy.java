@@ -1,6 +1,6 @@
 public class ZigZagMovementStrategy implements MovementStrategy{
     @Override
-    public void move(Enemy enemy) {
+    public void move(Enemy enemy,boolean right) {
         if (enemy.isMovingDown()){
              enemy.moveUp();
              enemy.setMoveDown(false);
@@ -8,6 +8,8 @@ public class ZigZagMovementStrategy implements MovementStrategy{
             enemy.moveDown();
             enemy.setMoveDown(true);
         }
-        enemy.moveRight();
+        if (right)
+            enemy.moveRight();
+        else enemy.moveLeft();
     }
 }

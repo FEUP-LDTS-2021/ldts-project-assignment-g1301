@@ -1,3 +1,10 @@
+import com.googlecode.lanterna.TerminalPosition
+import com.googlecode.lanterna.TerminalSize
+import com.googlecode.lanterna.graphics.TextGraphics
+import com.googlecode.lanterna.screen.Screen
+import com.googlecode.lanterna.screen.TerminalScreen
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory
+import com.googlecode.lanterna.terminal.Terminal
 import spock.lang.Specification
 
 class EnemyTest extends Specification{
@@ -25,25 +32,36 @@ class EnemyTest extends Specification{
     }
 
 
-    def "move_horizontal_test"(){
+    def "move_horizontal_right_test"(){
         given:
             EnemyDefiner e
         when:
             e = new Enemy(10,pos,new HorizontalMovementStrategy(),new NormalShotStrategy())
-            e.move()
+            e.move(true)
         then:
             assert e.getPosition().getX() == 3
     }
 
 
-    def "move_zig_zag_test"(){
+    def "move_zig_zag_test_up"(){
         given:
             EnemyDefiner e
         when:
             e = new Enemy(10,pos,new ZigZagMovementStrategy(), new NormalShotStrategy());
-            e.move();
+            e.move(true)
         then:
             assert e.getPosition().getY() == 3
+    }
+
+    def "move_zig_zag_test_down"(){
+        given:
+            EnemyDefiner e
+        when:
+            e = new Enemy(10,pos,new ZigZagMovementStrategy(), new NormalShotStrategy());
+            e.move(true)
+            e.move(true)
+        then:
+            assert e.getPosition().getY() == 2
     }
 
     def "normal_shot_test"(){
@@ -75,5 +93,24 @@ class EnemyTest extends Specification{
             e.shoot()
         then:
             assert e.getShots()[0].width == 3
+    }
+
+    def "enemy_draw"(){
+        given:
+            Screen screen;
+            TerminalSize terminalSize = new TerminalSize(150, 50);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
+            screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);   // we don't need a cursor
+            screen.startScreen();             // screens must be started
+            screen.doResizeIfNecessary();
+            def graphics = screen.newTextGraphics();
+            EnemyDefiner e
+        when:
+            e = new Enemy(10,pos,new HorizontalMovementStrategy(), new DamageShotStrategy())
+            e.draw(graphics);
+        then:
+            assert graphics.getCharacter(pos.x, pos.y).getCharacter()== ('R' as char);
     }
 }
