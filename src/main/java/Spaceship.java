@@ -1,11 +1,7 @@
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Spaceship implements SpaceShipDefiner{
@@ -15,12 +11,14 @@ public class Spaceship implements SpaceShipDefiner{
     Position position;
     List<Shot> shots;
     long last_transition_instant;
+    SpaceshipObserver tpObserver;
     public Spaceship(Integer health,Integer damage, Position position){
         this.health = health;
         this.damage = damage;
         this.position = position;
         this.shots = new ArrayList<>();
         this.state = new NormalSpaceShipState(this);
+        tpObserver = new SpaceshipObserver();
     }
 
     @Override
@@ -90,6 +88,11 @@ public class Spaceship implements SpaceShipDefiner{
         this.state.removeShot(shot);
     }
 
+    @Override
+    public void addObserver(SpaceshipObserver spaceshipObserver) {
+        tpObserver = spaceshipObserver;
+    }
+
     void becomeInvincible(){
         this.state= new InvincibleSpaceShipState(this);
         this.last_transition_instant = System.currentTimeMillis();
@@ -104,4 +107,13 @@ public class Spaceship implements SpaceShipDefiner{
         this.last_transition_instant = System.currentTimeMillis();
     }
 
+    @Override
+    public void caughtTPBack(Position pos){
+        tpObserver.caughtTPback(this);
+    }
+
+    @Override
+    public void usedTPBack(){
+        tpObserver.usedTPback(this);
+    }
 }

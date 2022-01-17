@@ -112,6 +112,7 @@ public class Arena implements ArenaDefiner {
         this.height = height;
         this.level = 0;
         spaceship = new Spaceship(1000,100,new Position(width/2,height-2));
+        spaceship.addObserver(new SpaceshipObserver());
         enemies = new ArrayList<>();
         spells = new ArrayList<>();
     }
@@ -185,6 +186,9 @@ public class Arena implements ArenaDefiner {
                     case 'N':
                         spaceship.becomeNerfed();
                         break;
+                    case 'T':
+                        spaceship.caughtTPBack(spaceship.getPosition());
+                        break;
                     default:
                         break;
                 }
@@ -238,6 +242,9 @@ public class Arena implements ArenaDefiner {
                 case 'd':
                     if (spaceship.getPosition().getX() < getWidth()-1)
                         spaceship.getPosition().setX(spaceship.getPosition().getX() + 1);
+                    break;
+                case 't':
+                    spaceship.usedTPBack();
                     break;
                 case ' ':
                     if(spaceship.state.getClass()!=NerfedSpaceShipState.class)
