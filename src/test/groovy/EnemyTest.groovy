@@ -32,12 +32,12 @@ class EnemyTest extends Specification{
     }
 
 
-    def "move_horizontal_test"(){
+    def "move_horizontal_right_test"(){
         given:
             EnemyDefiner e
         when:
             e = new Enemy(10,pos,new HorizontalMovementStrategy(),new NormalShotStrategy())
-            e.move()
+            e.move(true)
         then:
             assert e.getPosition().getX() == 3
     }
@@ -48,7 +48,7 @@ class EnemyTest extends Specification{
             EnemyDefiner e
         when:
             e = new Enemy(10,pos,new ZigZagMovementStrategy(), new NormalShotStrategy());
-            e.move()
+            e.move(true)
         then:
             assert e.getPosition().getY() == 3
     }
@@ -58,8 +58,8 @@ class EnemyTest extends Specification{
             EnemyDefiner e
         when:
             e = new Enemy(10,pos,new ZigZagMovementStrategy(), new NormalShotStrategy());
-            e.move()
-            e.move()
+            e.move(true)
+            e.move(true)
         then:
             assert e.getPosition().getY() == 2
     }

@@ -43,6 +43,7 @@ public class Game implements GameDefiner{
         myThread.start();
         while (true) {
             if (arena.getEnemies().size() == 0) arena.createEnemies();
+            arena.moveEnemies();
             draw();
             if (arena.getSpaceship().isDead()) {
                 screen.close();
@@ -71,7 +72,6 @@ public class Game implements GameDefiner{
                 arena.processKey(key);
                 myThread.key = null;
             }
-            arena.moveEnemies();
             arena.shootEnemies();
             arena.checkShotCollisions();
             arena.checkShotsHitEnemies();
