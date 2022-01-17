@@ -72,6 +72,36 @@ public class Arena implements ArenaDefiner {
         enemies.add(e);
     }
 
+
+    public SpellTemplate generateSpell(Position pos){
+        Random random = new Random();
+        int spellNr = random.nextInt(7);
+        SpellTemplate spell;
+        switch (spellNr) {
+            case 0:
+                spell = new SpellHealth(pos);
+                break;
+            case 1:
+                spell = new SpellHealthDamage(pos);
+                break;
+            case 2:
+                spell = new SpellGunDamage(pos);
+                break;
+            case 3:
+                spell = new SpellLessGunDamage(pos);
+                break;
+            case 4:
+                spell = new SpellInvincible(pos);
+                break;
+            case 5:
+                spell = new SpellTPBack(pos);
+                break;
+            default:
+                spell = new SpellNerfed(pos);
+                break;
+        }
+        return spell;
+    }
     @Override
     public void addSpell() {
         Random random = new Random();
@@ -84,60 +114,12 @@ public class Arena implements ArenaDefiner {
         }
         if(listX.size()>1) {
             Position pos = new Position(listX.get(random.nextInt(listX.size() - 1)), getHeight() - 2);
-            int spellNr = random.nextInt(7);
-            SpellTemplate spell;
-            switch (spellNr) {
-                case 0:
-                    spell = new SpellHealth(pos);
-                    break;
-                case 1:
-                    spell = new SpellHealthDamage(pos);
-                    break;
-                case 2:
-                    spell = new SpellGunDamage(pos);
-                    break;
-                case 3:
-                    spell = new SpellLessGunDamage(pos);
-                    break;
-                case 4:
-                    spell = new SpellInvincible(pos);
-                    break;
-                case 5:
-                    spell = new SpellTPBack(pos);
-                    break;
-                default:
-                    spell = new SpellNerfed(pos);
-                    break;
-            }
+            SpellTemplate spell = generateSpell(pos);
             spells.add(spell);
         }
         else if (listX.size()==1){
             Position pos = new Position(listX.get(0),getHeight()-2);
-            int spellNr = random.nextInt(7);
-            SpellTemplate spell;
-            switch (spellNr) {
-                case 0:
-                    spell = new SpellHealth(pos);
-                    break;
-                case 1:
-                    spell = new SpellHealthDamage(pos);
-                    break;
-                case 2:
-                    spell = new SpellGunDamage(pos);
-                    break;
-                case 3:
-                    spell = new SpellLessGunDamage(pos);
-                    break;
-                case 4:
-                    spell = new SpellInvincible(pos);
-                    break;
-                case 5:
-                    spell = new SpellTPBack(pos);
-                    break;
-                default:
-                    spell = new SpellNerfed(pos);
-                    break;
-            }
+            SpellTemplate spell = generateSpell(pos);
             spells.add(spell);
         }
     }
