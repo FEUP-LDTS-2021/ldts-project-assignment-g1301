@@ -55,7 +55,6 @@ public class Game implements GameDefiner {
         while (true) {
             if (arena.getEnemies().size() == 0)
                 arena.createEnemies();
-            if (arena.getEnemies().size() == 0) arena.createEnemies();
             arena.moveEnemies();
             draw();
             if (arena.getSpaceship().isDead()) {
@@ -71,11 +70,7 @@ public class Game implements GameDefiner {
                 f.printStackTrace();
             }
             if (key != null) {
-                if (key.getKeyType() == KeyType.EOF) {
-                    screen.close();
-                    exit(0);
-                }
-                if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') {
+                if ((key.getKeyType() == KeyType.Character && key.getCharacter() == 'q')||(key.getKeyType() == KeyType.EOF)) {
                     screen.close();
                     exit(0);
                 }
