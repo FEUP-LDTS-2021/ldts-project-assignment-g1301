@@ -404,5 +404,29 @@ class ArenaTest extends Specification{
         then:
            assert arena.getSpells().size() == 0
     }
+
+    def "check_tp_back"(){
+        given:
+            Position old_pos = new Position(1,2)
+            Position new_pos = new Position(5,10)
+            SpellTemplate spell = new SpellTPBack(old_pos)
+            arena.spells.add(spell)
+            Spaceship s = new Spaceship(1000,100,new Position(1,2))
+            SpaceshipObserver observer = Spy(SpaceshipObserver)
+            s.addObserver(observer)
+            arena.setSpaceship(s)
+            KeyStroke key = Mock(KeyStroke)
+            key.getCharacter() >> 't'
+            key.getKeyType() >> KeyType.Character
+        when:
+            arena.checkCaughtSpell()
+            s.setPosition(new_pos)
+            arena.processKey(key)
+        then:
+            assert (s.getPosition().getX()==old_pos.getX() && s.getPosition().getY()==old_pos.getY())
+            1*observer.caughtTPback(s)
+            1*observer.usedTPback(s)
+
+    }
 }
 
