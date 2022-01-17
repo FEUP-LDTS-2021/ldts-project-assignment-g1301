@@ -18,4 +18,10 @@ public interface SpaceShipDefiner {
     void moveRight();
     void shoot();
     void removeShot(Shot shot);
+
+    void addObserver(SpaceshipObserver spaceshipObserver);
+
+    void caughtTPBack(Position pos);
+
+    void usedTPBack();
 }
