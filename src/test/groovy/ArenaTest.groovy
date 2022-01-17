@@ -341,7 +341,7 @@ class ArenaTest extends Specification{
         when:
             arena.checkCaughtSpell();
         then:
-            assert arena.spaceship.state="invincible"
+            assert arena.spaceship.state=="invincible"
             assert arena.getSpells().size()==0
     }
 
