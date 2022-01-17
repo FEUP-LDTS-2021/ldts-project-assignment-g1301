@@ -8,6 +8,7 @@ import com.googlecode.lanterna.input.KeyType;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class Arena implements ArenaDefiner {
@@ -183,7 +184,7 @@ public class Arena implements ArenaDefiner {
                         spaceship.setHealth(spaceship.getHealth()+300);
                         break;
                     case 'X':
-                        if(spaceship.state.getClass()!=InvincibleSpaceShipState.class)
+                        if(!Objects.equals(spaceship.state, "invincible"))
                             spaceship.setHealth(spaceship.getHealth()-200);
                         break;
                     case 'L':
@@ -207,7 +208,7 @@ public class Arena implements ArenaDefiner {
     @Override
     public void updateSpaceShipState(){
         if(System.currentTimeMillis()-spaceship.last_transition_instant>=10000 &&
-        spaceship.state.getClass()!=NormalSpaceShipState.class){
+                !Objects.equals(spaceship.state, "normal")){
             spaceship.becomeNormal();
         }
     }
@@ -253,7 +254,7 @@ public class Arena implements ArenaDefiner {
                     spaceship.usedTPBack();
                     break;
                 case ' ':
-                    if(spaceship.state.getClass()!=NerfedSpaceShipState.class)
+                    if(!Objects.equals(spaceship.state, "nerfed"))
                         spaceship.shoot();
                     break;
             }
@@ -300,7 +301,7 @@ public class Arena implements ArenaDefiner {
                         shotRight >= spaceship.getPosition().getX()) {
 
 
-                    if (spaceship.state.getClass() != InvincibleSpaceShipState.class)
+                    if (!Objects.equals(spaceship.state, "invincible"))
                         spaceship.setHealth(spaceship.getHealth() - enemies.get(i).getShots().get(j).getDamage());
 
                     enemies.get(i).removeShot(enemies.get(i).getShots().get(j));

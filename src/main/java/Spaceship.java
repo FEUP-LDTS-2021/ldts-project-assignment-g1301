@@ -1,3 +1,5 @@
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.io.IOException;
@@ -6,7 +8,7 @@ import java.util.List;
 
 public class Spaceship implements SpaceShipDefiner{
 
-    SpaceShipState state;
+    String state;
     Integer health, damage;
     Integer score = 0;
     Position position;
@@ -18,29 +20,29 @@ public class Spaceship implements SpaceShipDefiner{
         this.damage = damage;
         this.position = position;
         this.shots = new ArrayList<>();
-        this.state = new NormalSpaceShipState(this);
+        this.state = "normal";
         tpObserver = new SpaceshipObserver();
     }
 
     @Override
     public Integer getHealth() {
-        return this.state.getHealth();
+        return this.health;
     }
 
     @Override
     public Position getPosition() {
-        return this.state.getPosition();
+        return this.position;
     }
 
 
     @Override
     public Integer getDamage() {
-        return this.state.getDamage();
+        return this.damage;
     }
 
     @Override
     public List<Shot> getShots() {
-        return this.state.getShots();
+        return this.shots;
     }
 
     @Override
@@ -48,22 +50,22 @@ public class Spaceship implements SpaceShipDefiner{
 
     @Override
     public boolean isDead() {
-        return this.state.isDead();
+        return this.health<=0;
     }
 
     @Override
     public void setHealth(Integer health) {
-        this.state.setHealth(health);
+        this.health=health;
     }
 
     @Override
     public void setPosition(Position position) {
-        this.state.setPosition(position);
+        this.position=position;
     }
 
     @Override
     public void setDamage(Integer damage) {
-        this.state.setDamage(damage);
+        this.damage=damage;
     }
 
     @Override
@@ -71,27 +73,31 @@ public class Spaceship implements SpaceShipDefiner{
 
     @Override
     public void draw(TextGraphics graphics) throws IOException {
-        this.state.draw(graphics);
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        graphics.putString(new TerminalPosition(this.position.getX(), this.position.getY()), "_");
     }
 
     @Override
     public void moveLeft() {
-        this.state.moveLeft();
+        this.position.setX(position.getX()-1);
     }
 
     @Override
     public void moveRight() {
-        this.state.moveRight();
+        this.position.setX(position.getX()+1);
     }
 
     @Override
     public void shoot() {
-        this.state.shoot();
+        Position pos = new Position(this.position.getX(),this.position.getY());
+        pos.setY(pos.getY()-1);
+        Shot bullet = new Shot(getDamage(),1,1,pos);
+        this.shots.add(bullet);
     }
 
     @Override
     public void removeShot(Shot shot) {
-        this.state.removeShot(shot);
+        this.shots.remove(shot);
     }
 
     @Override
@@ -100,16 +106,16 @@ public class Spaceship implements SpaceShipDefiner{
     }
 
     void becomeInvincible(){
-        this.state= new InvincibleSpaceShipState(this);
+        this.state= "invincible";
         this.last_transition_instant = System.currentTimeMillis();
     }
 
     void becomeNormal(){
-        this.state = new NormalSpaceShipState(this);
+        this.state ="normal";
     }
 
     void becomeNerfed() {
-        this.state = new NerfedSpaceShipState(this);
+        this.state = "nerfed";
         this.last_transition_instant = System.currentTimeMillis();
     }
 

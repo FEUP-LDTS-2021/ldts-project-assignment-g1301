@@ -341,7 +341,7 @@ class ArenaTest extends Specification{
         when:
             arena.checkCaughtSpell();
         then:
-            assert arena.spaceship.state.getClass()==InvincibleSpaceShipState.class
+            assert arena.spaceship.state="invincible"
             assert arena.getSpells().size()==0
     }
 
@@ -352,7 +352,7 @@ class ArenaTest extends Specification{
         when:
             arena.checkCaughtSpell();
         then:
-            assert arena.spaceship.state.getClass()==NerfedSpaceShipState.class
+            assert arena.spaceship.state=="nerfed"
             assert arena.getSpells().size()==0
     }
 
@@ -388,7 +388,7 @@ class ArenaTest extends Specification{
             }
             arena.updateSpaceShipState();
         then:
-            assert arena.getSpaceship().state.getClass() == NormalSpaceShipState.class
+            assert arena.getSpaceship().state == "normal"
     }
 
     def "check_active_spells_test"(){
