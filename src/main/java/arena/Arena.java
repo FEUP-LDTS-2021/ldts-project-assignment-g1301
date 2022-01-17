@@ -203,36 +203,40 @@ public class Arena implements ArenaDefiner {
     }
 
 
+    public void giveSpaceShipSpell(SpellTemplate s){
+        switch(s.getSymbol()){
+            case 'I':
+                spaceship.becomeInvincible();
+                break;
+            case 'D':
+                spaceship.setDamage(spaceship.getDamage()+100);
+                break;
+            case 'H':
+                spaceship.setHealth(spaceship.getHealth()+300);
+                break;
+            case 'X':
+                if(!Objects.equals(spaceship.state, "invincible"))
+                    spaceship.setHealth(spaceship.getHealth()-200);
+                break;
+            case 'L':
+                spaceship.setDamage(spaceship.getDamage()-100);
+                break;
+            case 'N':
+                spaceship.becomeNerfed();
+                break;
+            case 'T':
+                spaceship.caughtTPBack(spaceship.getPosition());
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public void checkCaughtSpell(){
         for(Integer i=0;i<spells.size();i++){
             if(getSpells().get(i).getPosition().getX().equals(spaceship.getPosition().getX())){
-                switch(getSpells().get(i).getSymbol()){
-                    case 'I':
-                        spaceship.becomeInvincible();
-                        break;
-                    case 'D':
-                        spaceship.setDamage(spaceship.getDamage()+100);
-                        break;
-                    case 'H':
-                        spaceship.setHealth(spaceship.getHealth()+300);
-                        break;
-                    case 'X':
-                        if(!Objects.equals(spaceship.state, "invincible"))
-                            spaceship.setHealth(spaceship.getHealth()-200);
-                        break;
-                    case 'L':
-                        spaceship.setDamage(spaceship.getDamage()-100);
-                        break;
-                    case 'N':
-                        spaceship.becomeNerfed();
-                        break;
-                    case 'T':
-                        spaceship.caughtTPBack(spaceship.getPosition());
-                        break;
-                    default:
-                        break;
-                }
+                giveSpaceShipSpell(getSpells().get(i));
                 getSpells().remove(getSpells().get(i));
             }
         }

@@ -74,12 +74,10 @@ public class Game implements GameDefiner {
                     screen.close();
                     exit(0);
                 }
-            }
-            arena.moveShots();
-            if (key != null){
                 arena.processKey(key);
                 myThread.key = null;
             }
+            arena.moveShots();
             arena.shootEnemies();
             arena.checkShotCollisions();
             arena.checkShotsHitEnemies();
