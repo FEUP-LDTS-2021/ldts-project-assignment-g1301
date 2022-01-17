@@ -13,11 +13,12 @@ public interface EnemyDefiner {
     void setHealth(Integer health);
     void setPosition(Position position);
     void draw(TextGraphics graphics);
-    void move();
+    void move(boolean moveRight);
     void normalShot();
     void bigShot();
     void damageShot();
     void moveRight();
+    void moveLeft();
     void setMoveRight(boolean moveRight);
     boolean isMovingDown();
     void setMoveDown(boolean moveDown);

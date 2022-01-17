@@ -8,11 +8,13 @@ public interface SpaceShipDefiner {
     Integer getHealth();
     Position getPosition();
     Integer getDamage();
+    Integer getScore();
     List<Shot> getShots();
     boolean isDead();
     void setHealth(Integer health);
     void setPosition(Position position);
     void setDamage(Integer damage);
+    void setScore(Integer score);
     void draw(TextGraphics graphics) throws IOException;
     void moveLeft();
     void moveRight();

@@ -8,6 +8,7 @@ public class Spaceship implements SpaceShipDefiner{
 
     SpaceShipState state;
     Integer health, damage;
+    Integer score = 0;
     Position position;
     List<Shot> shots;
     long last_transition_instant;
@@ -42,6 +43,8 @@ public class Spaceship implements SpaceShipDefiner{
         return this.state.getShots();
     }
 
+    @Override
+    public  Integer getScore(){ return this.score;}
 
     @Override
     public boolean isDead() {
@@ -62,6 +65,9 @@ public class Spaceship implements SpaceShipDefiner{
     public void setDamage(Integer damage) {
         this.state.setDamage(damage);
     }
+
+    @Override
+    public void setScore(Integer score){this.score = score;}
 
     @Override
     public void draw(TextGraphics graphics) throws IOException {

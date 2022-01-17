@@ -42,7 +42,8 @@ public class Game implements GameDefiner{
         myThread.screen = this.screen;
         myThread.start();
         while (true) {
-            if (arena.getEnemies().size() == 0) arena.createEnemies();
+            if (arena.getEnemies().size() == 0)
+                arena.createEnemies();
             draw();
             if (arena.getSpaceship().isDead()) {
                 screen.close();

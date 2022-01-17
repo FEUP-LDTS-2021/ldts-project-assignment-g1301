@@ -62,14 +62,17 @@ public class Enemy implements EnemyDefiner {
     }
 
     @Override
-    public void move() {
-        movementStrategy.move(this);
+    public void move(boolean moveRight) {
+        movementStrategy.move(this, moveRight);
     }
 
     @Override
     public void moveRight() {
         position.setX(position.getX() + 1);
     }
+
+    @Override
+    public void moveLeft(){position.setX(position.getX() - 1);}
 
     @Override
     public void moveUp() {

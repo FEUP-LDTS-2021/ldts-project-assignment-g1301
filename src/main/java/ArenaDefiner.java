@@ -53,4 +53,8 @@ public interface ArenaDefiner {
     void checkActiveSpells();
 
     void createSpell();
+
+    void moveEnemiesLeft();
+
+    void moveEnemiesRight();
 }

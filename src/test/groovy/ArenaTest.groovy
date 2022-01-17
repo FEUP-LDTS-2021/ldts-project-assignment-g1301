@@ -1,3 +1,8 @@
+import com.googlecode.lanterna.TerminalSize
+import com.googlecode.lanterna.screen.Screen
+import com.googlecode.lanterna.screen.TerminalScreen
+import com.googlecode.lanterna.terminal.DefaultTerminalFactory
+import com.googlecode.lanterna.terminal.Terminal
 import spock.lang.Specification
 import com.googlecode.lanterna.input.KeyType
 import com.googlecode.lanterna.input.KeyStroke
@@ -117,11 +122,11 @@ class ArenaTest extends Specification{
         given:
             EnemyDefiner e
         when:
-            e = new Enemy(10,new Position(10,4), new HorizontalMovementStrategy(), new NormalShotStrategy())
+            e = new Enemy(10,new Position(9,4), new HorizontalMovementStrategy(), new NormalShotStrategy())
             arena.addEnemy(e)
             arena.moveEnemies()
         then:
-            assert e.getPosition().getX() == 0
+            assert e.getPosition().getX() == 8
     }
 
     def "move_enemies_test"(){
@@ -405,13 +410,13 @@ class ArenaTest extends Specification{
            assert arena.getSpells().size() == 0
     }
 
-    def "check_tp_back"(){
+    def "check_tp_back"() {
         given:
-            Position old_pos = new Position(1,2)
-            Position new_pos = new Position(5,10)
+            Position old_pos = new Position(1, 2)
+            Position new_pos = new Position(5, 10)
             SpellTemplate spell = new SpellTPBack(old_pos)
             arena.spells.add(spell)
-            Spaceship s = new Spaceship(1000,100,new Position(1,2))
+            Spaceship s = new Spaceship(1000, 100, new Position(1, 2))
             SpaceshipObserver observer = Spy(SpaceshipObserver)
             s.addObserver(observer)
             arena.setSpaceship(s)
@@ -423,10 +428,65 @@ class ArenaTest extends Specification{
             s.setPosition(new_pos)
             arena.processKey(key)
         then:
-            assert (s.getPosition().getX()==old_pos.getX() && s.getPosition().getY()==old_pos.getY())
-            1*observer.caughtTPback(s)
-            1*observer.usedTPback(s)
+            assert (s.getPosition().getX() == old_pos.getX() && s.getPosition().getY() == old_pos.getY())
+            1 * observer.caughtTPback(s)
+            1 * observer.usedTPback(s)
+    }
+    def "arena_health_draw"(){
+        given:
+            Screen screen;
+            TerminalSize terminalSize = new TerminalSize(150, 50);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
+            screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);   // we don't need a cursor
+            screen.startScreen();             // screens must be started
+            screen.doResizeIfNecessary();
+            def graphics = screen.newTextGraphics();
+            Arena a
+        when:
+            a = new Arena(150,50)
+            a.draw(graphics)
+        then:
+            assert graphics.getCharacter(0,0).getCharacter() == ('H' as char)
+    }
 
+    def "arena_damage_draw"(){
+        given:
+            Screen screen;
+            TerminalSize terminalSize = new TerminalSize(150, 50);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
+            screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);   // we don't need a cursor
+            screen.startScreen();             // screens must be started
+            screen.doResizeIfNecessary();
+            def graphics = screen.newTextGraphics();
+            Arena a
+        when:
+            a = new Arena(150,50)
+            a.draw(graphics)
+        then:
+            assert graphics.getCharacter(14,0).getCharacter() == ('D' as char)
+    }
+
+    def "arena_score_draw"(){
+        given:
+            Screen screen;
+            TerminalSize terminalSize = new TerminalSize(150, 50);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
+            screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);   // we don't need a cursor
+            screen.startScreen();             // screens must be started
+            screen.doResizeIfNecessary();
+            def graphics = screen.newTextGraphics();
+            Arena a
+        when:
+            a = new Arena(150,50)
+            a.draw(graphics)
+        then:
+            assert graphics.getCharacter(28,0).getCharacter() == ('S' as char)
     }
 }
 
