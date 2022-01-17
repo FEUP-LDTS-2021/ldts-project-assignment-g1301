@@ -36,31 +36,39 @@ public class Arena implements ArenaDefiner {
         this.level = level;
     }
 
+
+
+    public Enemy createEnemy(Position pos){
+        Enemy e;
+        Integer health = 100 + (getLevel()/6)*100;
+        switch (getLevel() % 6) {
+            case 0:
+                e = new Enemy(health, pos, new HorizontalMovementStrategy(), new NormalShotStrategy());
+                break;
+            case 1:
+                e = new Enemy(health, pos, new ZigZagMovementStrategy(), new NormalShotStrategy());
+                break;
+            case 2:
+                e = new Enemy(health, pos, new HorizontalMovementStrategy(), new DamageShotStrategy());
+                break;
+            case 3:
+                e = new Enemy(health, pos, new ZigZagMovementStrategy(), new DamageShotStrategy());
+                break;
+            case 4:
+                e = new Enemy(health, pos, new HorizontalMovementStrategy(), new BigShotStrategy());
+                break;
+            default:
+                e = new Enemy(health, pos, new ZigZagMovementStrategy(), new BigShotStrategy());
+                break;
+        }
+        return e;
+    }
+
     @Override
     public List<Enemy> createEnemies(){
         for(Integer x=15;x<=135;x+=20){
             for (Integer y=2;y<=8;y+=2) {
-                Integer health = 100 + (getLevel()/6)*100;
-                switch (getLevel() % 6) {
-                    case 0:
-                        addEnemy(new Enemy(health, new Position(x, y), new HorizontalMovementStrategy(), new NormalShotStrategy()));
-                        break;
-                    case 1:
-                        addEnemy(new Enemy(health, new Position(x, y), new ZigZagMovementStrategy(), new NormalShotStrategy()));
-                        break;
-                    case 2:
-                        addEnemy(new Enemy(health, new Position(x, y), new HorizontalMovementStrategy(), new DamageShotStrategy()));
-                        break;
-                    case 3:
-                        addEnemy(new Enemy(health, new Position(x, y), new ZigZagMovementStrategy(), new DamageShotStrategy()));
-                        break;
-                    case 4:
-                        addEnemy(new Enemy(health, new Position(x, y), new HorizontalMovementStrategy(), new BigShotStrategy()));
-                        break;
-                    default:
-                        addEnemy(new Enemy(health, new Position(x, y), new ZigZagMovementStrategy(), new BigShotStrategy()));
-                        break;
-                }
+                addEnemy(createEnemy(new Position(x,y)));
             }
         }
         level++;
