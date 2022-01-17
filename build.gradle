@@ -31,5 +31,5 @@ test {
 }
 
 application {
-    mainClass.set("Application")
+    mainClass.set("application.Application")
 }

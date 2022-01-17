@@ -22,7 +22,7 @@ import spell.template.SpellInvincible
 import spell.template.SpellLessGunDamage
 import spell.template.SpellNerfed
 import spell.template.SpellTPBack
-import spell.SpellTemplate
+import spell.template.SpellTemplate
 import spock.lang.Specification
 import com.googlecode.lanterna.input.KeyType
 import com.googlecode.lanterna.input.KeyStroke
@@ -434,7 +434,7 @@ class ArenaTest extends Specification{
         given:
             Position old_pos = new Position(1, 2)
             Position new_pos = new Position(5, 10)
-        SpellTemplate spell = new SpellTPBack(old_pos)
+            SpellTemplate spell = new SpellTPBack(old_pos)
             arena.spells.add(spell)
             Spaceship s = new Spaceship(1000, 100, new Position(1, 2))
         SpaceshipObserver observer = Spy(SpaceshipObserver)
