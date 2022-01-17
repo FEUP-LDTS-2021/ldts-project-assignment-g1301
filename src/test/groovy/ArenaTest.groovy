@@ -122,11 +122,11 @@ class ArenaTest extends Specification{
         given:
             EnemyDefiner e
         when:
-            e = new Enemy(10,new Position(10,4), new HorizontalMovementStrategy(), new NormalShotStrategy())
+            e = new Enemy(10,new Position(9,4), new HorizontalMovementStrategy(), new NormalShotStrategy())
             arena.addEnemy(e)
             arena.moveEnemies()
         then:
-            assert e.getPosition().getX() == 0
+            assert e.getPosition().getX() == 8
     }
 
     def "move_enemies_test"(){
