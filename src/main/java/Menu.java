@@ -63,7 +63,7 @@ public class Menu implements MenuDefiner{
                     case Enter:
                         if (play_red){
                             screen.close();
-                            Game g = new Game();
+                            Game g = Game.getInstance();
                             g.run();
                         }
                         else{

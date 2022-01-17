@@ -14,7 +14,8 @@ import static java.lang.System.exit;
 public class Game implements GameDefiner{
     Screen screen;
     private Arena arena;
-    public Game(){
+    private static Game game;
+    private Game(){
         arena = new Arena(150,50);
         try {
             TerminalSize terminalSize = new TerminalSize(arena.getWidth(), arena.getHeight());
@@ -28,6 +29,13 @@ public class Game implements GameDefiner{
             e.printStackTrace();
         }
     }
+
+    public static Game getInstance(){
+        if(game==null)
+            game = new Game();
+        return game;
+    }
+
     @Override
     public void draw() throws IOException {
         this.screen.clear();
