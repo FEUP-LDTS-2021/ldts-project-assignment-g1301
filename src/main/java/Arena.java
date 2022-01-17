@@ -32,12 +32,24 @@ public class Arena implements ArenaDefiner {
             for (Integer y=2;y<=8;y+=2) {
                 Integer health = 100 + (getLevel()/6)*100;
                 switch (getLevel() % 6) {
-                    case 0 -> addEnemy(new Enemy(health, new Position(x, y), new HorizontalMovementStrategy(), new NormalShotStrategy()));
-                    case 1 -> addEnemy(new Enemy(health, new Position(x, y), new ZigZagMovementStrategy(), new NormalShotStrategy()));
-                    case 2 -> addEnemy(new Enemy(health, new Position(x, y), new HorizontalMovementStrategy(), new DamageShotStrategy()));
-                    case 3 -> addEnemy(new Enemy(health, new Position(x, y), new ZigZagMovementStrategy(), new DamageShotStrategy()));
-                    case 4 -> addEnemy(new Enemy(health, new Position(x, y), new HorizontalMovementStrategy(), new BigShotStrategy()));
-                    default -> addEnemy(new Enemy(health, new Position(x, y), new ZigZagMovementStrategy(), new BigShotStrategy()));
+                    case 0:
+                        addEnemy(new Enemy(health, new Position(x, y), new HorizontalMovementStrategy(), new NormalShotStrategy()));
+                        break;
+                    case 1:
+                        addEnemy(new Enemy(health, new Position(x, y), new ZigZagMovementStrategy(), new NormalShotStrategy()));
+                        break;
+                    case 2:
+                        addEnemy(new Enemy(health, new Position(x, y), new HorizontalMovementStrategy(), new DamageShotStrategy()));
+                        break;
+                    case 3:
+                        addEnemy(new Enemy(health, new Position(x, y), new ZigZagMovementStrategy(), new DamageShotStrategy()));
+                        break;
+                    case 4:
+                        addEnemy(new Enemy(health, new Position(x, y), new HorizontalMovementStrategy(), new BigShotStrategy()));
+                        break;
+                    default:
+                        addEnemy(new Enemy(health, new Position(x, y), new ZigZagMovementStrategy(), new BigShotStrategy()));
+                        break;
                 }
             }
         }
@@ -63,29 +75,59 @@ public class Arena implements ArenaDefiner {
         if(listX.size()>1) {
             Position pos = new Position(listX.get(random.nextInt(listX.size() - 1)), getHeight() - 2);
             int spellNr = random.nextInt(7);
-            SpellTemplate spell = switch (spellNr) {
-                case 0 -> new SpellHealth(pos);
-                case 1 -> new SpellHealthDamage(pos);
-                case 2 -> new SpellGunDamage(pos);
-                case 3 -> new SpellLessGunDamage(pos);
-                case 4 -> new SpellInvincible(pos);
-                case 5 -> new SpellTPBack(pos);
-                default -> new SpellNerfed(pos);
-            };
+            SpellTemplate spell;
+            switch (spellNr) {
+                case 0:
+                    spell = new SpellHealth(pos);
+                    break;
+                case 1:
+                    spell = new SpellHealthDamage(pos);
+                    break;
+                case 2:
+                    spell = new SpellGunDamage(pos);
+                    break;
+                case 3:
+                    spell = new SpellLessGunDamage(pos);
+                    break;
+                case 4:
+                    spell = new SpellInvincible(pos);
+                    break;
+                case 5:
+                    spell = new SpellTPBack(pos);
+                    break;
+                default:
+                    spell = new SpellNerfed(pos);
+                    break;
+            }
             spells.add(spell);
         }
         else if (listX.size()==1){
             Position pos = new Position(listX.get(0),getHeight()-2);
             int spellNr = random.nextInt(7);
-            SpellTemplate spell = switch (spellNr) {
-                case 0 -> new SpellHealth(pos);
-                case 1 -> new SpellHealthDamage(pos);
-                case 2 -> new SpellGunDamage(pos);
-                case 3 -> new SpellLessGunDamage(pos);
-                case 4 -> new SpellInvincible(pos);
-                case 5 -> new SpellTPBack(pos);
-                default -> new SpellNerfed(pos);
-            };
+            SpellTemplate spell;
+            switch (spellNr) {
+                case 0:
+                    spell = new SpellHealth(pos);
+                    break;
+                case 1:
+                    spell = new SpellHealthDamage(pos);
+                    break;
+                case 2:
+                    spell = new SpellGunDamage(pos);
+                    break;
+                case 3:
+                    spell = new SpellLessGunDamage(pos);
+                    break;
+                case 4:
+                    spell = new SpellInvincible(pos);
+                    break;
+                case 5:
+                    spell = new SpellTPBack(pos);
+                    break;
+                default:
+                    spell = new SpellNerfed(pos);
+                    break;
+            }
             spells.add(spell);
         }
     }

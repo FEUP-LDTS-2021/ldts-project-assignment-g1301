@@ -69,9 +69,15 @@ public class Shot implements ShotDefiner {
     public String getColor() {
         String color;
         switch (velocity) {
-            case 2 -> color = "#FFFF00";
-            case 3 -> color = "#00FFFF";
-            default -> color = "#FFFFFF";
+            case 2:
+                color = "#FFFF00";
+                break;
+            case 3:
+                color = "#00FFFF";
+                break;
+            default:
+                color = "#FFFFFF";
+                break;
         }
         return color;
     }
