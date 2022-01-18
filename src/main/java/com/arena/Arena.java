@@ -278,15 +278,20 @@ public class Arena implements ArenaDefiner {
                 Integer shot1right = enemies.get(i).getShots().get(j).getPosition().getX() + shot1WidthOffset;
                 Integer shot2left = spaceship.getShots().get(k).getPosition().getX() - shot2WidthOffset;
                 Integer shot2right = spaceship.getShots().get(k).getPosition().getX() + shot2WidthOffset;
-                if (!((shot1left < shot2left && shot1right < shot2right) || (shot1left > shot2left && shot1right > shot2right))) {
-                    spaceship.removeShot(spaceship.getShots().get(k));
-                    enemies.get(i).removeShot(enemies.get(i).getShots().get(j));
-                    j--;
-                }
+                CollisionRemover(i,j,k,shot2right,shot1left,shot2left,shot1right);
                 break;
             }
         }
 
+    }
+
+    @Override
+    public void CollisionRemover(int i,int j,int k,Integer shot2right,Integer shot1left, Integer shot2left, Integer shot1right){
+        if (!((shot1left < shot2left && shot1right < shot2right) || (shot1left > shot2left && shot1right > shot2right))) {
+            spaceship.removeShot(spaceship.getShots().get(k));
+            enemies.get(i).removeShot(enemies.get(i).getShots().get(j));
+            j--;
+        }
     }
 
     @Override
