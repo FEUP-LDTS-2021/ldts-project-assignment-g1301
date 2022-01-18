@@ -96,7 +96,7 @@ public class Spaceship implements SpaceShipDefiner {
     public void shoot() {
         Position pos = new Position(this.position.getX(),this.position.getY());
         pos.setY(pos.getY()-1);
-        Shot bullet = new Shot(getDamage(),1,1,pos);
+        Shot bullet = new Shot(getDamage(),1,pos);
         this.shots.add(bullet);
     }
 

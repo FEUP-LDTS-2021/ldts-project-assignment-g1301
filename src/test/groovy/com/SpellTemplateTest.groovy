@@ -1,6 +1,9 @@
 package com
 
+import com.googlecode.lanterna.TerminalPosition
 import com.googlecode.lanterna.TerminalSize
+import com.googlecode.lanterna.TextColor
+import com.googlecode.lanterna.graphics.TextGraphics
 import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
@@ -89,139 +92,90 @@ class SpellTemplateTest extends Specification{
         then:
             assert s.getSymbol()=='N'
     }
-    /*
-    def "spell.template.SpellHealth Draw Test"(){
+
+    def "SpellHealth Draw Test"(){
         given:
-            Screen screen
-            TerminalSize terminalSize = new TerminalSize(150, 50)
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize)
-            Terminal terminal = terminalFactory.createTerminal()
-            screen = new TerminalScreen(terminal)
-            screen.setCursorPosition(null)   // we don't need a cursor
-            screen.startScreen()             // screens must be started
-            screen.doResizeIfNecessary()
-            def graphics = screen.newTextGraphics()
+            def graphics = Mock(TextGraphics)
             SpellTemplate s
         when:
             s = new SpellHealth(realPos)
             s.draw(graphics)
         then:
-            assert graphics.getCharacter(realPos.x, realPos.y).getCharacter() == ('H' as char)
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#00FF7F"));
+            1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "H");
     }
 
-    def "spell.template.SpellGunDamage Draw Test"(){
+    def "SpellGunDamage Draw Test"(){
         given:
-            Screen screen
-            TerminalSize terminalSize = new TerminalSize(150, 50);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize)
-            Terminal terminal = terminalFactory.createTerminal()
-            screen = new TerminalScreen(terminal)
-            screen.setCursorPosition(null)   // we don't need a cursor
-            screen.startScreen()             // screens must be started
-            screen.doResizeIfNecessary()
-            def graphics = screen.newTextGraphics()
+            def graphics = Mock(TextGraphics)
             SpellTemplate s
         when:
             s = new SpellGunDamage(realPos)
             s.draw(graphics)
         then:
-            assert graphics.getCharacter(realPos.x, realPos.y).getCharacter() == 'D'
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#C0C0C0"));
+            1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "D");
     }
 
-    def "spell.template.SpellHealthDamage Draw Test"(){
+    def "SpellHealthDamage Draw Test"(){
         given:
-            Screen screen;
-            TerminalSize terminalSize = new TerminalSize(150, 50)
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize)
-            Terminal terminal = terminalFactory.createTerminal()
-            screen = new TerminalScreen(terminal)
-            screen.setCursorPosition(null)   // we don't need a cursor
-            screen.startScreen()           // screens must be started
-            screen.doResizeIfNecessary()
-            def graphics = screen.newTextGraphics()
+            def graphics = Mock(TextGraphics)
             SpellTemplate s
         when:
             s = new SpellHealthDamage(realPos)
             s.draw(graphics)
         then:
-            assert graphics.getCharacter(realPos.x, realPos.y).getCharacter() == ('X' as char)
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+            1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "X");
     }
 
-    def "spell.template.SpellLessGunDamage Draw Test"(){
+    def "SpellLessGunDamage Draw Test"(){
         given:
-            Screen screen
-            TerminalSize terminalSize = new TerminalSize(150, 50)
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize)
-            Terminal terminal = terminalFactory.createTerminal()
-            screen = new TerminalScreen(terminal)
-            screen.setCursorPosition(null)   // we don't need a cursor
-            screen.startScreen()             // screens must be started
-            screen.doResizeIfNecessary()
-            def graphics = screen.newTextGraphics()
+            def graphics = Mock(TextGraphics)
             SpellTemplate s
         when:
             s = new SpellLessGunDamage(realPos)
             s.draw(graphics)
         then:
-            assert graphics.getCharacter(realPos.x, realPos.y).getCharacter() == ('L' as char)
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+            1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "L");
     }
 
-    def "spell.template.SpellTPBack Draw Test"(){
+    def "SpellTPBack Draw Test"(){
         given:
-            Screen screen
-            TerminalSize terminalSize = new TerminalSize(150, 50)
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize)
-            Terminal terminal = terminalFactory.createTerminal()
-            screen = new TerminalScreen(terminal)
-            screen.setCursorPosition(null)   // we don't need a cursor
-            screen.startScreen()             // screens must be started
-            screen.doResizeIfNecessary()
-            def graphics = screen.newTextGraphics()
+            def graphics = Mock(TextGraphics)
             SpellTemplate s
         when:
             s = new SpellTPBack(realPos)
             s.draw(graphics)
         then:
-            assert graphics.getCharacter(realPos.x, realPos.y).getCharacter() == ('T' as char)
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
+            1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "T");
     }
 
-    def "spell.template.SpellInvincible Draw Test"(){
+    def "SpellInvincible Draw Test"(){
         given:
-            Screen screen;
-            TerminalSize terminalSize = new TerminalSize(150, 50)
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize)
-            Terminal terminal = terminalFactory.createTerminal()
-            screen = new TerminalScreen(terminal)
-            screen.setCursorPosition(null)   // we don't need a cursor
-            screen.startScreen()             // screens must be started
-            screen.doResizeIfNecessary()
-            def graphics = screen.newTextGraphics()
-        SpellTemplate s
+            def graphics = Mock(TextGraphics)
+            SpellTemplate s
         when:
             s = new SpellInvincible(realPos)
             s.draw(graphics)
         then:
-            assert graphics.getCharacter(realPos.x, realPos.y).getCharacter() == ('I' as char)
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#4682B4"));
+            1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "I");
     }
 
 
-    def "spell.template.SpellNerfed Draw Test"(){
+    def "SpellNerfed Draw Test"(){
         given:
-            Screen screen
-            TerminalSize terminalSize = new TerminalSize(150, 50)
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize)
-            Terminal terminal = terminalFactory.createTerminal()
-            screen = new TerminalScreen(terminal)
-            screen.setCursorPosition(null)   // we don't need a cursor
-            screen.startScreen()             // screens must be started
-            screen.doResizeIfNecessary()
-            def graphics = screen.newTextGraphics()
+            def graphics = Mock(TextGraphics)
             SpellTemplate s
         when:
             s = new SpellNerfed(realPos)
             s.draw(graphics)
         then:
-            assert graphics.getCharacter(realPos.x, realPos.y).getCharacter() == ('N' as char)
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFE0"));
+            1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "N");
     }
-     */
+
 }

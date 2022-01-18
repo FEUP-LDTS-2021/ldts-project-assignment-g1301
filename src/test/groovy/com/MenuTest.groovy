@@ -1,6 +1,8 @@
 package com
 
 import com.googlecode.lanterna.TerminalSize
+import com.googlecode.lanterna.TextColor
+import com.googlecode.lanterna.graphics.TextGraphics
 import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
@@ -15,25 +17,18 @@ import java.awt.Font
 
 class MenuTest extends Specification{
     def "menu_draw"() {
-        AWTTerminalFontConfiguration cfg = new SwingTerminalFontConfiguration(true,
-                AWTTerminalFontConfiguration.BoldMode.NOTHING, new Font(Font.MONOSPACED, Font.PLAIN, 40));
-        Terminal terminal = new DefaultTerminalFactory()
-                .setForceAWTOverSwing(true)
-                .setInitialTerminalSize(new TerminalSize(50,15))
-                .setTerminalEmulatorFontConfiguration(cfg)
-                .createTerminal();
-        Screen screen = new TerminalScreen(terminal);
-        screen.setCursorPosition(null);   // we don't need a cursor
-        screen.startScreen();             // screens must be started
-        screen.doResizeIfNecessary();     // resize screen if necessary
-        MenuDefiner m;
-        def graphics = screen.newTextGraphics();
+        given:
+            def graphics = Mock(TextGraphics);
+            MenuDefiner m;
         when:
-        m = new Menu();
-        m.draw(graphics);
+            m = new Menu();
+            m.draw(graphics);
         then:
-        assert graphics.getCharacter(24, 6).getCharacter() == ('P' as char);
-        assert graphics.getCharacter(19, 2).getCharacter() == ('S' as char);
-        assert graphics.getCharacter(24, 9).getCharacter() == ('Q' as char);
+            1*graphics.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
+            1*graphics.putString(19,2,"SPACE INVADERS");
+            1*graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+            1*graphics.putString(24,6,"PLAY");
+            1*graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+            1*graphics.putString(24,9,"QUIT");
     }
 }

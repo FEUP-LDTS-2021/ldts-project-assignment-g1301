@@ -1,6 +1,9 @@
 package com
 
+import com.googlecode.lanterna.TerminalPosition
 import com.googlecode.lanterna.TerminalSize
+import com.googlecode.lanterna.TextColor
+import com.googlecode.lanterna.graphics.TextGraphics
 import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
@@ -64,24 +67,15 @@ class SpaceShipTest extends Specification {
         then:
         assert s.getShots().size() == x+1
     }
-    /*
+
     def "spaceship_draw_test"() {
         given:
-            Screen screen;
-            TerminalSize terminalSize = new TerminalSize(150, 50);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-            Terminal terminal = terminalFactory.createTerminal();
-            screen = new TerminalScreen(terminal);
-            screen.setCursorPosition(null);   // we don't need a cursor
-            screen.startScreen();             // screens must be started
-            screen.doResizeIfNecessary();
-            def graphics = screen.newTextGraphics();
-            SpaceShipDefiner s
+            def graphics = Mock(TextGraphics)
+            SpaceShipDefiner s = new Spaceship(10, 1, pos)
         when:
-            s = new Spaceship(10, 1, pos)
             s.draw(graphics);
         then:
-            assert graphics.getCharacter(pos.x, pos.y).getCharacter() == ('_' as char);
+            1*graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+            1*graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "_");
     }
-     */
 }

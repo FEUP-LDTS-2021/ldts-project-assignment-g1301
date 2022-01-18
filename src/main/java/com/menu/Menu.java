@@ -23,6 +23,26 @@ public class Menu implements MenuDefiner {
     boolean play_red;
     public Menu() throws IOException {
         play_red = true;
+    }
+
+    @Override
+    public void draw(TextGraphics graphics) throws IOException {
+        graphics.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
+        graphics.putString(19,2,"SPACE INVADERS");
+        if(play_red)
+            graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+        else
+            graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        graphics.putString(24,6,"PLAY");
+        if(!play_red)
+            graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+        else
+            graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        graphics.putString(24,9,"QUIT");
+    }
+
+    @Override
+    public void interactions() throws IOException {
         try{
             AWTTerminalFontConfiguration cfg = new SwingTerminalFontConfiguration(true,
                     AWTTerminalFontConfiguration.BoldMode.NOTHING, new Font(Font.MONOSPACED, Font.PLAIN, 40));
@@ -39,27 +59,11 @@ public class Menu implements MenuDefiner {
         catch(IOException e){
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void draw(TextGraphics graphics) throws IOException {
-        this.screen.clear();
-        graphics.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
-        graphics.putString(19,2,"SPACE INVADERS");
-        if(play_red)graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
-        else graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        graphics.putString(24,6,"PLAY");
-        if(!play_red)graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
-        else graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        graphics.putString(24,9,"QUIT");
-        this.screen.refresh();
-    }
-
-    @Override
-    public void interactions() throws IOException {
         while (true) {
             TextGraphics graphics = screen.newTextGraphics();
+            this.screen.clear();
             this.draw(graphics);
+            this.screen.refresh();
             KeyStroke key = screen.readInput();
             if (key != null) {
                 switch (key.getKeyType()) {
@@ -84,9 +88,11 @@ public class Menu implements MenuDefiner {
                                 exit(0);
                         }
                         break;
-                    case ArrowUp: play_red = true;
+                    case ArrowUp:
+                        play_red = true;
                     break;
-                    case ArrowDown: play_red = false;
+                    case ArrowDown:
+                        play_red = false;
                     break;
                 }
             }

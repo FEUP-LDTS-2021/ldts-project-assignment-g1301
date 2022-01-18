@@ -115,21 +115,21 @@ public class Enemy implements EnemyDefiner {
     public void normalShot() {
         Position aux = new Position(position.getX(),position.getY());
         aux.setY(aux.getY() + 1);
-        shots.add(new Shot(100, 1, 1, aux));
+        shots.add(new Shot(100, 1,  aux));
     }
 
     @Override
     public void bigShot() {
         Position aux = new Position(position.getX(),position.getY());
         aux.setY(aux.getY() +1);
-        shots.add(new Shot(100, 3, 1, aux));
+        shots.add(new Shot(100, 3,  aux));
     }
 
     @Override
     public void damageShot() {
         Position aux = new Position(position.getX(),position.getY());
         aux.setY(aux.getY() +1);
-        shots.add(new Shot(300, 1, 1, aux));
+        shots.add(new Shot(300, 1, aux));
     }
 
     @Override
