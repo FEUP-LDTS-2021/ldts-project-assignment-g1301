@@ -14,7 +14,6 @@ public interface EnemyDefiner {
     List<Shot> getShots();
     MovementStrategy getMovementStrategy();
     ShootingStrategy getShootingStrategy();
-    String getColor();
     boolean isDead();
     void setHealth(Integer health);
     void setPosition(Position position);

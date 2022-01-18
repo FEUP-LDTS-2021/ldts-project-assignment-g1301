@@ -114,7 +114,7 @@ class EnemyTest extends Specification{
         when:
             e.draw(graphics);
         then:
-            1*graphics.setForegroundColor(TextColor.Factory.fromString(e.getColor()));
+            1*graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF00"))
             1*graphics.enableModifiers(SGR.BOLD);
             1*graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "R");
     }
