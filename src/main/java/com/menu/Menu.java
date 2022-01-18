@@ -88,6 +88,7 @@ public class Menu implements MenuDefiner {
                     break;
                     case ArrowDown: play_red = false;
                     break;
+                    default:break;
                 }
             }
         }
