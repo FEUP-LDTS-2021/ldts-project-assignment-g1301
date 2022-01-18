@@ -45,6 +45,8 @@ public interface ArenaDefiner {
 
     void checkShotsHitSpaceship();
 
+    void checkShotsHitSpaceshipHelper(Integer i, Integer j,Integer shotLeft, Integer shotRight);
+
     void processKey(KeyStroke key);
 
     void checkShotsHitEnemies();
