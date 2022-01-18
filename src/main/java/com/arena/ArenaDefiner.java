@@ -39,6 +39,8 @@ public interface ArenaDefiner {
 
     void checkShotCollisions();
 
+    void checkShotCollisionsHelper(int i,int j);
+
     void checkShotsHitSpaceship();
 
     void processKey(KeyStroke key);
