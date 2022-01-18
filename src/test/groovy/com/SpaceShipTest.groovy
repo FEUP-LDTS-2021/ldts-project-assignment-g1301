@@ -84,4 +84,33 @@ class SpaceShipTest extends Specification {
             assert graphics.getCharacter(pos.x, pos.y).getCharacter() == ('_' as char);
     }
      */
+
+    def "get_score_test"(){
+        given:
+        SpaceShipDefiner s
+        when:
+        s = new Spaceship(10, 1,  pos)
+        then:
+        assert s.getScore() == 0
+    }
+
+    def "set_score_test"(){
+        given:
+        SpaceShipDefiner s
+        when:
+        s = new Spaceship(10, 1,  pos)
+        s.setScore(100)
+        then:
+        assert s.getScore() == 100
+    }
+
+    def "become_normal_test"(){
+        given:
+        SpaceShipDefiner s
+        when:
+        s = new Spaceship(10, 1,  pos)
+        s.becomeNormal()
+        then:
+        assert s.state == "normal"
+    }
 }

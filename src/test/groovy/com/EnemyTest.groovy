@@ -1,6 +1,10 @@
 package com
 
+import com.googlecode.lanterna.SGR
+import com.googlecode.lanterna.TerminalPosition
 import com.googlecode.lanterna.TerminalSize
+import com.googlecode.lanterna.TextColor
+import com.googlecode.lanterna.graphics.TextGraphics
 import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
@@ -105,23 +109,15 @@ class EnemyTest extends Specification{
 
     def "enemy_draw"(){
         given:
-            Screen screen;
-            TerminalSize terminalSize = new TerminalSize(150, 50);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-            Terminal terminal = terminalFactory.createTerminal();
-            screen = new TerminalScreen(terminal);
-            screen.setCursorPosition(null);   // we don't need a cursor
-            screen.startScreen();             // screens must be started
-            screen.doResizeIfNecessary();
-            def graphics = screen.newTextGraphics();
-            EnemyDefiner e
+            def graphics = Mock(TextGraphics)
+            EnemyDefiner e = new Enemy(10,pos,new HorizontalMovementStrategy(), new DamageShotStrategy())
         when:
-            e = new Enemy(10,pos,new HorizontalMovementStrategy(), new DamageShotStrategy())
             e.draw(graphics);
         then:
-            assert graphics.getCharacter(pos.x, pos.y).getCharacter()== ('R' as char);
+            1*graphics.setForegroundColor(TextColor.Factory.fromString(e.getColor()));
+            1*graphics.enableModifiers(SGR.BOLD);
+            1*graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "R");
     }
-
 
     def "set_position_test"(){
         given:
@@ -142,4 +138,15 @@ class EnemyTest extends Specification{
         then:
         assert e.movingRight == false
     }
+
+    def "zig_zag_moving_left_testing"(){
+        given:
+        EnemyDefiner e
+        when:
+        e = new Enemy(10,pos,new ZigZagMovementStrategy(), new NormalShotStrategy());
+        e.move(false)
+        then:
+        assert e.getPosition().getX() == 1
+    }
+
 }

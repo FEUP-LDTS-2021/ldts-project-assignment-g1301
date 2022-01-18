@@ -513,5 +513,24 @@ class ArenaTest extends Specification{
             assert graphics.getCharacter(28,0).getCharacter() == ('S' as char)
     }
      */
+
+    def "kill_enemy_test"(){
+        given:
+            EnemyDefiner e
+            SpaceShipDefiner s
+        when:
+            e = new Enemy(1,new Position(2,2),new HorizontalMovementStrategy(),new NormalShotStrategy())
+            s = new Spaceship(10,1,new Position(2,5))
+            arena.addEnemy(e)
+            arena.setSpaceship(s)
+            def aux = arena.getEnemies().size()
+            s.shoot()
+            s.getShots()[0].moveUp()
+            s.getShots()[0].moveUp()
+            arena.checkShotsHitEnemies()
+
+        then:
+            assert e.getHealth() == 0 && arena.getEnemies().size() + 1 == aux
+    }
 }
 
