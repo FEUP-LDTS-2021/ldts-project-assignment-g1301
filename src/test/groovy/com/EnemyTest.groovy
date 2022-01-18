@@ -102,7 +102,7 @@ class EnemyTest extends Specification{
         then:
             assert e.getShots()[0].width == 3
     }
-    /*
+
     def "enemy_draw"(){
         given:
             Screen screen;
@@ -121,5 +121,25 @@ class EnemyTest extends Specification{
         then:
             assert graphics.getCharacter(pos.x, pos.y).getCharacter()== ('R' as char);
     }
-     */
+
+
+    def "set_position_test"(){
+        given:
+        EnemyDefiner e
+        when:
+        e = new Enemy(10, pos, new HorizontalMovementStrategy(), new DamageShotStrategy())
+        e.setPosition(new Position(3,3))
+        then:
+        assert e.getPosition().getY() == 3 && e.getPosition().getX() == 3
+    }
+
+    def "set_move_right_test"(){
+        given:
+        EnemyDefiner e
+        when:
+        e = new Enemy(10, pos, new HorizontalMovementStrategy(), new DamageShotStrategy())
+        e.setMoveRight(false)
+        then:
+        assert e.movingRight == false
+    }
 }
