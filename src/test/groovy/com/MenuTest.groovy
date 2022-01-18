@@ -14,7 +14,6 @@ import spock.lang.Specification
 import java.awt.Font
 
 class MenuTest extends Specification{
-    /*
     def "menu_draw"() {
         AWTTerminalFontConfiguration cfg = new SwingTerminalFontConfiguration(true,
                 AWTTerminalFontConfiguration.BoldMode.NOTHING, new Font(Font.MONOSPACED, Font.PLAIN, 40));
@@ -37,5 +36,4 @@ class MenuTest extends Specification{
         assert graphics.getCharacter(19, 2).getCharacter() == ('S' as char);
         assert graphics.getCharacter(24, 9).getCharacter() == ('Q' as char);
     }
-    */
 }
