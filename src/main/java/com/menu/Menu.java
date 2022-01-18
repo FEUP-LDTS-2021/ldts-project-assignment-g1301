@@ -42,7 +42,7 @@ public class Menu implements MenuDefiner {
     }
 
     @Override
-    public void interactions() throws IOException {
+    public void ScreenAndTerminalGenerator(){
         try{
             AWTTerminalFontConfiguration cfg = new SwingTerminalFontConfiguration(true,
                     AWTTerminalFontConfiguration.BoldMode.NOTHING, new Font(Font.MONOSPACED, Font.PLAIN, 40));
@@ -59,6 +59,10 @@ public class Menu implements MenuDefiner {
         catch(IOException e){
             e.printStackTrace();
         }
+    }
+    @Override
+    public void interactions() throws IOException {
+        ScreenAndTerminalGenerator();
         while (true) {
             TextGraphics graphics = screen.newTextGraphics();
             this.screen.clear();
