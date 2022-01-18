@@ -43,6 +43,10 @@ public interface ArenaDefiner {
 
     void CollisionRemover(int i,int j,int k,List<Integer>shots);
 
+    boolean checkShotHitEnemiesHelper(Integer i, Integer j, Integer shotLeft, Integer shotRight);
+
+    void checkShotHitEnemiesHelperV2(Integer j);
+
     void checkShotsHitSpaceship();
 
     void checkShotsHitSpaceshipHelper(Integer i, Integer j,Integer shotLeft, Integer shotRight);
