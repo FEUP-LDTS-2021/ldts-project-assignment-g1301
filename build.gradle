@@ -6,7 +6,7 @@ plugins {
     id 'info.solidsoft.pitest' version '1.6.0'
 }
 
-group 'org.example'
+group 'com'
 version '1.0-SNAPSHOT'
 
 
@@ -23,13 +23,12 @@ dependencies {
 }
 
 pitest {
-    junit5PluginVersion = '0.12'
+    junit5PluginVersion = '0.15'
+    pitestVersion = '1.6.7'
 }
 
 test {
     useJUnitPlatform()
 }
 
-application {
-    mainClass.set("application.Application")
-}
+mainClassName = 'com.application.Application'
