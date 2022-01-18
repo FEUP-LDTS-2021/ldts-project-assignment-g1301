@@ -147,13 +147,7 @@ public class Enemy implements EnemyDefiner {
 
     @Override
     public String getColor() {
-        String result;
-        if (Math.random() < 0.5) {
-            result = "#FFFFFF";
-        } else {
-            result = "#FFFF00";
-        }
-        return result;
+        return "#FFFF00";
     }
 
     @Override

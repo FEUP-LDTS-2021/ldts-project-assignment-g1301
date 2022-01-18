@@ -119,4 +119,34 @@ class EnemyTest extends Specification{
             1*graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "R");
     }
 
+    def "set_position_test"(){
+        given:
+        EnemyDefiner e
+        when:
+        e = new Enemy(10, pos, new HorizontalMovementStrategy(), new DamageShotStrategy())
+        e.setPosition(new Position(3,3))
+        then:
+        assert e.getPosition().getY() == 3 && e.getPosition().getX() == 3
+    }
+
+    def "set_move_right_test"(){
+        given:
+        EnemyDefiner e
+        when:
+        e = new Enemy(10, pos, new HorizontalMovementStrategy(), new DamageShotStrategy())
+        e.setMoveRight(false)
+        then:
+        assert e.movingRight == false
+    }
+
+    def "zig_zag_moving_left_testing"(){
+        given:
+        EnemyDefiner e
+        when:
+        e = new Enemy(10,pos,new ZigZagMovementStrategy(), new NormalShotStrategy());
+        e.move(false)
+        then:
+        assert e.getPosition().getX() == 1
+    }
+
 }
