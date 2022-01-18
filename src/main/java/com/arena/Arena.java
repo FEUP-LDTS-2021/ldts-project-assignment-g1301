@@ -263,26 +263,31 @@ public class Arena implements ArenaDefiner {
     public void checkShotCollisions() {
         for (Integer i = 0;i<enemies.size();i++) {
             for (Integer j =0; j < enemies.get(i).getShots().size();j++) {
-                for (Integer k=0; k< spaceship.getShots().size();k++) {
-                    if (enemies.get(i).getShots().get(j).getPosition().getY().equals(spaceship.getShots().get(k).getPosition().getY())) {
-                        Integer shot1WidthOffset = enemies.get(i).getShots().get(j).getWidth() / 2;
-                        Integer shot2WidthOffset = spaceship.getShots().get(k).getWidth() / 2;
-                        Integer shot1left = enemies.get(i).getShots().get(j).getPosition().getX() - shot1WidthOffset;
-                        Integer shot1right = enemies.get(i).getShots().get(j).getPosition().getX() + shot1WidthOffset;
-                        Integer shot2left = spaceship.getShots().get(k).getPosition().getX() - shot2WidthOffset;
-                        Integer shot2right = spaceship.getShots().get(k).getPosition().getX() + shot2WidthOffset;
-                        if (!((shot1left < shot2left && shot1right < shot2right) || (shot1left > shot2left && shot1right > shot2right))) {
-                            spaceship.removeShot(spaceship.getShots().get(k));
-                            enemies.get(i).removeShot(enemies.get(i).getShots().get(j));
-                            j--;
-                        }
-                        break;
-                    }
-                }
+                checkShotCollisionsHelper(i,j);
             }
         }
     }
 
+    @Override
+    public void checkShotCollisionsHelper(int i,int j){
+        for (Integer k=0; k< spaceship.getShots().size();k++) {
+            if (enemies.get(i).getShots().get(j).getPosition().getY().equals(spaceship.getShots().get(k).getPosition().getY())) {
+                Integer shot1WidthOffset = enemies.get(i).getShots().get(j).getWidth() / 2;
+                Integer shot2WidthOffset = spaceship.getShots().get(k).getWidth() / 2;
+                Integer shot1left = enemies.get(i).getShots().get(j).getPosition().getX() - shot1WidthOffset;
+                Integer shot1right = enemies.get(i).getShots().get(j).getPosition().getX() + shot1WidthOffset;
+                Integer shot2left = spaceship.getShots().get(k).getPosition().getX() - shot2WidthOffset;
+                Integer shot2right = spaceship.getShots().get(k).getPosition().getX() + shot2WidthOffset;
+                if (!((shot1left < shot2left && shot1right < shot2right) || (shot1left > shot2left && shot1right > shot2right))) {
+                    spaceship.removeShot(spaceship.getShots().get(k));
+                    enemies.get(i).removeShot(enemies.get(i).getShots().get(j));
+                    j--;
+                }
+                break;
+            }
+        }
+
+    }
 
     @Override
     public void processKey(KeyStroke key) {
