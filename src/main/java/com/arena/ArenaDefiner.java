@@ -51,6 +51,8 @@ public interface ArenaDefiner {
 
     void removeShotsOutOfBounds();
 
+    void removeShotsOutOfBoundsHelper();
+
     void moveEnemies();
 
     void moveShots();

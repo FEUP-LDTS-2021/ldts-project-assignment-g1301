@@ -373,6 +373,11 @@ public class Arena implements ArenaDefiner {
                 i--;
             }
         }
+        removeShotsOutOfBoundsHelper();
+    }
+
+    @Override
+    public void removeShotsOutOfBoundsHelper(){
         for (Integer i=0;i<enemies.size();i++) {
             for (Integer j=0;j<enemies.get(i).getShots().size();j++) {
                 if (enemies.get(i).getShots().get(j).getPosition().getY() > getHeight()) {
