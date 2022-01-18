@@ -16,10 +16,7 @@ import com.spell.template.*;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class Arena implements ArenaDefiner {
     private Spaceship spaceship;
@@ -278,7 +275,8 @@ public class Arena implements ArenaDefiner {
                 Integer shot1right = enemies.get(i).getShots().get(j).getPosition().getX() + shot1WidthOffset;
                 Integer shot2left = spaceship.getShots().get(k).getPosition().getX() - shot2WidthOffset;
                 Integer shot2right = spaceship.getShots().get(k).getPosition().getX() + shot2WidthOffset;
-                CollisionRemover(i,j,k,shot2right,shot1left,shot2left,shot1right);
+                List<Integer> shots = Arrays.asList(shot1left,shot1right,shot2left,shot2right);
+                CollisionRemover(i,j,k,shots);
                 break;
             }
         }
@@ -286,8 +284,8 @@ public class Arena implements ArenaDefiner {
     }
 
     @Override
-    public void CollisionRemover(int i,int j,int k,Integer shot2right,Integer shot1left, Integer shot2left, Integer shot1right){
-        if (!((shot1left < shot2left && shot1right < shot2right) || (shot1left > shot2left && shot1right > shot2right))) {
+    public void CollisionRemover(int i,int j,int k,List<Integer>shots){
+        if (!((shots.get(0) < shots.get(2) && shots.get(1) < shots.get(3)) || (shots.get(0) > shots.get(2) && shots.get(1) > shots.get(3)))) {
             spaceship.removeShot(spaceship.getShots().get(k));
             enemies.get(i).removeShot(enemies.get(i).getShots().get(j));
             j--;
