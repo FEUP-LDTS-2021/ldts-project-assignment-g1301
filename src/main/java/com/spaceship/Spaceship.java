@@ -19,7 +19,7 @@ public class Spaceship implements SpaceShipDefiner {
     Position position;
     List<Shot> shots;
     public long last_transition_instant;
-    SpaceshipObserver tpObserver;
+    public SpaceshipObserver tpObserver;
     public Spaceship(Integer health,Integer damage, Position position){
         this.health = health;
         this.damage = damage;

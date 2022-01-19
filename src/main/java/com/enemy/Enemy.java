@@ -18,7 +18,7 @@ public class Enemy implements EnemyDefiner {
     private final ShootingStrategy shootingStrategy;
     private Integer health;
     List<Shot> shots;
-    boolean movingRight;
+    public boolean movingRight;
     boolean movingDown;
 
     public Enemy(Integer health, Position position, MovementStrategy movementStrategy, ShootingStrategy shootingStrategy) {

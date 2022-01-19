@@ -1,6 +1,7 @@
 package com
 
 import com.arena.Arena
+import com.arena.ArenaDefiner
 import com.googlecode.lanterna.TerminalPosition
 import com.googlecode.lanterna.TerminalSize
 import com.googlecode.lanterna.TextColor
@@ -224,10 +225,13 @@ class ArenaTest extends Specification{
         given:
             arena.setLevel(0)
         when:
-            arena.createEnemies()
+            def aux = arena.level
+            def enemies =arena.createEnemies()
         then:
-            arena.getEnemies().get(0).getMovementStrategy().getClass()==HorizontalMovementStrategy
-            arena.getEnemies().get(0).getShootingStrategy().getClass()==NormalShotStrategy
+            assert arena.getEnemies().get(0).getMovementStrategy().getClass()==HorizontalMovementStrategy
+            assert arena.getEnemies().size() == 28 && arena.level == aux + 1
+            assert arena.getEnemies().get(0).getShootingStrategy().getClass()==NormalShotStrategy
+            assert !enemies.empty
     }
 
     def "create_enemy_test_level1"(){
@@ -306,6 +310,18 @@ class ArenaTest extends Specification{
             arena.addSpell()
         then:
             assert arena.getSpells().size()==numberOfSpells+1
+            assert arena.spells[0].getPosition().getY() == arena.getHeight() -2
+    }
+
+    def "add_many_spells_test"(){
+        when:
+            for (int i = 0 ; i < arena.width; i++){
+                arena.addSpell()
+            }
+        arena.addSpell()
+        then:
+            assert arena.getSpells().size() == arena.width
+            assert arena.spells[arena.spells.size() - 1].getPosition().getY() == arena.getHeight() - 2
     }
 
     def "doesnt_add_spell_when_all_pos_are_occupied"(){
@@ -318,6 +334,7 @@ class ArenaTest extends Specification{
             arena.addSpell()
         then:
             assert arena.getSpells().size()==numberOfSpells
+            assert arena.getSpells().size() == arena.width
 
     }
 
@@ -341,11 +358,12 @@ class ArenaTest extends Specification{
             arena.spaceship.setPosition(new Position(0,0))
             def oldHealth = arena.spaceship.getHealth();
             arena.spells.add(new SpellHealth(new Position(0,0)))
+            arena.spells.add(new SpellHealth(new Position(2,2)))
         when:
             arena.checkCaughtSpell();
         then:
             assert arena.spaceship.getHealth()==oldHealth+300
-            assert arena.getSpells().size()==0
+            assert arena.getSpells().size()== 1
     }
 
     def "check_caught_Damage"(){
@@ -528,5 +546,16 @@ class ArenaTest extends Specification{
         then:
             assert e.getHealth() == 0 && arena.getEnemies().size() + 1 == aux
     }
+
+    def "arena_test"(){
+        given:
+            ArenaDefiner a
+        when:
+             1 + 1
+        then:
+            assert arena.getSpaceship().getPosition().getX() == arena.width / 2
+            assert arena.getSpaceship().getPosition().getY() == arena.height - 2
+    }
+
 }
 

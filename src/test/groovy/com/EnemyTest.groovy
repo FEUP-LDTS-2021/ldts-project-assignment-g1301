@@ -62,7 +62,7 @@ class EnemyTest extends Specification{
             e = new Enemy(10,pos,new ZigZagMovementStrategy(), new NormalShotStrategy());
             e.move(true)
         then:
-            assert e.getPosition().getY() == 3
+            assert e.getPosition().getY() == 3 && e.isMovingDown() == true && e.getPosition().getX() == 3
     }
 
     def "move_zig_zag_test_down"(){
@@ -73,7 +73,7 @@ class EnemyTest extends Specification{
             e.move(true)
             e.move(true)
         then:
-            assert e.getPosition().getY() == 2
+            assert e.getPosition().getY() == 2 && e.isMovingDown() == false && e.getPosition().getX() == 4
     }
 
     def "normal_shot_test"(){
@@ -83,7 +83,7 @@ class EnemyTest extends Specification{
             e = new Enemy(10,pos,new HorizontalMovementStrategy(),new NormalShotStrategy())
             e.shoot()
         then:
-            assert e.getShots().size() == 1
+            assert e.getShots().size() == 1 && e.getShots()[0].position.getY() == pos.getY() + 1
 
     }
 
@@ -94,7 +94,7 @@ class EnemyTest extends Specification{
             e = new Enemy(10,pos,new HorizontalMovementStrategy(), new DamageShotStrategy())
             e.shoot()
         then:
-            assert e.getShots()[0].damage == 300
+            assert e.getShots()[0].damage == 300 && e.getShots()[0].position.getY() == pos.getY() + 1
     }
 
     def "big_shot_test"(){
@@ -104,7 +104,7 @@ class EnemyTest extends Specification{
             e = new Enemy(10,pos,new HorizontalMovementStrategy(), new BigShotStrategy())
             e.shoot()
         then:
-            assert e.getShots()[0].width == 3
+            assert e.getShots()[0].width == 3 && e.getShots()[0].position.getY() == pos.getY() + 1
     }
 
     def "enemy_draw"(){
