@@ -8,6 +8,7 @@ import com.spell.template.SpellTemplate;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 public interface ArenaDefiner {
 
@@ -63,15 +64,17 @@ public interface ArenaDefiner {
 
     void moveShots();
 
-    void shootEnemies();
 
     void updateSpaceShipState();
 
     void checkActiveSpells();
 
-    void createSpell();
 
     void moveEnemiesLeft();
 
     void moveEnemiesRight();
+
+    void createSpell(Random random);
+
+    void shootEnemies(Random random);
 }

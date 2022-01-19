@@ -11,6 +11,7 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
 import java.io.IOException;
+import java.util.Random;
 
 import static java.lang.System.exit;
 
@@ -83,12 +84,12 @@ public class Game implements GameDefiner {
                 myThread.key = null;
             }
             arena.moveShots();
-            arena.shootEnemies();
+            arena.shootEnemies(new Random());
             arena.checkShotCollisions();
             arena.checkShotsHitEnemies();
             arena.checkShotsHitSpaceship();
             arena.checkActiveSpells();
-            arena.createSpell();
+            arena.createSpell(new Random());
             arena.checkCaughtSpell();
             arena.updateSpaceShipState();
             try {
