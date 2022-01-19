@@ -102,7 +102,7 @@ class SpellTemplateTest extends Specification{
             s.draw(graphics)
         then:
             1 * graphics.setForegroundColor(TextColor.Factory.fromString("#00FF7F"));
-            1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "H");
+            1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "V");
     }
 
     def "SpellGunDamage Draw Test"(){
@@ -113,8 +113,8 @@ class SpellTemplateTest extends Specification{
             s = new SpellGunDamage(realPos)
             s.draw(graphics)
         then:
-            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#C0C0C0"));
-            1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "D");
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#F50575"));
+            1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "P");
     }
 
     def "SpellHealthDamage Draw Test"(){
@@ -125,7 +125,7 @@ class SpellTemplateTest extends Specification{
             s = new SpellHealthDamage(realPos)
             s.draw(graphics)
         then:
-            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
             1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "X");
     }
 
@@ -149,7 +149,7 @@ class SpellTemplateTest extends Specification{
             s = new SpellTPBack(realPos)
             s.draw(graphics)
         then:
-            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#A020F0"));
             1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "T");
     }
 
@@ -161,7 +161,7 @@ class SpellTemplateTest extends Specification{
             s = new SpellInvincible(realPos)
             s.draw(graphics)
         then:
-            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#4682B4"));
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#F9D71C"));
             1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "I");
     }
 
@@ -174,7 +174,7 @@ class SpellTemplateTest extends Specification{
             s = new SpellNerfed(realPos)
             s.draw(graphics)
         then:
-            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFE0"));
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FFA500"));
             1 * graphics.putString(new TerminalPosition(realPos.getX(), realPos.getY()), "N");
     }
 
