@@ -449,14 +449,14 @@ public class Arena implements ArenaDefiner {
 
 
     @Override
-    public void createSpell(){
-        if (Math.random() > 0.99)
+    public void createSpell(Random random){
+        if (random.nextInt(100) == 99)
             addSpell();
     }
     @Override
-    public void shootEnemies(){
+    public void shootEnemies(Random random){
         for(int i=0; i<enemies.size();i++){
-            if (Math.random() > 0.995){
+            if (random.nextInt(200)==199){
                 enemies.get(i).shoot();
             }
         }

@@ -40,6 +40,8 @@ class ArenaTest extends Specification{
     private Arena arena
     def "setup"(){
         arena = new Arena(10,10)
+        GroovyMock(Math,global:true)
+        Math.random() >> 0.995
     }
     def "check_normal_shot_collision_test"(){
         given:
@@ -557,5 +559,41 @@ class ArenaTest extends Specification{
             assert arena.getSpaceship().getPosition().getY() == arena.height - 2
     }
 
+
+    def "create spell"(){
+        given:
+            def previousSpells = arena.getSpells().size()
+            def random = Mock(Random)
+            random.nextInt(100)>>99
+        when:
+            arena.createSpell(random)
+        then:
+            assert arena.getSpells().size() == previousSpells +1
+    }
+
+    def "doesnt create spell"(){
+        given:
+            def previousSpells = arena.getSpells().size()
+            def random = Mock(Random)
+            random.nextInt(100)>>5
+        when:
+            arena.createSpell(random)
+        then:
+            assert arena.getSpells().size() == previousSpells
+    }
+
+    def "enemies shoot"(){
+        given:
+            List<Enemy> enemies = new ArrayList<>()
+            for(int i=0;i<4;i++)
+                enemies.add(Mock(Enemy))
+            arena.enemies = enemies
+            def random = Mock(Random)
+            random.nextInt(200) >>> [2,2,199,2]
+        when:
+            arena.shootEnemies(random)
+        then:
+            1 * enemies.get(2).shoot()
+    }
 }
 

@@ -14,6 +14,7 @@ import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import static java.lang.System.exit;
 
@@ -91,12 +92,12 @@ public class Game implements GameDefiner {
                 myThread.key = null;
             }
             arena.moveShots();
-            arena.shootEnemies();
+            arena.shootEnemies(new Random());
             arena.checkShotCollisions();
             arena.checkShotsHitEnemies();
             arena.checkShotsHitSpaceship();
             arena.checkActiveSpells();
-            arena.createSpell();
+            arena.createSpell(new Random());
             arena.checkCaughtSpell();
             arena.updateSpaceShipState();
             try {
