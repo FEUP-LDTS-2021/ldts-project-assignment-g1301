@@ -107,6 +107,7 @@ public class Arena implements ArenaDefiner {
         }
         return spell;
     }
+
     @Override
     public void addSpell() {
         Random random = new Random();
@@ -188,7 +189,7 @@ public class Arena implements ArenaDefiner {
     public void draw(TextGraphics graphics) throws IOException {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#22347D"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFE"));
         graphics.putString(new TerminalPosition(0,0), "Health : " + spaceship.getHealth());
         graphics.putString(new TerminalPosition(14,0), "Damage : " + spaceship.getDamage());
         graphics.putString(new TerminalPosition(28,0), "Score : " + spaceship.getScore());

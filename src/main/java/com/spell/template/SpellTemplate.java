@@ -6,7 +6,7 @@ import com.spell.SpellDefiner;
 public abstract class SpellTemplate implements SpellDefiner {
     protected Character symbol;
     protected Position pos;
-    protected long time;
+    public long time;
     @Override
     public final Position getPosition() {
         return pos;

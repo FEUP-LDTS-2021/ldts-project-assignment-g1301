@@ -16,7 +16,7 @@ import spock.lang.Specification
 import java.awt.Font
 
 class MenuTest extends Specification{
-    def "menu_draw"() {
+    def "menu_draw_play_red"() {
         given:
             def graphics = Mock(TextGraphics);
             MenuDefiner m;
@@ -24,11 +24,27 @@ class MenuTest extends Specification{
             m = new Menu();
             m.draw(graphics);
         then:
-            1*graphics.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
-            1*graphics.putString(19,2,"SPACE INVADERS");
-            1*graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
-            1*graphics.putString(24,6,"PLAY");
-            1*graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-            1*graphics.putString(24,9,"QUIT");
+            1*graphics.setForegroundColor(TextColor.Factory.fromString("#00FF00"))
+            1*graphics.putString(19,2,"SPACE INVADERS")
+            1*graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"))
+            1*graphics.putString(24,6,"PLAY")
+            1*graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"))
+            1*graphics.putString(24,9,"QUIT")
+    }
+    def "menu_draw_exit_red"() {
+        given:
+        def graphics = Mock(TextGraphics);
+        MenuDefiner m;
+        when:
+            m = new Menu();
+            m.draw(graphics);
+            m.play_red = false
+        then:
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#00FF00"))
+            1 * graphics.putString(19,2,"SPACE INVADERS")
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"))
+            1 * graphics.putString(24,6,"PLAY")
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"))
+            1 * graphics.putString(24,9,"QUIT")
     }
 }

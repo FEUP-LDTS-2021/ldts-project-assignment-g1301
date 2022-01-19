@@ -1,7 +1,10 @@
 package com
 
 import com.arena.Arena
+import com.googlecode.lanterna.TerminalPosition
 import com.googlecode.lanterna.TerminalSize
+import com.googlecode.lanterna.TextColor
+import com.googlecode.lanterna.graphics.TextGraphics
 import com.googlecode.lanterna.screen.Screen
 import com.googlecode.lanterna.screen.TerminalScreen
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory
@@ -14,6 +17,7 @@ import com.enemy.strategy.NormalShotStrategy
 import com.enemy.strategy.HorizontalMovementStrategy
 import com.enemy.strategy.ZigZagMovementStrategy
 import com.position.Position
+import com.shot.Shot
 import com.spaceship.SpaceShipDefiner
 import com.spaceship.Spaceship
 import com.spaceship.observer.SpaceshipObserver
@@ -402,18 +406,16 @@ class ArenaTest extends Specification{
             assert arena.getSpells().size()==0
     }
 
-    /*
     def "update_spaceship_state_test"(){
         when:
             arena.getSpaceship().becomeInvincible();
-            def time = System.currentTimeMillis()
-            while(time >= System.currentTimeMillis() - 15000){
-            }
+            arena.getSpaceship().last_transition_instant = System.currentTimeMillis()-10001
+            //set instant where spaceship became invincible to 10 seconds ago
             arena.updateSpaceShipState();
         then:
             assert arena.getSpaceship().state == "normal"
     }
-    */
+
     def "check_active_spells_test"(){
         when:
             arena.addSpell()
@@ -422,17 +424,17 @@ class ArenaTest extends Specification{
             assert arena.getSpells().size() == 1
     }
 
-    /*
+
     def "check_non_active_spells_test"(){
         when:
             arena.addSpell()
-            def time = System.currentTimeMillis()
-            while(time >= System.currentTimeMillis() - 35000)
+            arena.getSpells().get(0).time = System.currentTimeMillis()-10001
+            // set spell as if it was created 10 seconds ago (so it is removed)
             arena.checkActiveSpells()
         then:
            assert arena.getSpells().size() == 0
     }
-    */
+
     def "check_tp_back"() {
         given:
             Position old_pos = new Position(1, 2)
@@ -455,64 +457,22 @@ class ArenaTest extends Specification{
             1 * observer.caughtTPback(s)
             1 * observer.usedTPback(s)
     }
-    /*
-    def "arena_health_draw"(){
-        given:
-            Screen screen;
-            TerminalSize terminalSize = new TerminalSize(150, 50);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-            Terminal terminal = terminalFactory.createTerminal();
-            screen = new TerminalScreen(terminal);
-            screen.setCursorPosition(null);   // we don't need a cursor
-            screen.startScreen();             // screens must be started
-            screen.doResizeIfNecessary();
-            def graphics = screen.newTextGraphics();
-            Arena a
-        when:
-            a = new Arena(150,50)
-            a.draw(graphics)
-        then:
-            assert graphics.getCharacter(0,0).getCharacter() == ('H' as char)
-    }
 
-    def "arena_damage_draw"(){
-        given:
-            Screen screen;
-            TerminalSize terminalSize = new TerminalSize(150, 50);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-            Terminal terminal = terminalFactory.createTerminal();
-            screen = new TerminalScreen(terminal);
-            screen.setCursorPosition(null);   // we don't need a cursor
-            screen.startScreen();             // screens must be started
-            screen.doResizeIfNecessary();
-            def graphics = screen.newTextGraphics();
-            Arena a
-        when:
-            a = new Arena(150,50)
-            a.draw(graphics)
-        then:
-            assert graphics.getCharacter(14,0).getCharacter() == ('D' as char)
-    }
 
-    def "arena_score_draw"(){
+    def "arena_draw"(){
         given:
-            Screen screen;
-            TerminalSize terminalSize = new TerminalSize(150, 50);
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-            Terminal terminal = terminalFactory.createTerminal();
-            screen = new TerminalScreen(terminal);
-            screen.setCursorPosition(null);   // we don't need a cursor
-            screen.startScreen();             // screens must be started
-            screen.doResizeIfNecessary();
-            def graphics = screen.newTextGraphics();
-            Arena a
+            def graphics = Mock(TextGraphics)
+            Arena a = new Arena(150,50)
         when:
-            a = new Arena(150,50)
             a.draw(graphics)
         then:
-            assert graphics.getCharacter(28,0).getCharacter() == ('S' as char)
+            1 * graphics.setBackgroundColor(TextColor.Factory.fromString("#22347D"));
+            1 * graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(a.getWidth(), a.getHeight()), ' ');
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFE"));
+            1 * graphics.putString(new TerminalPosition(0,0), "Health : " + a.getSpaceship().getHealth());
+            1 * graphics.putString(new TerminalPosition(14,0), "Damage : " + a.getSpaceship().getDamage());
+            1 * graphics.putString(new TerminalPosition(28,0), "Score : " + a.getSpaceship().getScore());
     }
-     */
 
     def "kill_enemy_test"(){
         given:

@@ -20,17 +20,6 @@ public class Game implements GameDefiner {
     private static Game game;
     private Game(){
         arena = new Arena(150,50);
-        try {
-            TerminalSize terminalSize = new TerminalSize(arena.getWidth(), arena.getHeight());
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-            Terminal terminal = terminalFactory.createTerminal();
-            screen = new TerminalScreen(terminal);
-            screen.setCursorPosition(null);   // we don't need a cursor
-            screen.startScreen();             // screens must be started
-            screen.doResizeIfNecessary();     // resize screen if necessary
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public static Game getInstance(){
@@ -47,8 +36,24 @@ public class Game implements GameDefiner {
         this.screen.refresh();
     }
 
+
+    @Override
+    public void ScreenAndTerminalGenerator(){
+        try {
+            TerminalSize terminalSize = new TerminalSize(arena.getWidth(), arena.getHeight());
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            Terminal terminal = terminalFactory.createTerminal();
+            screen = new TerminalScreen(terminal);
+            screen.setCursorPosition(null);   // we don't need a cursor
+            screen.startScreen();             // screens must be started
+            screen.doResizeIfNecessary();     // resize screen if necessary
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void run() throws IOException {
+        ScreenAndTerminalGenerator();
         InputThread myThread = new InputThread();
         myThread.screen = this.screen;
         myThread.start();

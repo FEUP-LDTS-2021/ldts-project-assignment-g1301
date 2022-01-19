@@ -20,7 +20,7 @@ import static java.lang.System.exit;
 public class Menu implements MenuDefiner {
     Screen screen;
     Terminal terminal;
-    boolean play_red;
+    public boolean play_red;
     public Menu() throws IOException {
         play_red = true;
     }
