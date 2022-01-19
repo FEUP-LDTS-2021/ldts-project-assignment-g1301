@@ -139,9 +139,9 @@ public class Enemy implements EnemyDefiner {
 
     @Override
     public void draw(TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "R");
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "W");
     }
 
     @Override

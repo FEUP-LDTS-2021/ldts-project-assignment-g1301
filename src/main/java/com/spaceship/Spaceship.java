@@ -78,8 +78,8 @@ public class Spaceship implements SpaceShipDefiner {
 
     @Override
     public void draw(TextGraphics graphics) throws IOException {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        graphics.putString(new TerminalPosition(this.position.getX(), this.position.getY()), "_");
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+        graphics.putString(new TerminalPosition(this.position.getX(), this.position.getY()), "Z");
     }
 
     @Override

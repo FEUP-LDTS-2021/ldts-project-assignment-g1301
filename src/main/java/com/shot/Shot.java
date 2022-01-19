@@ -49,11 +49,12 @@ public class Shot implements ShotDefiner {
     @Override
     public void draw(TextGraphics graphics) throws IOException {
 
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "|");
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FEFE33"));
+        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "l");
 
         for(int i=1;i<=width/2;i++) {
-            graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+            graphics.setForegroundColor(TextColor.Factory.fromString("#FEFE33"));
+            graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "|");
             graphics.putString(new TerminalPosition(pos.getX()+i, pos.getY()), "|");
             graphics.putString(new TerminalPosition(pos.getX()-i, pos.getY()), "|");
         }

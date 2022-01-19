@@ -15,7 +15,7 @@ public class SpellTPBack extends SpellTemplate {
     }
     @Override
     public void draw(TextGraphics graphics) throws IOException {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#A020F0"));
         graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "T");
     }
 

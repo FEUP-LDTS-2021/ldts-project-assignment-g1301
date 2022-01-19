@@ -16,7 +16,7 @@ public class SpellHealth extends SpellTemplate {
     @Override
     public void draw(TextGraphics graphics) throws IOException {
         graphics.setForegroundColor(TextColor.Factory.fromString("#00FF7F"));
-        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "H");
+        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "V");
     }
 
 }

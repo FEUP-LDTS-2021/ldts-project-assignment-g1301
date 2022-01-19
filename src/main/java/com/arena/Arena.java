@@ -187,7 +187,7 @@ public class Arena implements ArenaDefiner {
 
     @Override
     public void draw(TextGraphics graphics) throws IOException {
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#22347D"));
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#000000"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFE"));
         graphics.putString(new TerminalPosition(0,0), "Health : " + spaceship.getHealth());

@@ -16,7 +16,7 @@ public class SpellNerfed extends SpellTemplate {
 
     @Override
     public void draw(TextGraphics graphics) throws IOException {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFE0"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFA500"));
         graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "N");
     }
 }
