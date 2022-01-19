@@ -20,8 +20,8 @@ import java.util.*;
 
 public class Arena implements ArenaDefiner {
     private Spaceship spaceship;
-    private List<Enemy> enemies;
-    private List<SpellTemplate> spells;
+    public List<Enemy> enemies;
+    public List<SpellTemplate> spells;
     private final Integer width;
     private final Integer height;
     private Integer level;

@@ -16,7 +16,7 @@ import static java.lang.System.exit;
 
 public class Game implements GameDefiner {
     Screen screen;
-    private Arena arena;
+    public Arena arena;
     private static Game game;
     private Game(){
         arena = new Arena(150,50);
@@ -29,11 +29,8 @@ public class Game implements GameDefiner {
     }
 
     @Override
-    public void draw() throws IOException {
-        this.screen.clear();
-        TextGraphics graphics = screen.newTextGraphics();
+    public void draw(TextGraphics graphics) throws IOException {
         arena.draw(graphics);
-        this.screen.refresh();
     }
 
 
@@ -61,7 +58,10 @@ public class Game implements GameDefiner {
             if (arena.getEnemies().size() == 0)
                 arena.createEnemies();
             arena.moveEnemies();
-            draw();
+            this.screen.clear();
+            TextGraphics graphics = screen.newTextGraphics();
+            draw(graphics);
+            this.screen.refresh();
             if (arena.getSpaceship().isDead()) {
                 screen.close();
                 System.out.println("game.Game Over");

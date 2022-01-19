@@ -25,6 +25,7 @@ dependencies {
 pitest {
     junit5PluginVersion = '0.15'
     pitestVersion = '1.6.7'
+    excludedClasses = ['com.menu','com.game','com.application']
 }
 
 test {

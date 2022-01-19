@@ -33,12 +33,12 @@ class MenuTest extends Specification{
     }
     def "menu_draw_exit_red"() {
         given:
-        def graphics = Mock(TextGraphics);
-        MenuDefiner m;
+            def graphics = Mock(TextGraphics);
+            MenuDefiner m;
         when:
             m = new Menu();
-            m.draw(graphics);
             m.play_red = false
+            m.draw(graphics);
         then:
             1 * graphics.setForegroundColor(TextColor.Factory.fromString("#00FF00"))
             1 * graphics.putString(19,2,"SPACE INVADERS")

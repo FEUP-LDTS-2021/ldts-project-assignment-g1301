@@ -463,6 +463,31 @@ class ArenaTest extends Specification{
         given:
             def graphics = Mock(TextGraphics)
             Arena a = new Arena(150,50)
+            List<Enemy> enemies = new ArrayList<>()
+            List<Shot> shots = new ArrayList<>()
+            for (int i=0;i<5;i++)
+                shots.add(Mock(Shot))
+            List<SpellTemplate> spells = new ArrayList<>()
+            Spaceship ss = Mock(Spaceship)
+            ss.getShots() >> shots
+            a.setSpaceship(ss)
+            for (int i=0;i<5;i++){
+                List<Shot> shots2 = new ArrayList<>()
+                for (int j=0;j<5;j++)
+                    shots2.add(Mock(Shot))
+                Enemy e = Mock(Enemy)
+                e.getShots() >> shots2
+                enemies.add(e)
+            }
+            a.enemies = enemies
+            for (int i=0;i<5;i++) {
+                SpellTemplate spell = Mock(SpellTemplate)
+                spells.add(spell)
+            }
+            a.spells = spells
+            ss.getScore()>>100
+            ss.getDamage()>>100
+            ss.getHealth()>>100
         when:
             a.draw(graphics)
         then:
@@ -472,6 +497,17 @@ class ArenaTest extends Specification{
             1 * graphics.putString(new TerminalPosition(0,0), "Health : " + a.getSpaceship().getHealth());
             1 * graphics.putString(new TerminalPosition(14,0), "Damage : " + a.getSpaceship().getDamage());
             1 * graphics.putString(new TerminalPosition(28,0), "Score : " + a.getSpaceship().getScore());
+            for (Enemy enemy : enemies) {
+                1 * enemy.draw(graphics)
+                for(Shot s:enemy.getShots())
+                    1*s.draw(graphics)
+            }
+            for (SpellTemplate spell : spells) {
+                1 * spell.draw(graphics);
+            }
+            1 * ss.draw(graphics);
+            for (Shot s:ss.getShots())
+                1*s.draw(graphics)
     }
 
     def "kill_enemy_test"(){
