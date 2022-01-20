@@ -64,4 +64,14 @@ class MenuTest extends Specification{
             1*graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
             1*graphics.putString(23,9,"QUIT");
     }
+
+    def "gameOver"(){
+        given:
+            def m = Mock(Menu)
+        when:
+            m.gameOver()
+        then:
+            1 * m.ScreenAndTerminalGenerator()
+
+    }
 }

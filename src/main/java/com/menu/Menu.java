@@ -116,10 +116,6 @@ public class Menu implements MenuDefiner {
     }
 
     @Override
-    public void gameOver() throws IOException {
-        ScreenAndTerminalGenerator();
-    }
-    @Override
     public void drawGameOver(TextGraphics graphics, String score) throws IOException {
         graphics.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
         graphics.putString(20,2,"GAME OVER");

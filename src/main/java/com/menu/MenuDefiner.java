@@ -11,7 +11,5 @@ public interface MenuDefiner {
 
     void interactions() throws IOException;
 
-    void gameOver() throws IOException;
-
     void drawGameOver(TextGraphics graphics, String score) throws IOException;
 }
