@@ -25,7 +25,9 @@ dependencies {
 pitest {
     junit5PluginVersion = '0.15'
     pitestVersion = '1.6.7'
-    excludedClasses = ['com.menu','com.game','com.application']
+    excludedClasses = ['com.application.*','com.game.InputThread']
+    excludedMethods =['com.game.Game.Class.ScreenAndTerminalGenerator()','Game.game.Class.run()',
+                      'menu.Menu.Class.interactions()','com.Menu.Class.ScreenAndTerminalGenerator()']
 }
 
 test {

@@ -127,7 +127,25 @@ class ArenaTest extends Specification{
             s.getShots()[0].moveUp()
             arena.checkShotsHitEnemies()
         then:
-            assert e.getHealth() == 9
+            assert e.getHealth() == 9 && s.score==0
+    }
+
+    def "check_shots_killed_enemy"(){
+        given:
+            EnemyDefiner e
+            SpaceShipDefiner s
+        when:
+            e = new Enemy(10,new Position(2,2),new HorizontalMovementStrategy(),new NormalShotStrategy())
+            s = new Spaceship(10,10,new Position(2,5))
+            arena.setLevel(1)
+            arena.addEnemy(e)
+            arena.setSpaceship(s)
+            s.shoot()
+            s.getShots()[0].moveUp()
+            s.getShots()[0].moveUp()
+            arena.checkShotsHitEnemies()
+        then:
+            assert arena.enemies.size()==0 && s.score == 100
     }
 
     def "check_shot_hits_spaceships_test"(){
@@ -426,7 +444,7 @@ class ArenaTest extends Specification{
             assert arena.getSpells().size()==0
     }
 
-    def "update_spaceship_state_test"(){
+    def "update_spaceship_state_test_more_than_10s"(){
         when:
             arena.getSpaceship().becomeInvincible();
             arena.getSpaceship().last_transition_instant = System.currentTimeMillis()-10001
@@ -434,6 +452,16 @@ class ArenaTest extends Specification{
             arena.updateSpaceShipState();
         then:
             assert arena.getSpaceship().state == "normal"
+    }
+
+    def "update_spaceship_state_test_10s"(){
+        when:
+        arena.getSpaceship().becomeInvincible();
+        arena.getSpaceship().last_transition_instant = System.currentTimeMillis()-10000
+        //set instant where spaceship became invincible to 10 seconds ago
+        arena.updateSpaceShipState();
+        then:
+        assert arena.getSpaceship().state == "normal"
     }
 
     def "check_active_spells_test"(){
@@ -445,7 +473,7 @@ class ArenaTest extends Specification{
     }
 
 
-    def "check_non_active_spells_test"(){
+    def "check_non_active_spells_test_more_than_10s"(){
         when:
             arena.addSpell()
             arena.getSpells().get(0).time = System.currentTimeMillis()-10001
@@ -455,6 +483,17 @@ class ArenaTest extends Specification{
            assert arena.getSpells().size() == 0
     }
 
+
+    def "check_non_active_spells_test_10s"(){
+        when:
+        arena.addSpell()
+        arena.getSpells().get(0).time = System.currentTimeMillis()-10000
+        // set spell as if it was created 10 seconds ago (so it is removed)
+        arena.checkActiveSpells()
+        then:
+        assert arena.getSpells().size() == 0
+    }
+
     def "check_tp_back"() {
         given:
             Position old_pos = new Position(1, 2)
@@ -462,8 +501,8 @@ class ArenaTest extends Specification{
             SpellTemplate spell = new SpellTPBack(old_pos)
             arena.spells.add(spell)
             Spaceship s = new Spaceship(1000, 100, new Position(1, 2))
-        SpaceshipObserver observer = Spy(SpaceshipObserver)
-            s.addObserver(observer)
+            SpaceshipObserver observer = Spy(SpaceshipObserver)
+            s.tpObserver = observer
             arena.setSpaceship(s)
             KeyStroke key = Mock(KeyStroke)
             key.getCharacter() >> 't'
@@ -589,7 +628,7 @@ class ArenaTest extends Specification{
                 enemies.add(Mock(Enemy))
             arena.enemies = enemies
             def random = Mock(Random)
-            random.nextInt(200) >>> [2,2,199,2]
+            random.nextInt(200) >>> [2,2,199,2] >> {throw new InternalError()}
         when:
             arena.shootEnemies(random)
         then:
