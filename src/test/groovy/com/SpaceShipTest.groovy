@@ -75,8 +75,8 @@ class SpaceShipTest extends Specification {
         when:
             s.draw(graphics);
         then:
-            1*graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-            1*graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "_");
+            1*graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+            1*graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "Z");
     }
 
     def "get_score_test"(){

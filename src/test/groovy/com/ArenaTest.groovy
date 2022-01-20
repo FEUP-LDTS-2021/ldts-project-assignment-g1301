@@ -511,7 +511,7 @@ class ArenaTest extends Specification{
         when:
             a.draw(graphics)
         then:
-            1 * graphics.setBackgroundColor(TextColor.Factory.fromString("#22347D"));
+            1 * graphics.setBackgroundColor(TextColor.Factory.fromString("#000000"));
             1 * graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(a.getWidth(), a.getHeight()), ' ');
             1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFE"));
             1 * graphics.putString(new TerminalPosition(0,0), "Health : " + a.getSpaceship().getHealth());

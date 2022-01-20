@@ -65,8 +65,8 @@ class ShotTest extends Specification{
         when:
             s.draw(graphics);
         then:
-            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-            1 * graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "|");
+            1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FEFE33"));
+            1 * graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "l");
     }
 
     def "Big shot draw"(){
@@ -76,7 +76,7 @@ class ShotTest extends Specification{
         when:
             s.draw(graphics);
         then:
-            2 * graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+            2 * graphics.setForegroundColor(TextColor.Factory.fromString("#FEFE33"));
             1 * graphics.putString(new TerminalPosition(pos.getX()-1, pos.getY()), "|");
             1 * graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "|");
             1 * graphics.putString(new TerminalPosition(pos.getX()+1, pos.getY()), "|");
