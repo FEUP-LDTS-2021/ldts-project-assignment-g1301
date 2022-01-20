@@ -16,7 +16,7 @@ import spock.lang.Specification
 import java.awt.Font
 
 class MenuTest extends Specification{
-    def "menu_draw_play_red"() {
+    def "start_menu_draw_play_red"() {
         given:
             def graphics = Mock(TextGraphics);
             MenuDefiner m;
@@ -31,7 +31,7 @@ class MenuTest extends Specification{
             1*graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"))
             1*graphics.putString(24,9,"QUIT")
     }
-    def "menu_draw_exit_red"() {
+    def "start_menu_draw_exit_red"() {
         given:
             def graphics = Mock(TextGraphics);
             MenuDefiner m;
@@ -46,5 +46,22 @@ class MenuTest extends Specification{
             1 * graphics.putString(24,6,"PLAY")
             1 * graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"))
             1 * graphics.putString(24,9,"QUIT")
+    }
+
+    def "end_menu_draw"(){
+        given:
+            def graphics = Mock(TextGraphics);
+            MenuDefiner m;
+            String s;
+        when:
+            m = new Menu();
+            m.drawGameOver(graphics,s);
+        then:
+            1*graphics.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
+            1*graphics.putString(20,2,"GAME OVER");
+            1*graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+            1*graphics.putString(16,6,"Your Score was: " + s);
+            1*graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+            1*graphics.putString(23,9,"QUIT");
     }
 }
