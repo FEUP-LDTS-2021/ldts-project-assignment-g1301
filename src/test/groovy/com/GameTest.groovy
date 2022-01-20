@@ -28,4 +28,13 @@ class GameTest extends Specification{
         then:
             1*a.draw(graphics)
     }
+
+    def "loadOverkillFont"(){
+        given:
+            Game g = Game.getInstance()
+        when:
+            def x = g.loadOverkillFont()
+        then:
+            assert x!=null
+    }
 }

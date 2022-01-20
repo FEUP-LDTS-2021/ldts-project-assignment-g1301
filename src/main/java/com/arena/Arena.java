@@ -133,7 +133,7 @@ public class Arena implements ArenaDefiner {
     @Override
     public void checkActiveSpells() {
         for (int i = 0; i < spells.size(); i++){
-            if (spells.get(i).getTime() + 10000 <= System.currentTimeMillis()){
+            if (System.currentTimeMillis()-spells.get(i).getTime()>=10000){
                 spells.remove(i);
             }
         }

@@ -40,8 +40,6 @@ class ArenaTest extends Specification{
     private Arena arena
     def "setup"(){
         arena = new Arena(10,10)
-        GroovyMock(Math,global:true)
-        Math.random() >> 0.995
     }
     def "check_normal_shot_collision_test"(){
         given:
@@ -112,6 +110,39 @@ class ArenaTest extends Specification{
             assert spaceship2.getPosition().getX() == 3
             assert spaceship3.getShots().size() == x+1
     }
+
+    def "process_key_leftmost_pos"(){
+        given:
+            KeyStroke key = Mock(KeyStroke)
+            key.getCharacter() >> 'a'
+            key.getKeyType() >> KeyType.Character
+            SpaceShipDefiner s
+            Arena a
+        when:
+            a = new Arena(10,10)
+            s = new Spaceship(10,1,new Position(0,2))
+            a.setSpaceship(s)
+            a.processKey(key)
+        then:
+            assert s.getPosition().getX()==0
+    }
+
+    def "process_key_rightmost_pos"(){
+        given:
+            KeyStroke key = Mock(KeyStroke)
+            key.getCharacter() >> 'd'
+            key.getKeyType() >> KeyType.Character
+            SpaceShipDefiner s
+            Arena a
+        when:
+            a = new Arena(10,10)
+            s = new Spaceship(10,1,new Position(a.width-1,2))
+            a.setSpaceship(s)
+            a.processKey(key)
+        then:
+            assert s.getPosition().getX()==a.width-1
+    }
+
 
     def "check_shot_hits_enemies_test"(){
         given:
@@ -190,17 +221,24 @@ class ArenaTest extends Specification{
     def "move_shots_test"(){
         given:
             SpaceShipDefiner s
+            def a = Spy(new Arena(10,10))
         when:
-            s = new Spaceship(10,1,new Position(2,2))
-            arena.setSpaceship(s)
-            def e = new Enemy(100,new Position(10,10),new HorizontalMovementStrategy(),new NormalShotStrategy())
-            arena.addEnemy(e)
+            s = new Spaceship(10,1,new Position(2,10))
+            a.setSpaceship(s)
+            def e = new Enemy(100,new Position(2,2),new HorizontalMovementStrategy(),new NormalShotStrategy())
+            a.addEnemy(e)
             e.shoot()
             s.shoot()
-            arena.moveShots()
+            a.moveShots()
         then:
-            assert s.getShots()[0].getPosition().getY() == 0
+            assert s.getShots()[0].getPosition().getY() == 8 && e.getShots()[0].getPosition().getY()==4
+            2*a.checkShotCollisions()
+            1*a.checkShotsHitSpaceship()
+            1*a.checkShotsHitEnemies()
+            1*a.removeShotsOutOfBounds()
     }
+
+
 
     def "remove_shots_out_of_bounds_test"(){
         given:
