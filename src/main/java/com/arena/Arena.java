@@ -271,11 +271,10 @@ public class Arena implements ArenaDefiner {
         for (Integer k=0; k< spaceship.getShots().size();k++) {
             if (enemies.get(i).getShots().get(j).getPosition().getY().equals(spaceship.getShots().get(k).getPosition().getY())) {
                 Integer shot1WidthOffset = enemies.get(i).getShots().get(j).getWidth() / 2;
-                Integer shot2WidthOffset = spaceship.getShots().get(k).getWidth() / 2;
                 Integer shot1left = enemies.get(i).getShots().get(j).getPosition().getX() - shot1WidthOffset;
                 Integer shot1right = enemies.get(i).getShots().get(j).getPosition().getX() + shot1WidthOffset;
-                Integer shot2left = spaceship.getShots().get(k).getPosition().getX() - shot2WidthOffset;
-                Integer shot2right = spaceship.getShots().get(k).getPosition().getX() + shot2WidthOffset;
+                Integer shot2left = spaceship.getShots().get(k).getPosition().getX();
+                Integer shot2right = spaceship.getShots().get(k).getPosition().getX();
                 List<Integer> shots = Arrays.asList(shot1left,shot1right,shot2left,shot2right);
                 CollisionRemover(i,j,k,shots);
                 break;
@@ -289,7 +288,6 @@ public class Arena implements ArenaDefiner {
         if (!((shots.get(0) < shots.get(2) && shots.get(1) < shots.get(3)) || (shots.get(0) > shots.get(2) && shots.get(1) > shots.get(3)))) {
             spaceship.removeShot(spaceship.getShots().get(k));
             enemies.get(i).removeShot(enemies.get(i).getShots().get(j));
-            j--;
         }
     }
 
@@ -319,9 +317,8 @@ public class Arena implements ArenaDefiner {
     @Override
     public void checkShotsHitEnemies() {
         for (Integer i=0;i<spaceship.getShots().size();i++) {
-            Integer shotWidthOffset = spaceship.getShots().get(i).getWidth() / 2;
-            Integer shotLeft = spaceship.getShots().get(i).getPosition().getX() - shotWidthOffset;
-            Integer shotRight = spaceship.getShots().get(i).getPosition().getX() + shotWidthOffset;
+            Integer shotLeft = spaceship.getShots().get(i).getPosition().getX();
+            Integer shotRight = spaceship.getShots().get(i).getPosition().getX();
 
             for (Integer j=0;j<enemies.size();j++) {
                 if (checkShotHitEnemiesHelper(i,j,shotLeft,shotRight)) {
@@ -329,9 +326,8 @@ public class Arena implements ArenaDefiner {
                     enemies.get(j).setHealth(enemies.get(j).getHealth() - spaceship.getShots().get(i).getDamage());
 
                     spaceship.removeShot(spaceship.getShots().get(i));
-                    i--;
                     checkShotHitEnemiesHelperV2(j);
-                    break;
+                    return;
                 }
             }
         }
@@ -375,7 +371,6 @@ public class Arena implements ArenaDefiner {
                 spaceship.setHealth(spaceship.getHealth() - enemies.get(i).getShots().get(j).getDamage());
 
             enemies.get(i).removeShot(enemies.get(i).getShots().get(j));
-            j--;
         }
     }
 

@@ -56,10 +56,10 @@ class ArenaTest extends Specification{
             s.getShots()[0].moveUp()
             arena.checkShotCollisions()
         then:
-            assert e.getShots().size() == 0
+            assert e.getShots().size() == 0 && s.getShots().size()==0
     }
 
-    def "check_big_shot_collision_test"(){
+    def "check_big_shot_collision_test_right"(){
         given:
             EnemyDefiner e
             SpaceShipDefiner s
@@ -74,8 +74,45 @@ class ArenaTest extends Specification{
             s.getShots()[0].moveUp()
             arena.checkShotCollisions()
         then:
-            assert e.getShots().size() == 0
+            assert e.getShots().size() == 0 && s.getShots().size()==0
     }
+
+    def "check_big_shot_collision_test_left"(){
+        given:
+            EnemyDefiner e
+            SpaceShipDefiner s
+        when:
+            e = new Enemy(10,new Position(3,1),new HorizontalMovementStrategy(),new BigShotStrategy())
+            s = new Spaceship(10,1,new Position(2,5))
+            arena.addEnemy(e)
+            arena.setSpaceship(s)
+            e.shoot()
+            s.shoot()
+            e.getShots()[0].moveDown()
+            s.getShots()[0].moveUp()
+            arena.checkShotCollisions()
+        then:
+            assert e.getShots().size() == 0 && s.getShots().size()==0
+    }
+
+    def "shots_dont_collide"(){
+        given:
+            EnemyDefiner e
+            SpaceShipDefiner s
+        when:
+            e = new Enemy(10,new Position(1,1),new HorizontalMovementStrategy(),new BigShotStrategy())
+            s = new Spaceship(10,1,new Position(3,5))
+            arena.addEnemy(e)
+            arena.setSpaceship(s)
+            e.shoot()
+            s.shoot()
+            e.getShots()[0].moveDown()
+            s.getShots()[0].moveUp()
+            arena.checkShotCollisions()
+        then:
+            assert e.getShots().size() == 1 && s.getShots().size()==1
+    }
+
 
     def "process_key_type_test"(){
         given:
@@ -179,6 +216,23 @@ class ArenaTest extends Specification{
             assert arena.enemies.size()==0 && s.score == 100
     }
 
+    def "check_misses_spaceship_test"(){
+        given:
+            EnemyDefiner e
+            SpaceShipDefiner s
+        when:
+            e = new Enemy(10,new Position(2,2),new HorizontalMovementStrategy(),new BigShotStrategy())
+            s = new Spaceship(100,10,new Position(4,5))
+            arena.addEnemy(e)
+            arena.setSpaceship(s)
+            e.shoot()
+            e.getShots()[0].moveDown()
+            e.getShots()[0].moveDown()
+            arena.checkShotsHitSpaceship()
+        then:
+            assert s.getHealth()==100 && e.getShots().size()==1
+    }
+
     def "check_shot_hits_spaceships_test"(){
         given:
             EnemyDefiner e
@@ -193,7 +247,41 @@ class ArenaTest extends Specification{
             e.getShots()[0].moveDown()
             arena.checkShotsHitSpaceship()
         then:
-            assert  s.getHealth() == 10
+            assert  s.getHealth() == 10 && e.getShots().size()==0
+    }
+
+    def "check_big_shot_hits_spaceships_test_left"(){
+        given:
+            EnemyDefiner e
+            SpaceShipDefiner s
+        when:
+            e = new Enemy(10,new Position(2,2),new HorizontalMovementStrategy(),new BigShotStrategy())
+            s = new Spaceship(110,1,new Position(1,5))
+            arena.addEnemy(e)
+            arena.setSpaceship(s)
+            e.shoot()
+            e.getShots()[0].moveDown()
+            e.getShots()[0].moveDown()
+            arena.checkShotsHitSpaceship()
+        then:
+            assert  s.getHealth() == 10 && e.getShots().size()==0
+    }
+
+    def "check_big_shot_hits_spaceships_test_right"(){
+        given:
+            EnemyDefiner e
+            SpaceShipDefiner s
+        when:
+            e = new Enemy(10,new Position(2,2),new HorizontalMovementStrategy(),new BigShotStrategy())
+            s = new Spaceship(110,1,new Position(3,5))
+            arena.addEnemy(e)
+            arena.setSpaceship(s)
+            e.shoot()
+            e.getShots()[0].moveDown()
+            e.getShots()[0].moveDown()
+            arena.checkShotsHitSpaceship()
+        then:
+            assert  s.getHealth() == 10 && e.getShots().size()==0
     }
 
     def "move_enemies_frontier_test"(){
@@ -248,6 +336,8 @@ class ArenaTest extends Specification{
             s = new Spaceship(10,1,new Position(2,0))
             e = new Enemy(10,new Position(3,10),new HorizontalMovementStrategy(),new NormalShotStrategy())
             s.shoot()
+            s.shoot()
+            e.shoot()
             e.shoot()
             arena.setSpaceship(s)
             arena.addEnemy(e)
@@ -255,6 +345,24 @@ class ArenaTest extends Specification{
         then:
             assert s.getShots().isEmpty()
             assert e.getShots().isEmpty()
+    }
+
+
+    def "doesnt_remove_shouts_out_of_bounds_test"(){
+        given:
+            SpaceShipDefiner s
+            EnemyDefiner e
+        when:
+            s = new Spaceship(10,1,new Position(2,1))
+            e = new Enemy(10,new Position(3,9),new HorizontalMovementStrategy(),new NormalShotStrategy())
+            s.shoot()
+            e.shoot()
+            arena.setSpaceship(s)
+            arena.addEnemy(e)
+            arena.removeShotsOutOfBounds()
+        then:
+            assert s.getShots().size()==1
+            assert e.getShots().size()==1
     }
 
     def "add_enemy_test"(){
@@ -494,12 +602,12 @@ class ArenaTest extends Specification{
 
     def "update_spaceship_state_test_10s"(){
         when:
-        arena.getSpaceship().becomeInvincible();
-        arena.getSpaceship().last_transition_instant = System.currentTimeMillis()-10000
-        //set instant where spaceship became invincible to 10 seconds ago
-        arena.updateSpaceShipState();
+            arena.getSpaceship().becomeInvincible();
+            arena.getSpaceship().last_transition_instant = System.currentTimeMillis()-10000
+            //set instant where spaceship became invincible to 10 seconds ago
+            arena.updateSpaceShipState();
         then:
-        assert arena.getSpaceship().state == "normal"
+            assert arena.getSpaceship().state == "normal"
     }
 
     def "check_active_spells_test"(){
@@ -623,7 +731,7 @@ class ArenaTest extends Specification{
             arena.checkShotsHitEnemies()
 
         then:
-            assert e.getHealth() == 0 && arena.getEnemies().size() + 1 == aux
+            assert e.getHealth() == 0 && arena.getEnemies().size() == aux -1 && s.getShots().size()==0
     }
 
     def "arena_test"(){
