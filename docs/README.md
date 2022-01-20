@@ -21,7 +21,7 @@ Spells/PowerUps: During the game, and at random, 7 different types of spells/pow
 
 	Health Spell: Increases the spaceship health a bit.
 	Damage
-Increase Spell: Increases the spaceship's damage, permanently.
+	Increase Spell: Increases the spaceship's damage, permanently.
 	InvincibleState Spell: Makes the spaceship immortal for 10secs, which means it can't take damage.
 	NerfedState Spell: Makes the spaceship unable to shoot any bullet for 10secs.
 	HealthReducer Spell: Takes a fraction of the spaceship's health points.

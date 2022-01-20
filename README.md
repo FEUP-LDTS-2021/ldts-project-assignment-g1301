@@ -16,17 +16,39 @@ This project was developed by João Reis (up202007227) Pedro Gomes (up202006322)
 ## Screenshots
 
 The following screenshots ilustrate the general look of our game, as well as the divergent functionalities:
+
+### Menu preview
+
+<p align="center" justify="center">
+  <img src="docs/images/menu.png"/>
+</p>
+<p align="center">
+  <b><i>Fig1. Preview of the Space Invaders Menu</i></b>
+</p>
+<br>
+<br />
+
 ### Game preview
 
 <p align="center" justify="center">
   <img src="docs/images/current_game.png"/>
 </p>
 <p align="center">
-  <b><i>Fig1. Sneak peak into the Space Invaders game</i></b>
+  <b><i>Fig2. Sneak peak into the Space Invaders game</i></b>
 </p>
 <br>
 <br />
 
+### GameOver preview
+
+<p align="center" justify="center">
+  <img src="docs/images/GameOver.png"/>
+</p>
+<p align="center">
+  <b><i>Fig3. Preview of the Space Invaders GameOver User Interface</i></b>
+</p>
+<br>
+<br />
 
 ### Spells
 
@@ -111,22 +133,39 @@ The following screenshots ilustrate the general look of our game, as well as the
 <br>
 <br />
 
+
+<p align="center" justify="center">
+  <img src="docs/images/TPBack.png"/>
+</p>
+<p align="center">
+  <b><i>Fig 8. Teleport Back  Spell </i></b>
+</p>
+<p align="center">
+  <b><i>Teleports the spaceship to where the spell was first caught </i></b>
+
+</p> 
+
+<br>
+<br />
+
 ### Animations
+
+<p align="center" justify="center">
+  <img src="docs/images/menu.gif"/>
+</p>
+<p align="center">
+  <b><i>Gif 1. Menu Interactions</i></b>
+</p>
+
+<br>
+<br />
 
 <p align="center" justify="center">
   <img src="docs/images/gameplay.gif"/>
 </p>
 <p align="center">
-  <b><i>Gif 1. GamePlay</i></b>
+  <b><i>Gif 2. GamePlay</i></b>
 </p>
 
-<br>
-<br />
-<br>
-<br />
-<p align="center">
-  <b><i>To take a closer look at the features we are still planning to implement take a closer look at the other README file!  </i></b>
-
-</p> 
 
 
