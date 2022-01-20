@@ -664,6 +664,25 @@ class ArenaTest extends Specification{
     }
 
 
+    def "check_tp_back_no_mock"(){
+        given:
+            def a = new Arena(10,10)
+            Position old_pos = new Position(1, 2)
+            Position new_pos = new Position(5, 10)
+            a.getSpaceship().setPosition(old_pos)
+            SpellTemplate spell = new SpellTPBack(old_pos)
+            a.spells.add(spell)
+            KeyStroke key = Mock(KeyStroke)
+            key.getCharacter() >> 't'
+            key.getKeyType() >> KeyType.Character
+        when:
+            a.checkCaughtSpell()
+            a.getSpaceship().setPosition(new_pos)
+            a.processKey(key)
+        then:
+            assert (a.getSpaceship().getPosition().getX() == old_pos.getX() && a.getSpaceship().getPosition().getY() == old_pos.getY())
+    }
+
     def "arena_draw"(){
         given:
             def graphics = Mock(TextGraphics)
