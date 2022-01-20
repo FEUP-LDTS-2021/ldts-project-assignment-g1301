@@ -46,7 +46,7 @@ All the planned features were implemented successfully!
 
 ### DESIGN
 
-####General Class Diagram 
+#### General Class Diagram 
 
 <p align="center" justify="center">
   <img src="images/uml.png"/>
@@ -141,7 +141,11 @@ There is switch statement in the addSpell method. However, the switch operator p
 ### TESTING
 Test coverage report:
 <p align="center" justify="center">
-  <img src="images/coverage.png"/>
+  <img src="images/test_coverage.png"/>
+</p>
+Mutation Test Coverage: 
+<p align="center" justify="center">
+  <img src="images/mutation_coverage.png"/>
 </p>
 
 ### SELF-EVALUATION
