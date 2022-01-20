@@ -116,7 +116,6 @@ We applied the **_Singleton Pattern_** which is a creational design pattern that
 Regarding the implementation, we now have a private game constructor which allows us to make sure there is only one instance of the game class that is returned by the static method getInstance().
 <p align="center" justify="center">
   <img src="images/singleton.png"/>
-
 </p>
 
 #### **Consequences**
@@ -125,6 +124,28 @@ The singleton has the following consequences:
 - We can make sure that there only exits one instance of the game
 - We gain a global access point to that game
 - The game is only initialized when it's requested for the first time
+
+### Observer
+
+#### **Problem in Context**
+
+In our game we need to know when the player presses the key 't' and notifies the spaceship to return to the position where the player caught the TPBack spell.
+
+#### **The Pattern**
+We applied the **_Observer Pattern_** which is a behavioral design pattern that lets us define a subscription mechanism to notify any events that happen to the object they are observing. 
+
+#### **Implementation**
+
+Regarding the implementation, we now have spaceship observer that notifies the spaceship when the player presses 't'. When the spaceship is notified, it will return to the position where the spell was initially, if the spell was indeed caught.
+
+<p align="center" justify="center">
+  <img src="images/spaceship_observer.png"/>
+</p>
+
+#### **Consequences**
+
+The Observer pattern has the following consequences:
+- We can create a relation between the spaceship and the spells in run time
 
 #### KNOWN CODE SMELLS AND REFACTORING SUGGESTIONS
 
