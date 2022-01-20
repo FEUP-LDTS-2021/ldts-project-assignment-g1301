@@ -123,8 +123,6 @@ Test coverage report:
 <p align="center" justify="center">
   <img src="images/coverage.png"/>
 </p>
-Note that getters and setters were not tested due to the triviality of the matter.
-Game, Application and InputThread are also not tested.
 
 ### SELF-EVALUATION
 So far up until this point, the workflow was very dynamic between all group members and the work was distributed equally. Everyone was motivated to contribute to the assignment.
