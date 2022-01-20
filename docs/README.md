@@ -139,6 +139,24 @@ There is switch statement in the addSpell method. However, the switch operator p
 ------
 
 ### TESTING
+  We decided not to test all while(true) methods(run(),interactions()), as well as methods
+that generate screens (ScreenAndTerminalGenerator()) and the main(String[] args) method,
+as we consider all of these methods untestable:
+- the while(true) methods basically run the
+  whole game(too many things to test that are already tested in the methods that are called)
+- the screen and terminal generator method opens up a screen which
+  doesn't work well with PIT, and is simple enough to not be tested as it is a standard 
+  procedure when using Lanterna
+- the main (String[] args) method only creates a menu and uses it's interactions() method, 
+so it is simple enough to not be necessary to test it
+
+Because of this, the coverage of the arena,menu and application packages were affected, but
+if we don't consider these methods the coverage is 100% in terms of both methods and lines.
+   
+  We removed these methods from the pit test so as to our results aren't negatively affected
+by them (obviously all mutations in untested code will survive).
+
+
 Test coverage report:
 <p align="center" justify="center">
   <img src="images/test_coverage.png"/>
