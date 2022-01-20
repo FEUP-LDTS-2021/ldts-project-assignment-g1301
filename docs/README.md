@@ -11,6 +11,13 @@ In this fixed shooter the spaceship moves a laser cannon horizontally across the
 This project was developed by João Reis (up202007227) Pedro Gomes (up202006322) Rui Pires (up202008252).
 
 ### IMPLEMENTED FEATURES
+Menu Interface: We implemented a menu interface that pops up when the application starts running.
+It helps the user choosing whether he wants to play or quit the game. To quit the game while playing the user needs to press the "q" key or simply end up losing the game.
+
+Information on Run-Time: We successfully developed a way of showing the player information about what's going on while he/she's playing the game. Mainly information about the spaceship's health, its damage and score.
+
+GameOver Interface: After the user loses the game a screen containg a GAME OVER message pops up and also lets the user know his score at the end of the game.
+
 Moving left: the spaceship will move one square to the left when the "a"  key is pressed.
 
 Moving right: the spaceship will move one square to the right when the "d"  key is pressed.
