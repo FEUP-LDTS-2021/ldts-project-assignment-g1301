@@ -39,13 +39,25 @@ The following screenshots ilustrate the general look of our game, as well as the
 <br>
 <br />
 
+### Info Preview
+<br>
+<br />
+<p align="center" justify="center">
+  <img src="docs/images/Information.png"/>
+</p>
+<p align="center">
+  <b><i>Fig3. Information available to the player during the game</i></b>
+</p>
+<br>
+<br />
+
 ### GameOver preview
 
 <p align="center" justify="center">
   <img src="docs/images/GameOver.png"/>
 </p>
 <p align="center">
-  <b><i>Fig3. Preview of the Space Invaders GameOver User Interface</i></b>
+  <b><i>Fig4. Preview of the Space Invaders GameOver User Interface</i></b>
 </p>
 <br>
 <br />
@@ -56,7 +68,7 @@ The following screenshots ilustrate the general look of our game, as well as the
   <img src="docs/images/Health_Spell.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 2. HealthSpell </i></b>
+  <b><i>Fig 5. HealthSpell </i></b>
 
 </p>  
 <p align="center">
@@ -70,7 +82,7 @@ The following screenshots ilustrate the general look of our game, as well as the
   <img src="docs/images/Nerfed_Spell.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 3. Nerfed SpaceShip Spell</i></b>
+  <b><i>Fig 6. Nerfed SpaceShip Spell</i></b>
 </p>  
 <p align="center">
   <b><i>"Nerfs" the  SpaceShip making it unable to shoot for 10 seconds. </i></b>
@@ -84,7 +96,7 @@ The following screenshots ilustrate the general look of our game, as well as the
   <img src="docs/images/Invincible_Spell.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 4. InvincibleSpaceShip Spell</i></b>
+  <b><i>Fig 7. InvincibleSpaceShip Spell</i></b>
 </p>  
 <p align="center">
   <b><i>Enhances the SpaceShip 10 seconds, immune to all damage. </i></b>
@@ -97,7 +109,7 @@ The following screenshots ilustrate the general look of our game, as well as the
   <img src="docs/images/X_Spell.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 5. Health Damage Spell </i></b>
+  <b><i>Fig 8. Health Damage Spell </i></b>
 </p>
 <p align="center">
   <b><i>Decrements SpaceShip Health </i></b>
@@ -110,7 +122,7 @@ The following screenshots ilustrate the general look of our game, as well as the
   <img src="docs/images/Damage_Spell.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 6. More Damage Spell </i></b>
+  <b><i>Fig 9. More Damage Spell </i></b>
 </p>
 <p align="center">
   <b><i>Increments SpaceShip Damage </i></b>
@@ -123,7 +135,7 @@ The following screenshots ilustrate the general look of our game, as well as the
   <img src="docs/images/Less_Dmg_Spell.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 7. Less Damage Spell </i></b>
+  <b><i>Fig 10. Less Damage Spell </i></b>
 </p>
 <p align="center">
   <b><i>Decrements SpaceShip Health </i></b>
@@ -138,10 +150,10 @@ The following screenshots ilustrate the general look of our game, as well as the
   <img src="docs/images/TPBack.png"/>
 </p>
 <p align="center">
-  <b><i>Fig 8. Teleport Back  Spell </i></b>
+  <b><i>Fig 11. Teleport Back  Spell </i></b>
 </p>
 <p align="center">
-  <b><i>Teleports the spaceship to where the spell was first caught </i></b>
+  <b><i>Teleports the spaceship to where the spell was first caught by pressing 't' </i></b>
 
 </p> 
 
