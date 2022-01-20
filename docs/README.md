@@ -198,7 +198,7 @@ Test coverage report:
 ### Link to mutation testing report
 [Mutation tests](../build/reports/pitest/202201201839/index.html)
 
-### ADITIONAL OBERSVATION
+### ADITIONAL OBSERVATION
 On bettercodehub.com our project scored a 8/10, but in reality it should have been a 9/10 because since we tested using Spock instead of JUnit, Better Code Hub cannot detect our assert density, eventhough we have a 99% test code percentage.
 
 
