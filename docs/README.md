@@ -12,7 +12,7 @@ This project was developed by João Reis (up202007227) Pedro Gomes (up202006322)
 
 ### IMPLEMENTED FEATURES
 Menu Interface: We implemented a menu interface that pops up when the application starts running.
-It helps the user choosing whether he wants to play or quit the game. To quit the game while playing the user needs to press the "q" key or simply end up losing the game.
+It helps the user choosing whether he wants to play or quit the game. To alternate between the options simply press arrow up or arrow down. To quit the game while playing the user needs to press the "q" key or simply end up losing the game.
 
 Information on Run-Time: We successfully developed a way of showing the player information about what's going on while he/she's playing the game. Mainly information about the spaceship's health, its damage and score.
 
