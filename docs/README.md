@@ -121,17 +121,12 @@ Regarding the implementation, we now have a private game constructor which allow
 
 #### **Consequences**
 
-The singleton have the following consequences:
-- We can make sure that only exits one instance of the game
+The singleton has the following consequences:
+- We can make sure that there only exits one instance of the game
 - We gain a global access point to that game
-- The game is only initialize when it's requested for the first time
+- The game is only initialized when it's requested for the first time
 
 #### KNOWN CODE SMELLS AND REFACTORING SUGGESTIONS
-
-#### **Duplicate Code**
-Inadequate implementation of the state pattern which lead to duplicate code (3 classes with the same code).
-Duplicate code to generate a random spell.
-We didn't use packages yet.
 
 #### **Large Class**
 Some classes (Arena) contain many fields and others (Enemy, Spaceship) contain many methods.
