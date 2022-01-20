@@ -2,7 +2,7 @@
 
 ## L_TURMA13_GRUPO01 - SPACEINVADERS
 
-**Example**:
+**Game Description**:
 
 In this old school game you play the role of a spaceship trying to survive an attack of flying monsters. Your ultimate goal is to KILL THEM ALL!!!  
 
