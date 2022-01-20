@@ -17,29 +17,23 @@ Moving right: the spaceship will move one square to the right when the "d"  key 
 
 Shooting: the spaceship will shoot one bullet in a vertical line when the space bar key is pressed.
 
-Spells/PowerUps: During the game, and at random, 7 different types of spells/powerups can spawn on the ground near the spaceship. To resume briefly, 8 of them are implemented:
+Spells/PowerUps: During the game, and at random, 7 different types of spells/powerups can spawn on the ground near the spaceship:
 
 	Health Spell: Increases the spaceship health a bit.
-	Damage
-	Increase Spell: Increases the spaceship's damage, permanently.
+	Damage Increase Spell: Increases the spaceship's damage, permanently.
 	InvincibleState Spell: Makes the spaceship immortal for 10secs, which means it can't take damage.
 	NerfedState Spell: Makes the spaceship unable to shoot any bullet for 10secs.
 	HealthReducer Spell: Takes a fraction of the spaceship's health points.
 	DamageReducer Spell: Reduces the spaceship's damage, permanently.
+    TeleportBack Spell: The spaceship can teleport back to where it first caught 
+                        this spell by pressing the "t" key
 	
 Different waves of enemies: There are infinite waves of enemys, which means the user could play forever if he doesn't lose. The movement of the enemies can also vary depending on the wave. They can move on a straight line simply to the right, or they can reproduce a zig-zag like motion up and down while also moving to the right. The enemies health scales with the number of the wave in which he's a part of. 
 	
 	
 ### PLANNED FEATURES
 
-For the future we are planning to implement our last spell which will be the "TeleportBackSpell". It will basically allow the user to teleport to the place where he first caught the spell, by pressing the "t" key character.
-We're also planning to create a user menu interface.
-And we are planning to also add information on the top of the game regarding the players health, spaceship damage and his current score (1point for each alien killed).
-
-How the game will look like after the previous feauture is implemented:
-<p align="center" justify="center">
-  <img src="images/game.png"/>
-</p>
+All the planned features were implemented successfully!
 
 
 
