@@ -46,8 +46,12 @@ All the planned features were implemented successfully!
 
 ### DESIGN
 
+####General Class Diagram 
 
-
+<p align="center" justify="center">
+  <img src="images/uml.png"/>
+images/uml.png
+</p>
 
 ------
 
