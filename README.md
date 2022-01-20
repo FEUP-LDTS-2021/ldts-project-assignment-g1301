@@ -179,5 +179,5 @@ The following screenshots ilustrate the general look of our game, as well as the
   <b><i>Gif 2. GamePlay</i></b>
 </p>
 
-
+<img src='https://bettercodehub.com/edge/badge/FEUP-LDTS-2021/ldts-project-assignment-g1301?branch=master&token=4afe376c723dc0c7b41d28abd2445aadd6448d94'>
 
