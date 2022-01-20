@@ -15,8 +15,8 @@ public class SpellGunDamage extends SpellTemplate {
     }
     @Override
     public void draw(TextGraphics graphics) throws IOException {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#C0C0C0"));
-        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "D");
+        graphics.setForegroundColor(TextColor.Factory.fromString("#F50575"));
+        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "P");
     }
 
 }

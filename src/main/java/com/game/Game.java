@@ -9,7 +9,10 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
@@ -20,7 +23,7 @@ public class Game implements GameDefiner {
     public Arena arena;
     private static Game game;
     private Game(){
-        arena = new Arena(150,50);
+        arena = new Arena(150,40);
     }
 
     public static Game getInstance(){
@@ -39,13 +42,18 @@ public class Game implements GameDefiner {
     public void ScreenAndTerminalGenerator(){
         try {
             TerminalSize terminalSize = new TerminalSize(arena.getWidth(), arena.getHeight());
-            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory()
+                    .setInitialTerminalSize(terminalSize);
+            terminalFactory.setForceAWTOverSwing(true);
+            terminalFactory.setTerminalEmulatorFontConfiguration(loadOverkillFont());
             Terminal terminal = terminalFactory.createTerminal();
             screen = new TerminalScreen(terminal);
             screen.setCursorPosition(null);   // we don't need a cursor
             screen.startScreen();             // screens must be started
             screen.doResizeIfNecessary();     // resize screen if necessary
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FontFormatException e) {
             e.printStackTrace();
         }
     }
@@ -65,8 +73,6 @@ public class Game implements GameDefiner {
             this.screen.refresh();
             if (arena.getSpaceship().isDead()) {
                 screen.close();
-                System.out.println("game.Game Over");
-                exit(0);
                 break;
             }
             KeyStroke key = myThread.key;
@@ -98,5 +104,15 @@ public class Game implements GameDefiner {
                 f.printStackTrace();
             }
         }
+    }
+    public AWTTerminalFontConfiguration loadOverkillFont() throws FontFormatException, IOException {
+        File fontFile = new File("src/main/resources/SpaceInvadersFont.ttf");
+        Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(font);
+
+        Font loadedFont = font.deriveFont(Font.PLAIN, 21);
+        return AWTTerminalFontConfiguration.newInstance(loadedFont);
     }
 }

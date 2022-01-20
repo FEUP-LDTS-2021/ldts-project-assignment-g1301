@@ -15,7 +15,7 @@ public class SpellInvincible extends SpellTemplate {
     }
     @Override
     public void draw(TextGraphics graphics) throws IOException {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#4682B4"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#F9D71C"));
         graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "I");
     }
 }

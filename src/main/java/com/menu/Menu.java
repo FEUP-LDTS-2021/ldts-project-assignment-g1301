@@ -20,9 +20,11 @@ import static java.lang.System.exit;
 public class Menu implements MenuDefiner {
     Screen screen;
     Terminal terminal;
-    public boolean play_red;
+    public boolean play,ended,play_red;
     public Menu() throws IOException {
+        play = true;
         play_red = true;
+        ended = false;
     }
 
     @Override
@@ -62,20 +64,29 @@ public class Menu implements MenuDefiner {
     }
     @Override
     public void interactions() throws IOException {
+        String score= "0";
         ScreenAndTerminalGenerator();
         while (true) {
             TextGraphics graphics = screen.newTextGraphics();
             this.screen.clear();
-            this.draw(graphics);
+            if(play) this.draw(graphics);
+            if(ended)this.drawGameOver(graphics,score);
             this.screen.refresh();
             KeyStroke key = screen.readInput();
             if (key != null) {
                 switch (key.getKeyType()) {
                     case Enter:
-                        if (play_red){
+                        if (!ended && play_red){
                             screen.close();
+                            play = true;
+                            ended = false;
                             Game g = Game.getInstance();
+                            play = true;
                             g.run();
+                            play = false;
+                            ended = true;
+                            score = g.arena.getSpaceship().getScore().toString();
+                            ScreenAndTerminalGenerator();
                         }
                         else{
                             screen.close();
@@ -103,4 +114,19 @@ public class Menu implements MenuDefiner {
             }
         }
     }
+
+    @Override
+    public void gameOver() throws IOException {
+        ScreenAndTerminalGenerator();
+    }
+    @Override
+    public void drawGameOver(TextGraphics graphics, String score) throws IOException {
+        graphics.setForegroundColor(TextColor.Factory.fromString("#00FF00"));
+        graphics.putString(20,2,"GAME OVER");
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        graphics.putString(16,6,"Your Score was: " + score);
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
+        graphics.putString(23,9,"QUIT");
+    }
+
 }

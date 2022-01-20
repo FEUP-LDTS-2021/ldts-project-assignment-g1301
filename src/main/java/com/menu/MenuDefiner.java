@@ -10,4 +10,8 @@ public interface MenuDefiner {
     void ScreenAndTerminalGenerator();
 
     void interactions() throws IOException;
+
+    void gameOver() throws IOException;
+
+    void drawGameOver(TextGraphics graphics, String score) throws IOException;
 }
