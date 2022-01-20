@@ -98,6 +98,30 @@ The strategy pattern allows the following consequences:
 - We can isolate the implementation of an algorithm from the code that uses it.
 - We can introduce new strategies without having to change the context.
 
+### Singleton
+
+#### **Problem in Context**
+
+In our game one of the things we need to make sure is not happening is the fact that two instances of the class game could be running at the same time.
+The singleton pattern will be extremely helpful in ensuring that won't happen.
+
+#### **The Pattern**
+We applied the **_Singleton Pattern_** which is a creational design pattern that makes sure that a class has only one instance and provides a global access point to that instance.
+
+#### **Implementation**
+Regarding the implementation, we now have a private game constructor which allows us to make sure there is only one instance of the game class that is returned by the static method getInstance().
+<p align="center" justify="center">
+  <img src="images/singleton.png"/>
+
+</p>
+
+#### **Consequences**
+
+The singleton have the following consequences:
+- We can make sure that only exits one instance of the game
+- We gain a global access point to that game
+- The game is only initialize when it's requested for the first time
+
 #### KNOWN CODE SMELLS AND REFACTORING SUGGESTIONS
 
 #### **Duplicate Code**
@@ -114,9 +138,6 @@ In both cases, we find it justifiable as the classes require these fields, in on
 There is switch statement in the addSpell method. However, the switch operator performs simple actions.
 
 ------
-
-#### DATA CLASS
-
 
 ### TESTING
 Test coverage report:
