@@ -196,6 +196,11 @@ Test coverage report:
 </p>
 
 ### Link to mutation testing report
+
+<p align="center" justify="center">
+  <img src="images/mutation_coverage.png"/>
+</p>
+
 [Mutation tests](../build/reports/pitest/202201201839/index.html)
 
 ### ADITIONAL OBSERVATION
